@@ -6,7 +6,7 @@
 #    By: wdebotte <wdebotte@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/18 14:12:28 by wdebotte          #+#    #+#              #
-#    Updated: 2022/05/17 12:52:13 by wdebotte         ###   ########.fr        #
+#    Updated: 2022/05/17 13:58:50 by wdebotte         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,7 +65,7 @@ ${NAME}:	${OBJS}
 				@echo "${BOLD}${GREEN}Building:${END}\tlibft.a"
 				@${MAKE} ${PATHLIBFT} >${PATHNULL}
 				@echo "${BOLD}${GREEN}Building:${END}\t${NAME}"
-				@${CC} ${OBJS} ${INCS} ${LIBFT} -o ${NAME} >${PATHNULL}
+				@${CC} ${OBJS} ${INCS} ${LIBFT} -lreadline -o ${NAME} >${PATHNULL}
 
 clean:
 				@echo "${BOLD}${RED}Removing:${END}\tAll .o files"

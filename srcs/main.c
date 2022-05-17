@@ -6,15 +6,22 @@
 /*   By: wdebotte <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 12:54:03 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/05/17 13:00:52 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/05/17 13:26:05 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	main(int argc, char **argv)
+int	main(void)
 {
-	(void)argc;
-	(void)argv;
+	char	*line;
+
+	while (1)
+	{
+		line = readline("$> ");
+		printf("%s\n", line);
+		free(line);
+		line = NULL;
+	}
 	return (0);
 }
