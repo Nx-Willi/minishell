@@ -6,7 +6,7 @@
 #    By: wdebotte <wdebotte@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/18 14:12:28 by wdebotte          #+#    #+#              #
-#    Updated: 2022/05/17 13:58:50 by wdebotte         ###   ########.fr        #
+#    Updated: 2022/05/19 10:48:29 by wdebotte         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,8 @@ PATHHEADERS	= ./includes/
 PATHLIBFT	= ./libft/
 PATHNULL	= /dev/null
 
-SRCS		= ${PATHSRCS}main.c
+SRCS		= $(addprefix ${PATHSRCS}, main.c) \
+			$(addprefix ${PATHSRCS}builtins/, is_builtin.c)
 
 OBJS		= ${SRCS:.c=.o}
 HEADERS		= ${PATHHEADERS}

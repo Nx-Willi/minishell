@@ -6,7 +6,7 @@
 /*   By: wdebotte <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 12:54:03 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/05/19 10:10:57 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/05/19 10:57:46 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,11 @@ int	main(void)
 
 	while (1)
 	{
-		_putstr(">$ ");
+		ft_putstr(">$ ");
 		line = get_next_line(0);
 		printf("%s", line);
+		if (is_builtin(line))
+			printf("BUILTIN !\n");
 		free(line);
 		line = NULL;
 	}
