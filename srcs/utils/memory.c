@@ -1,33 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   memory.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wdebotte <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/17 12:54:03 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/05/19 18:53:42 by wdebotte         ###   ########.fr       */
+/*   Created: 2022/05/19 16:49:59 by wdebotte          #+#    #+#             */
+/*   Updated: 2022/05/19 17:56:15 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	main(void)
+void	free_char_tab(char **tab)
 {
-	char	*path;
-	char	*line;
+	int	i;
 
-	while (1)
-	{
-		line = readline(">$ ");
-		path = get_command_path(line);
-		if (path == NULL)
-			printf("%s: command not found\n", line);
-		else
-			exec_simple(path);
-		free(path);
-		free(line);
-		line = NULL;
-	}
-	return (0);
+	if (tab == NULL)
+		return ;
+	i = 0;
+	while (tab[i])
+		free(tab[i++]);
+	free(tab);
 }
