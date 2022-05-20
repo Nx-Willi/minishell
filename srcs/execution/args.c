@@ -1,33 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   args.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wdebotte <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/17 12:54:03 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/05/20 15:16:04 by wdebotte         ###   ########.fr       */
+/*   Created: 2022/05/20 14:07:35 by wdebotte          #+#    #+#             */
+/*   Updated: 2022/05/20 15:13:07 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	main(void)
+char	**get_command_args(char *line, char *cmd)
 {
-	char	*line;
-	char	*cmd_path;
-	char	**cmd_args;
+	char	**argv;
 
-	while (1)
-	{
-		line = readline(">$ ");
-		cmd_path = get_command_path(line);
-		cmd_args = get_command_args(line, cmd_path);
-		exec_simple(cmd_path, cmd_args);
-		free_char_tab(cmd_args);
-		free(cmd_path);
-		free(line);
-		line = NULL;
-	}
-	return (0);
+	argv = ft_split(line, ' ');
+	if (argv == NULL)
+		return (NULL);
+	free(argv[0]);
+	argv[0] = malloc(sizeof(char) * (ft_strlen(cmd) + 1));
+	if (argv[0] == NULL)
+		return (NULL);
+	ft_strlcpy(argv[0], cmd, ft_strlen(cmd));
+	return (argv);
 }
+
+
+//{ cmd, args1, args2, args3, NULL }

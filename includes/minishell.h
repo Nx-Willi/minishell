@@ -6,7 +6,7 @@
 /*   By: wdebotte <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 12:53:23 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/05/19 18:48:34 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/05/20 14:23:53 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,9 @@
 int		is_builtin(char *command);
 
 //Execution
-char	*get_command_path(char *command);
-void	exec_simple(char *command);
+char	*get_command_path(char *cmd);
+char	**get_command_args(char *line, char *cmd);
+void	exec_simple(char *cmd, char **argv);
 
 //Utils
 void	free_char_tab(char **tab);

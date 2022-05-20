@@ -6,18 +6,18 @@
 /*   By: wdebotte <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 14:35:36 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/05/19 18:54:20 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/05/20 14:40:06 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	is_command_in_dir(char *command, char *dir_name, int res)
+int	is_cmd_in_dir(char *cmd, char *dir_name, int res)
 {
 	DIR				*fd_dir;
 	struct dirent	*dir;
 
-	if (command == NULL || dir_name == NULL)
+	if (cmd == NULL || dir_name == NULL)
 		return (FALSE);
 	fd_dir = opendir(dir_name);
 	if (fd_dir == NULL)
@@ -27,10 +27,10 @@ int	is_command_in_dir(char *command, char *dir_name, int res)
 		dir = readdir(fd_dir);
 		if (dir == NULL)
 			break ;
-		if (ft_strlen(dir->d_name) > ft_strlen(command))
-			res = ft_strncmp(dir->d_name, command, ft_strlen(dir->d_name));
+		if (ft_strlen(dir->d_name) > ft_strlen(cmd))
+			res = ft_strncmp(dir->d_name, cmd, ft_strlen(dir->d_name));
 		else
-			res = ft_strncmp(dir->d_name, command, ft_strlen(command));
+			res = ft_strncmp(dir->d_name, cmd, ft_strlen(cmd));
 		if (res == 0)
 		{
 			closedir(fd_dir);
@@ -41,13 +41,13 @@ int	is_command_in_dir(char *command, char *dir_name, int res)
 	return (FALSE);
 }
 
-char	*fill_command_path(char *path, char *command)
+char	*fill_command_path(char *path, char *cmd)
 {
 	int		i;
 	int		n;
 	char	*buffer;
 
-	buffer = malloc(sizeof(char) * (ft_strlen(path) + ft_strlen(command) + 2));
+	buffer = malloc(sizeof(char) * (ft_strlen(path) + ft_strlen(cmd) + 2));
 	if (buffer == NULL)
 		return (NULL);
 	i = -1;
@@ -56,37 +56,50 @@ char	*fill_command_path(char *path, char *command)
 	buffer[i++] = '/';
 	n = i;
 	i = -1;
-	while (command[++i] != '\0')
-		buffer[n + i] = command[i];
+	while (cmd[++i] != '\0')
+		buffer[n + i] = cmd[i];
 	buffer[n + i] = '\0';
 	return (buffer);
 }
 
-char	*get_command_path(char *command)
+void	get_cmd_name(char *line, char *cmd)
+{
+	int		i;
+
+	i = 0;
+	while (line[i] != '\0' && line[i] != ' ')
+	{
+		cmd[i] = line[i];
+		i++;
+	}
+	cmd[i] = '\0';
+}
+
+char	*get_command_path(char *line)
 {
 	int		i;
 	char	**path_dir;
 	char	*path_env;
 	char	*path;
+	char	cmd[ft_strlen(line) + 1];
 
-	path = NULL;
+	get_cmd_name(line, cmd);
 	path_env = getenv("PATH");
 	if (path_env == NULL)
-		return (NULL);
+		return (ft_substr(cmd, 0, ft_strlen(cmd)));
 	path_dir = ft_split(path_env, ':');
 	if (path_dir == NULL)
 		return (NULL);
-	i = 0;
-	while (path_dir[i] != NULL)
+	i = -1;
+	while (path_dir[++i] != NULL)
 	{
-		if (is_command_in_dir(command, path_dir[i], 1))
+		if (is_cmd_in_dir(cmd, path_dir[i], 1))
 		{
-			path = fill_command_path(path_dir[i], command);
+			path = fill_command_path(path_dir[i], cmd);
 			free_char_tab(path_dir);
 			return (path);
 		}
-		i++;
 	}
 	free_char_tab(path_dir);
-	return (path);
+	return (ft_substr(cmd, 0, ft_strlen(cmd)));
 }
