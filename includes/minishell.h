@@ -6,7 +6,7 @@
 /*   By: xlb <xlb@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 12:53:23 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/05/18 10:39:23 by xlb              ###   ########.fr       */
+/*   Updated: 2022/05/21 14:24:20 by xlb              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define MINISHELL_H
 
 # include <stdio.h>
+# include "libft.h"
 
 enum	e_type_token
 {
@@ -31,11 +32,28 @@ enum	e_type_token
 	BACKSLASH
 };
 
+typedef struct s_token_type
+{
+	char	*type;
+	int		id;
+}			t_token_type;
+
 typedef struct s_token
 {
-	struct s_tok	        *next;
-	int			type;
+	struct s_token	*next;
+	int				type;
 	char			*content;
-}				t_token;
+}					t_token;
+
+
+/****************************************************************************/
+/* 									 PARSER									*/				
+/****************************************************************************/
+
+//	parcer.c
+int parsing(char *input);
+
+//	token_lexer.c
+t_token *get_tokens(char *input);
 
 #endif

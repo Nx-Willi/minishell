@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: wdebotte <wdebotte@student.42.fr>          +#+  +:+       +#+         #
+#    By: xlb <xlb@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/18 14:12:28 by wdebotte          #+#    #+#              #
-#    Updated: 2022/05/17 12:52:13 by wdebotte         ###   ########.fr        #
+#    Updated: 2022/05/21 14:34:47 by xlb              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,17 +29,20 @@ CYAN	= \033[96m
 NAME		= minishell
 
 PATHSRCS	= ./srcs/
+PATHPARSESRCS	= ./srcs/parser/
 PATHHEADERS	= ./includes/
 PATHLIBFT	= ./libft/
 PATHNULL	= /dev/null
 
-SRCS		= ${PATHSRCS}main.c
+SRCS		= ${PATHSRCS}main.c \
+			${PATHPARSESRCS}parser.c \
+			${PATHPARSESRCS}token_lexer.c
 
 OBJS		= ${SRCS:.c=.o}
 HEADERS		= ${PATHHEADERS}
 
 CC			= clang
-CFLAGS		= -Wall -Wextra -Werror
+CFLAGS		= -Wall -Wextra -Werror -g3
 INCS		= -I${PATHHEADERS} -I${PATHLIBFT}${PATHHEADERS}
 
 RM			= rm -rf
