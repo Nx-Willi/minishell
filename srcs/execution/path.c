@@ -6,7 +6,7 @@
 /*   By: wdebotte <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 14:35:36 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/05/22 13:49:58 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/05/23 18:27:16 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,17 +62,26 @@ char	*fill_command_path(char *path, char *cmd)
 	return (buffer);
 }
 
-void	get_cmd_name(char *line, char *cmd)
+char	*get_cmd_name(char *line)
 {
+	int		n;
 	int		i;
+	char	*cmd;
 
 	i = 0;
-	while (line[i] != '\0' && line[i] != ' ')
-	{
-		cmd[i] = line[i];
+	while (line[i] != '\0' && is_whitespace(line[i]))
 		i++;
-	}
-	cmd[i] = '\0';
+	n = 0;
+	while (line[i + n] != '\0' && !is_whitespace(line[i + n]))
+		n++;
+	cmd = malloc(sizeof(char) * (n + 1));
+	if (cmd == NULL)
+		return (NULL);
+	n = 0;
+	while (line[i] != '\0' && !is_whitespace(line[i]))
+		cmd[n++] = line[i++];
+	cmd[n] = '\0';
+	return (cmd);
 }
 
 char	*get_command_path(char *line)
@@ -81,12 +90,12 @@ char	*get_command_path(char *line)
 	char	**path_dir;
 	char	*path_env;
 	char	*path;
-	char	cmd[ft_strlen(line) + 1];
+	char	*cmd;
 
-	get_cmd_name(line, cmd);
+	cmd = get_cmd_name(line);
 	path_env = getenv("PATH");
 	if (path_env == NULL)
-		return (ft_substr(cmd, 0, ft_strlen(cmd)));
+		return (cmd);
 	path_dir = ft_split(path_env, ':');
 	if (path_dir == NULL)
 		return (NULL);
@@ -101,5 +110,5 @@ char	*get_command_path(char *line)
 		}
 	}
 	free_char_tab(path_dir);
-	return (ft_substr(cmd, 0, ft_strlen(cmd)));
+	return (cmd);
 }

@@ -6,7 +6,7 @@
 /*   By: wdebotte <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 16:49:59 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/05/19 17:56:15 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/05/23 18:17:09 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	free_char_tab(char **tab)
 	if (tab == NULL)
 		return ;
 	i = 0;
-	while (tab[i])
+	while (tab[i] != NULL)
 		free(tab[i++]);
 	free(tab);
 }

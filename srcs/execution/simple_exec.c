@@ -6,19 +6,11 @@
 /*   By: wdebotte <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 18:02:13 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/05/22 14:32:42 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/05/23 18:20:15 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-char	**get_command_args(char *line)
-{
-	char	**argv;
-
-	argv = ft_split(line, ' ');
-	return (argv);
-}
 
 void	exec_simple(char *line)
 {
@@ -33,7 +25,7 @@ void	exec_simple(char *line)
 	child_pid = fork();
 	if (child_pid == 0)
 	{
-		execve(cmd, argv, (void*)0);
+		execve(cmd, argv, (void *)0);
 		printf("%s: command not found\n", cmd);
 		free(cmd);
 		free_char_tab(argv);
