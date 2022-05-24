@@ -6,7 +6,7 @@
 /*   By: wdebotte <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 12:54:03 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/05/23 17:58:51 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/05/24 14:55:29 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ int	main(void)
 			ft_putstr("exit\n");
 			return (exit_program(2));
 		}
-		add_history(line);
+		if (line[0] != '\0')
+			add_history(line);
 		exec_simple(line);
 		free(line);
 		line = NULL;
