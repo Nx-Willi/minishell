@@ -6,31 +6,36 @@
 /*   By: wdebotte <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 12:54:03 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/05/24 14:55:29 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/05/24 18:30:14 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	main(void)
+int	main(int argc, char **argv, char **envp)
 {
-	char	*line;
+	t_infos	infos;
 
+	(void)argc;
+	(void)argv;
 	signal(SIGINT, handler);
 	signal(SIGQUIT, handler);
+	(void)envp;
+	get_env(infos.env, envp);
 	while (1)
 	{
-		line = readline(">$ ");
-		if (line == NULL)
+		infos.line = readline(">$ ");
+		if (infos.line == NULL)
 		{
 			ft_putstr("exit\n");
 			return (exit_program(2));
 		}
-		if (line[0] != '\0')
-			add_history(line);
-		exec_simple(line);
-		free(line);
-		line = NULL;
+		if (infos.line[0] != '\0')
+			add_history(infos.line);
+		exec_simple(&infos);
+		free(infos.line);
+		free_list(infos.env);
+		infos.line = NULL;
 	}
 	return (0);
 }

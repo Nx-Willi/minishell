@@ -6,7 +6,7 @@
 #    By: wdebotte <wdebotte@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/18 14:12:28 by wdebotte          #+#    #+#              #
-#    Updated: 2022/05/23 10:11:53 by wdebotte         ###   ########.fr        #
+#    Updated: 2022/05/24 18:20:31 by wdebotte         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,7 @@ PATHNULL	= /dev/null
 SRCS		= $(addprefix ${PATHSRCS}, main.c) \
 			$(addprefix ${PATHSRCS}builtins/, is_builtin.c) \
 			$(addprefix ${PATHSRCS}execution/, path.c simple_exec.c args.c) \
-			$(addprefix ${PATHSRCS}utils/, memory.c exit.c) \
+			$(addprefix ${PATHSRCS}utils/, memory.c exit.c get_env.c) \
 			$(addprefix ${PATHSRCS}signals/, signals.c)
 
 OBJS		= ${SRCS:.c=.o}
