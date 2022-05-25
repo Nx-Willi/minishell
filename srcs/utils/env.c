@@ -1,28 +1,47 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_env.c                                          :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wdebotte <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 17:42:43 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/05/24 18:31:23 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/05/25 11:40:59 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	get_env(t_list *env, char **env_from)
+t_env	*new_env_var(char *variable)
 {
-	env = NULL;
-	if (env_from == NULL)
+	t_env	*new;
+
+	new = (t_env*)malloc(sizeof(t_env));
+	if (new == NULL)
+		return (NULL);
+	new->variable = variable;
+	new->next = NULL;
+	return (new);
+}
+
+void	add_env_var(t_env *env, char *variable)
+{
+	t_env	*tmp;
+
+	tmp = env;
+	while (tmp->next != NULL)
+		tmp = tmp->next;
+	tmp->next = new_env_var(variable);
+}
+
+void	cpy_env(t_env **env, char **envp)
+{
+	int	i;
+
+	if (envp == NULL)
 		return ;
-	while (*env_from != NULL)
-	{
-		if (env == NULL)
-			env = ft_lstnew((char *)*env_from);
-		/*else
-			ft_lstadd_back(&env, ft_lstnew((char *)*env_from));*/
-		env_from++;
-	}
+	i = 0; 
+	*env = new_env_var(envp[i++]);
+	while (envp[i] != NULL)
+		add_env_var(*env, envp[i++]);
 }

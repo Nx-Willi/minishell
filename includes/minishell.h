@@ -6,7 +6,7 @@
 /*   By: wdebotte <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 12:53:23 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/05/24 18:27:58 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/05/25 15:02:16 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,33 +27,37 @@
 # define CTRL_C			2
 
 typedef struct s_infos	t_infos;
-/*typedef struct s_env	t_env;
+typedef struct s_env	t_env;
 
 struct s_env
 {
 	char	*variable;
 	t_env	*next;
-};*/
+};
 
 struct	s_infos
 {
 	char	*line;
-	t_list	*env;
+	t_env	*env;
 };
 
 //Builtins
 int		is_builtin(char *command);
+void	exec_builtin(t_infos *infos);
+void	builtin_export(t_infos *infos, char **argv);
 
 //Execution
 char	*get_command_path(char *cmd);
+char	*get_cmd_name(char *line);
 char	**get_command_args(char *line);
 void	exec_simple(t_infos *infos);
 
 //Utils
 int		exit_program(int exit_code);
 void	free_char_tab(char **tab);
-void	free_list(t_list *list);
-void	get_env(t_list *env, char **envp);
+void	free_env(t_env *env);
+void	cpy_env(t_env **env, char **envp);
+void	add_env_var(t_env *env, char *variable);
 
 //Signals
 void	handler(int signum);

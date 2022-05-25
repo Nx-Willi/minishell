@@ -6,13 +6,13 @@
 /*   By: wdebotte <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 14:35:36 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/05/23 18:27:16 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/05/25 11:47:45 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	is_cmd_in_dir(char *cmd, char *dir_name, int res)
+static int	is_cmd_in_dir(char *cmd, char *dir_name, int res)
 {
 	DIR				*fd_dir;
 	struct dirent	*dir;
@@ -41,7 +41,7 @@ int	is_cmd_in_dir(char *cmd, char *dir_name, int res)
 	return (FALSE);
 }
 
-char	*fill_command_path(char *path, char *cmd)
+static char	*fill_command_path(char *path, char *cmd)
 {
 	int		i;
 	int		n;

@@ -6,7 +6,7 @@
 /*   By: wdebotte <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 12:54:03 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/05/24 18:30:14 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/05/25 15:02:53 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,7 @@ int	main(int argc, char **argv, char **envp)
 	(void)argv;
 	signal(SIGINT, handler);
 	signal(SIGQUIT, handler);
-	(void)envp;
-	get_env(infos.env, envp);
+	cpy_env(&infos.env, envp);
 	while (1)
 	{
 		infos.line = readline(">$ ");
@@ -32,10 +31,13 @@ int	main(int argc, char **argv, char **envp)
 		}
 		if (infos.line[0] != '\0')
 			add_history(infos.line);
-		exec_simple(&infos);
+		if (!is_builtin(infos.line))
+			exec_simple(&infos);
+		else
+			exec_builtin(&infos);
 		free(infos.line);
-		free_list(infos.env);
 		infos.line = NULL;
 	}
+	free_env(infos.env);
 	return (0);
 }

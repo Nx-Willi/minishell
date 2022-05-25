@@ -6,13 +6,13 @@
 /*   By: wdebotte <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 10:06:24 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/05/23 18:18:07 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/05/25 11:56:24 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	count_args(char *line)
+static int	count_args(char *line)
 {
 	int	i;
 	int	argc;
@@ -40,7 +40,7 @@ int	count_args(char *line)
 	return (argc);
 }
 
-int	size_to_next_char(char *str)
+static int	size_to_next_char(char *str)
 {
 	int	i;
 
@@ -63,7 +63,7 @@ int	size_to_next_char(char *str)
 	return (i);
 }
 
-char	*add_to_tab(char *str)
+static char	*add_to_tab(char *str)
 {
 	int		i;
 	int		n;
