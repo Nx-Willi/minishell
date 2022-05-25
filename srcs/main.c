@@ -6,7 +6,7 @@
 /*   By: wdebotte <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 12:54:03 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/05/25 15:02:53 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/05/25 16:51:19 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,12 @@ int	main(int argc, char **argv, char **envp)
 		}
 		if (infos.line[0] != '\0')
 			add_history(infos.line);
+		else
+		{
+			free(infos.line);
+			continue ;
+		}
+	//	infos.argv = get_command_args(infos.line);
 		if (!is_builtin(infos.line))
 			exec_simple(&infos);
 		else

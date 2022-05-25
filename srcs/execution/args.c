@@ -6,7 +6,7 @@
 /*   By: wdebotte <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 10:06:24 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/05/25 11:56:24 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/05/25 16:27:47 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,10 @@ char	**get_command_args(char *line)
 		{
 			while (line[i] != '\0' && is_whitespace(line[i]))
 				i++;
-			argv[n++] = add_to_tab(line + i);
+			if (n == 0)
+				argv[n++] = get_command_path(line + i);
+			else
+				argv[n++] = add_to_tab(line + i);
 			i += size_to_next_char(line + i) + 1;
 		}
 		argv[n] = NULL;

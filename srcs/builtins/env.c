@@ -1,38 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   memory.c                                           :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wdebotte <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/19 16:49:59 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/05/25 15:24:26 by wdebotte         ###   ########.fr       */
+/*   Created: 2022/05/25 15:10:52 by wdebotte          #+#    #+#             */
+/*   Updated: 2022/05/25 15:13:26 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	free_char_tab(char **tab)
-{
-	int	i;
-
-	if (tab == NULL)
-		return ;
-	i = 0;
-	while (tab[i] != NULL)
-		free(tab[i++]);
-	free(tab);
-}
-
-void	free_env(t_env *env)
+void	builtin_env(t_infos *infos)
 {
 	t_env	*tmp;
 
-	tmp = env;
+	tmp = infos->env;
 	while (tmp != NULL)
 	{
+		printf("%s\n", tmp->variable);
 		tmp = tmp->next;
-		free(env);
-		env = tmp;
 	}
 }
