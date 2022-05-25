@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: xlb <xlb@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 12:53:23 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/05/21 14:24:20 by xlb              ###   ########.fr       */
+/*   Updated: 2022/05/25 15:05:23 by xle-baux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,5 +55,10 @@ int parsing(char *input);
 
 //	token_lexer.c
 t_token *get_tokens(char *input);
+
+//	quotes_format.c
+int clean_quotes(t_token *token);
+
+//	dollar_format.c
 
 #endif

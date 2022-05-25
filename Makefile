@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: xlb <xlb@student.42.fr>                    +#+  +:+       +#+         #
+#    By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/18 14:12:28 by wdebotte          #+#    #+#              #
-#    Updated: 2022/05/21 14:34:47 by xlb              ###   ########.fr        #
+#    Updated: 2022/05/25 14:06:49 by xle-baux         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,8 @@ PATHNULL	= /dev/null
 
 SRCS		= ${PATHSRCS}main.c \
 			${PATHPARSESRCS}parser.c \
-			${PATHPARSESRCS}token_lexer.c
+			${PATHPARSESRCS}token_lexer.c \
+			${PATHPARSESRCS}quotes_format.c 
 
 OBJS		= ${SRCS:.c=.o}
 HEADERS		= ${PATHHEADERS}

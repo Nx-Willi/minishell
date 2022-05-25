@@ -3,40 +3,41 @@
 /*                                                        :::      ::::::::   */
 /*   token_lexer.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: xlb <xlb@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 12:06:17 by xlb               #+#    #+#             */
-/*   Updated: 2022/05/21 20:39:10 by xlb              ###   ########.fr       */
+/*   Updated: 2022/05/25 14:32:24 by xle-baux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	check_pair_of_quotes(char *input)
+static int	token_len(char *input)
 {
-	int i;
-	int quote_count;
-	int double_quote_count;
+	char	*tok;
+	int		len;
 
-	i = 0;
-	quote_count = 0;
-	double_quote_count = 0;
-	while (input[i])
+	tok = "\"'\n \t><|$\\";
+	len = 0;
+	if (ft_strchr(tok, (int)input[len]))
 	{
-		if (input[i] == '\'')
-			quote_count++;
-		if (input[i] == '\"')
-			double_quote_count++;
-		i++;
+		if (!ft_strncmp(">>", &input[len], 2)
+			|| !ft_strncmp("<<", &input[len], 2))
+			len = 2;
+		else
+			len = 1;
 	}
-	if ((quote_count % 2 == 1) || (double_quote_count % 2 == 1))
-		return (1);
-	return (0);
+	else
+	{
+		while (!ft_strchr(tok, input[len]))
+			len++;
+	}
+	return (len);
 }
 
-static t_token *add_token(void)
+static t_token	*add_token(void)
 {
-	t_token *token;
+	t_token	*token;
 
 	token = (t_token *)malloc(sizeof(t_token));
 	if (!token)
@@ -46,56 +47,52 @@ static t_token *add_token(void)
 	return (token);
 }
 
-static int get_token_type(char *token)
+static int	get_token_type(char *token)
 {
-	int				i;
+	int					i;
+	static t_token_type	types[] = {
+	{"'", QUOTE},
+	{"\"", D_QUOTE},
+	{"\n", NLINE},
+	{" ", WHITE_SPACE},
+/* 	{"\t", WHITE_SPACE},
+	{"\v", WHITE_SPACE},
+	{"\f", WHITE_SPACE},
+	{"\r", WHITE_SPACE}, */
+	{">", GREAT},
+	{">>", D_GREAT},
+	{"<", LESS},
+	{"<<", D_LESS},
+	{"|", PIPE},
+	{"$", DOLLAR},
+	{"\\", BACKSLASH},
+	{NULL, 0}};
 
-	t_token_type types[] = {{"'", QUOTE},
-			{"\"", D_QUOTE},
-			{"\n", NLINE},
-			{" ", WHITE_SPACE},
-			{">", GREAT},
-			{">>", D_GREAT},
-			{"<", LESS},
-			{"<<", D_LESS},
-			{"|", PIPE},
-			{"$", DOLLAR},
-			{"\\", BACKSLASH},
-			{NULL, 0}
-			};
-	i = 0;
-	while (types[i].id)
-	{
+	i = -1;
+	while (types[++i].id)
 		if (!ft_strncmp(token, types[i].type, ft_strlen(token)))
 			return (types[i].id);
-		i++;
-	}
 	return (WORD);
 }
 
-t_token *get_tokens(char *input)
+t_token	*get_tokens(char *input)
 {
-	t_token *token;
+	t_token	*token;
 	t_token	*token_struct_address;
-	char **clean_token_char;
+	int		i;
 
-	if (check_pair_of_quotes(input))
-		return (ft_printf("syntax error: quotes\n"), NULL);
-	clean_token_char = ft_split(input, ' ');
-	int i = 0;
 	token = (t_token *)malloc(sizeof(t_token));
 	if (!token)
 		return (NULL);
+	i = 0;
 	token_struct_address = token;
-	while (clean_token_char[i])
+	while (input[i])
 	{
-		token->content = clean_token_char[i];
-		token->type = get_token_type(clean_token_char[i]);
+		token->content = ft_substr(&input[i], 0, token_len(&input[i]));
+		token->type = get_token_type(token->content);
 		token->next = add_token();
 		token = token->next;
-		i++;
+		i += token_len(&input[i]);
 	}
 	return (token_struct_address);
 }
-
-//
