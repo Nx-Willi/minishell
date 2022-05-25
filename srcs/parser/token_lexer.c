@@ -6,7 +6,7 @@
 /*   By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 12:06:17 by xlb               #+#    #+#             */
-/*   Updated: 2022/05/25 14:32:24 by xle-baux         ###   ########.fr       */
+/*   Updated: 2022/05/25 16:48:04 by xle-baux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,6 @@ static int	get_token_type(char *token)
 	{"\"", D_QUOTE},
 	{"\n", NLINE},
 	{" ", WHITE_SPACE},
-/* 	{"\t", WHITE_SPACE},
-	{"\v", WHITE_SPACE},
-	{"\f", WHITE_SPACE},
-	{"\r", WHITE_SPACE}, */
 	{">", GREAT},
 	{">>", D_GREAT},
 	{"<", LESS},
@@ -89,6 +85,7 @@ t_token	*get_tokens(char *input)
 	while (input[i])
 	{
 		token->content = ft_substr(&input[i], 0, token_len(&input[i]));
+	//	ft_strlcpy(token->content, &input[i], token_len(&input[i]) + 1);
 		token->type = get_token_type(token->content);
 		token->next = add_token();
 		token = token->next;

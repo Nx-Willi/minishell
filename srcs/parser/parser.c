@@ -6,7 +6,7 @@
 /*   By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 09:42:00 by xlb               #+#    #+#             */
-/*   Updated: 2022/05/25 15:05:23 by xle-baux         ###   ########.fr       */
+/*   Updated: 2022/05/25 16:59:08 by xle-baux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,32 @@ static char* token_type_print(int id)
 	return (NULL);
 }
 
+static void	free_token(t_token *token)
+{
+	t_token *tmp;
+
+	tmp = token;
+	while (tmp->next)
+	{
+		if (tmp->type != DOLLAR)
+			free(tmp->content);
+		tmp = tmp->next;
+		free(token);
+		token = tmp;
+	}
+	free(tmp);
+}
+
 int parsing(char *input)
 {
 	t_token *token;
+	t_token *token_address;
 	
-	input = "ls -la | grep \"$P\'A\'TH\" | wc -l >> test.txt";
+//	input = "ls -la | grep $TESTENV | \"wc -l >> test.txt\"";
+	input = "cat $TESTENV";
 	token = get_tokens(input);
+	token_address = token;
+	dollar_format(token);
 	if (clean_quotes(token))
 		return (printf("syntax error: quotes"), 1);
 	while (token->next)
@@ -56,5 +76,6 @@ int parsing(char *input)
 		ft_printf("%s\t%s\n\n", token->content, token_type_print(token->type));
 		token = token->next;
 	}
+	free_token(token_address);
 	return (0);
 }

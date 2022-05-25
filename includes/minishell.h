@@ -6,7 +6,7 @@
 /*   By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 12:53:23 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/05/25 15:05:23 by xle-baux         ###   ########.fr       */
+/*   Updated: 2022/05/25 15:28:00 by xle-baux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define MINISHELL_H
 
 # include <stdio.h>
+# include <stdlib.h>
 # include "libft.h"
 
 enum	e_type_token
@@ -60,5 +61,6 @@ t_token *get_tokens(char *input);
 int clean_quotes(t_token *token);
 
 //	dollar_format.c
+void dollar_format(t_token *token);
 
 #endif

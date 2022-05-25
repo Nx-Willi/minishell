@@ -6,7 +6,7 @@
 #    By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/18 14:12:28 by wdebotte          #+#    #+#              #
-#    Updated: 2022/05/25 14:06:49 by xle-baux         ###   ########.fr        #
+#    Updated: 2022/05/25 15:37:13 by xle-baux         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,8 @@ PATHNULL	= /dev/null
 SRCS		= ${PATHSRCS}main.c \
 			${PATHPARSESRCS}parser.c \
 			${PATHPARSESRCS}token_lexer.c \
-			${PATHPARSESRCS}quotes_format.c 
+			${PATHPARSESRCS}quotes_format.c \
+			${PATHPARSESRCS}dollar_format.c
 
 OBJS		= ${SRCS:.c=.o}
 HEADERS		= ${PATHHEADERS}
