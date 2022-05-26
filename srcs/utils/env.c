@@ -6,7 +6,7 @@
 /*   By: wdebotte <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 17:42:43 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/05/26 17:38:35 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/05/26 17:55:20 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_env	*new_env_var(char *var, int from_env)
 {
 	t_env	*new;
 
-	new = (t_env*)malloc(sizeof(t_env));
+	new = (t_env *)malloc(sizeof(t_env));
 	if (new == NULL)
 		return (NULL);
 	new->from_env = from_env;

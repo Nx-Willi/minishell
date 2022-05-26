@@ -6,7 +6,7 @@
 /*   By: wdebotte <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 16:32:46 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/05/26 17:46:33 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/05/26 18:05:06 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	cpy_env_to_lst(t_infos *infos, char **envp)
 
 	if (*envp == NULL)
 		return ;
-	i = 0; 
+	i = 0;
 	infos->env = new_env_var(envp[i++], TRUE);
 	while (envp[i] != NULL)
 		add_env_var(infos, envp[i++], TRUE);
@@ -62,4 +62,3 @@ void	cpy_env_to_char(t_infos *infos)
 	}
 	infos->envp[i] = NULL;
 }
-
