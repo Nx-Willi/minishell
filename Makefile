@@ -6,7 +6,7 @@
 #    By: wdebotte <wdebotte@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/18 14:12:28 by wdebotte          #+#    #+#              #
-#    Updated: 2022/05/25 15:10:46 by wdebotte         ###   ########.fr        #
+#    Updated: 2022/05/26 16:56:12 by wdebotte         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,9 +34,12 @@ PATHLIBFT	= libft/
 PATHNULL	= /dev/null
 
 SRCS		= $(addprefix ${PATHSRCS}, main.c) \
-			$(addprefix ${PATHSRCS}builtins/, utils.c export.c env.c) \
-			$(addprefix ${PATHSRCS}execution/, path.c simple_exec.c args.c) \
-			$(addprefix ${PATHSRCS}utils/, memory.c exit.c env.c) \
+			$(addprefix ${PATHSRCS}parsing/, path.c args.c) \
+			$(addprefix ${PATHSRCS}builtins/, is_builtin.c exec_builtin.c \
+						export.c unset.c env.c) \
+			$(addprefix ${PATHSRCS}execution/, simple_exec.c) \
+			$(addprefix ${PATHSRCS}utils/, memory.c exit.c env.c is_str_clear.c \
+						strcmp.c varcmp.c cp_env.c) \
 			$(addprefix ${PATHSRCS}signals/, signals.c)
 
 OBJS		= ${SRCS:.c=.o}

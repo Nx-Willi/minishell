@@ -6,7 +6,7 @@
 /*   By: wdebotte <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 14:35:36 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/05/25 16:23:31 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/05/26 10:50:40 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@ char	*get_command_path(char *line)
 		if (is_cmd_in_dir(cmd, path_dir[i], 1))
 		{
 			path = fill_command_path(path_dir[i], cmd);
+			free(cmd);
 			free_char_tab(path_dir);
 			return (path);
 		}

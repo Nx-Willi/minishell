@@ -6,7 +6,7 @@
 /*   By: wdebotte <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 12:53:23 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/05/25 16:52:59 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/05/26 16:40:11 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ typedef struct s_env	t_env;
 
 struct s_env
 {
+	int		from_env;
 	char	*variable;
 	t_env	*next;
 };
@@ -39,15 +40,20 @@ struct s_env
 struct	s_infos
 {
 	char	*line;
-//	char	**argv;
+	char	*cmd_name;
+	char	*cmd_path;
+	char	**argv;
+	char	**envp;
 	t_env	*env;
 };
 //------------------------------------------------------------------------------
 
 //-Builtins---------------------------------------------------------------------
-int		is_builtin(char *command);
+int		is_builtin(t_infos *infos);
+
 void	exec_builtin(t_infos *infos);
-void	builtin_export(t_infos *infos, char **argv);
+void	builtin_export(t_infos *infos);
+void	builtin_unset(t_infos *infos);
 void	builtin_env(t_infos *infos);
 //------------------------------------------------------------------------------
 
@@ -55,16 +61,27 @@ void	builtin_env(t_infos *infos);
 char	*get_command_path(char *cmd);
 char	*get_cmd_name(char *line);
 char	**get_command_args(char *line);
+
 void	exec_simple(t_infos *infos);
 //------------------------------------------------------------------------------
 
 //-Utils------------------------------------------------------------------------
 int		exit_program(int exit_code);
+int		is_str_clear(char *str);
+int		_strcmp(char *s1, char *s2);
+int		varcmp(char *env_var, char *var);
+
 void	free_char_tab(char **tab);
-//--Env-------------------------------------------------------------------------
+//--Env-&-Cp_env----------------------------------------------------------------
+int		varcmp(char *env_var, char *var);
+
 void	free_env(t_env *env);
-void	cpy_env(t_env **env, char **envp);
-void	add_env_var(t_env *env, char *variable);
+void	add_env_var(t_infos *infos, char *var, int from_env);
+void	remove_env_var(t_infos *infos, char *var);
+void	cpy_env_to_lst(t_infos *infos, char **envp);
+void	cpy_env_to_char(t_infos *infos);
+
+t_env	*new_env_var(char *var, int from_env);
 //------------------------------------------------------------------------------
 
 //-Signals----------------------------------------------------------------------

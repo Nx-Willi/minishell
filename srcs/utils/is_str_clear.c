@@ -1,34 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   simple_exec.c                                      :+:      :+:    :+:   */
+/*   is_str_clear.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wdebotte <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/19 18:02:13 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/05/26 16:50:56 by wdebotte         ###   ########.fr       */
+/*   Created: 2022/05/26 10:03:30 by wdebotte          #+#    #+#             */
+/*   Updated: 2022/05/26 10:04:49 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	exec_simple(t_infos *infos)
+int	is_str_clear(char *str)
 {
-	pid_t	child_pid;
-	pid_t	tmp_pid;
-
-	tmp_pid = 0;
-	child_pid = fork();
-	if (child_pid == 0)
-	{
-		execve(infos->cmd_path, infos->argv, infos->envp);
-		printf("%s: command not found\n", infos->cmd_path);
-		exit(0);
-	}
-	else
-	{
-		while (tmp_pid != child_pid)
-			tmp_pid = wait(NULL);
-		return ;
-	}
+	while (*str != '\0')
+		if (!is_whitespace(*str++))
+			return (FALSE);
+	return (TRUE);
 }
