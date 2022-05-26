@@ -6,7 +6,7 @@
 /*   By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 12:53:23 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/05/25 15:28:00 by xle-baux         ###   ########.fr       */
+/*   Updated: 2022/05/26 17:45:03 by xle-baux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int parsing(char *input);
 t_token *get_tokens(char *input);
 
 //	quotes_format.c
-int clean_quotes(t_token *token);
+int join_quotes(t_token *token);
 
 //	dollar_format.c
 void dollar_format(t_token *token);

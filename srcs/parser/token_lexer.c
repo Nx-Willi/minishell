@@ -6,7 +6,7 @@
 /*   By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 12:06:17 by xlb               #+#    #+#             */
-/*   Updated: 2022/05/25 16:48:04 by xle-baux         ###   ########.fr       */
+/*   Updated: 2022/05/26 10:44:08 by xle-baux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,17 @@ static t_token	*add_token(void)
 	return (token);
 }
 
+/* static void get_token_char(char* content, char *input, int size)
+{
+	int	i;
+
+	i = -1;
+	content = malloc(sizeof(char) * (size + 1));
+	while (++i < size)
+		content[i] = input[i];
+	content[i] = '\0';
+} */
+
 static int	get_token_type(char *token)
 {
 	int					i;
@@ -84,6 +95,7 @@ t_token	*get_tokens(char *input)
 	token_struct_address = token;
 	while (input[i])
 	{
+	//	get_token_char(token->content, &input[i], token_len(&input[i]));
 		token->content = ft_substr(&input[i], 0, token_len(&input[i]));
 	//	ft_strlcpy(token->content, &input[i], token_len(&input[i]) + 1);
 		token->type = get_token_type(token->content);

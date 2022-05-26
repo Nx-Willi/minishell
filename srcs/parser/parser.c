@@ -6,7 +6,7 @@
 /*   By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 09:42:00 by xlb               #+#    #+#             */
-/*   Updated: 2022/05/25 16:59:08 by xle-baux         ###   ########.fr       */
+/*   Updated: 2022/05/26 21:08:12 by xle-baux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,16 +64,17 @@ int parsing(char *input)
 	t_token *token;
 	t_token *token_address;
 	
-//	input = "ls -la | grep $TESTENV | \"wc -l >> test.txt\"";
-	input = "cat $TESTENV";
+	input = "ls -la | \"grep $TESTENV\" | \"wc -l >> test.c\"";
+//	input = "/sbin/ifconfig | grep 'inet ' | awk '{if(NR==1) print $2}'";
+//	input = "\"cat TESTENV\"";
 	token = get_tokens(input);
 	token_address = token;
 	dollar_format(token);
-	if (clean_quotes(token))
+	if (join_quotes(token))
 		return (printf("syntax error: quotes"), 1);
 	while (token->next)
 	{
-		ft_printf("%s\t%s\n\n", token->content, token_type_print(token->type));
+		ft_printf("%s\n%s\n\n", token->content, token_type_print(token->type));
 		token = token->next;
 	}
 	free_token(token_address);
