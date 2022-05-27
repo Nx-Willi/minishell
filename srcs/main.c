@@ -6,7 +6,7 @@
 /*   By: wdebotte <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 12:54:03 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/05/26 17:48:54 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/05/27 12:04:21 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	main(int argc, char **argv, char **envp)
 	cpy_env_to_char(&infos);
 	while (1)
 	{
-		infos.line = readline(">$ ");
+		infos.line = readline(SH_NAME"$ ");
 		if (infos.line == NULL)
 		{
 			ft_putstr("exit\n");

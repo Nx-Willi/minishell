@@ -1,20 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
+/*   is_var_in_env.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wdebotte <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/29 14:45:39 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/05/27 11:53:05 by wdebotte         ###   ########.fr       */
+/*   Created: 2022/05/27 16:00:02 by wdebotte          #+#    #+#             */
+/*   Updated: 2022/05/27 16:17:02 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-void	ft_putstr_fd(char *s, int fd)
+int	is_var_in_env(t_env *env, char *var)
 {
-	if (s == NULL)
-		return ;
-	write(fd, s, ft_strlen(s));
+	t_env	*tmp;
+
+	if (var == NULL)
+		return (FALSE);
+	tmp = env;
+	while (tmp != NULL)
+	{
+		if (varcmp(tmp->variable, var) == TRUE)
+			return (TRUE);
+		tmp = tmp->next;
+	}
+	return (FALSE);
 }

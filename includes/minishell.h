@@ -6,7 +6,7 @@
 /*   By: wdebotte <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 12:53:23 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/05/26 16:40:11 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/05/27 16:48:15 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,10 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
-# define FALSE			0
-# define TRUE			1
-# define CTRL_C			2
+# define SH_NAME	"miniche"
+# define FALSE		0
+# define TRUE		1
+# define CTRL_C		2
 
 //-Structures-------------------------------------------------------------------
 typedef struct s_infos	t_infos;
@@ -55,13 +56,18 @@ void	exec_builtin(t_infos *infos);
 void	builtin_export(t_infos *infos);
 void	builtin_unset(t_infos *infos);
 void	builtin_env(t_infos *infos);
+void	builtin_echo(t_infos *infos);
+void	builtin_cd(t_infos *infos);
 //------------------------------------------------------------------------------
 
-//-Execution--------------------------------------------------------------------
+//-Parsing----------------------------------------------------------------------
 char	*get_command_path(char *cmd);
 char	*get_cmd_name(char *line);
 char	**get_command_args(char *line);
+char	*fill_command_path(char *start_path, char *end_path);
+//------------------------------------------------------------------------------
 
+//-Execution--------------------------------------------------------------------
 void	exec_simple(t_infos *infos);
 //------------------------------------------------------------------------------
 
@@ -70,7 +76,9 @@ int		exit_program(int exit_code);
 int		is_str_clear(char *str);
 int		_strcmp(char *s1, char *s2);
 int		varcmp(char *env_var, char *var);
+int		is_var_in_env(t_env *env, char *var);
 
+char	*get_env_var_value(t_infos *infos, char *var);
 void	free_char_tab(char **tab);
 //--Env-&-Cp_env----------------------------------------------------------------
 int		varcmp(char *env_var, char *var);

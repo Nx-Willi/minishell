@@ -6,7 +6,7 @@
 /*   By: wdebotte <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 14:35:36 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/05/26 17:59:18 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/05/27 16:54:33 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,28 +41,6 @@ static int	is_cmd_in_dir(char *cmd, char *dir_name, int res)
 	return (FALSE);
 }
 
-static char	*fill_command_path(char *path, char *cmd)
-{
-	int		i;
-	int		n;
-	char	*buffer;
-
-	buffer = malloc(sizeof(char) * (ft_strlen(path) + ft_strlen(cmd) + 2));
-	if (buffer == NULL)
-		return (NULL);
-	i = -1;
-	while (path[++i] != '\0')
-		buffer[i] = path[i];
-	buffer[i++] = '/';
-	n = i;
-	i = -1;
-	while (cmd[++i] != '\0')
-		buffer[n + i] = cmd[i];
-	buffer[n + i] = '\0';
-	free(cmd);
-	return (buffer);
-}
-
 char	*get_cmd_name(char *line)
 {
 	int		n;
@@ -90,26 +68,26 @@ char	*get_command_path(char *line)
 	int		i;
 	char	**path_dir;
 	char	*path_env;
-	char	*path;
-	char	*cmd;
+	char	*buffer[2];
 
-	cmd = get_cmd_name(line);
+	buffer[0] = get_cmd_name(line);
 	path_env = getenv("PATH");
 	if (path_env == NULL)
-		return (cmd);
+		return (buffer[0]);
 	path_dir = ft_split(path_env, ':');
 	if (path_dir == NULL)
 		return (NULL);
 	i = -1;
 	while (path_dir[++i] != NULL)
 	{
-		if (is_cmd_in_dir(cmd, path_dir[i], 1))
+		if (is_cmd_in_dir(buffer[0], path_dir[i], 1))
 		{
-			path = fill_command_path(path_dir[i], cmd);
+			buffer[1] = fill_command_path(path_dir[i], buffer[0]);
+			free(buffer[0]);
 			free_char_tab(path_dir);
-			return (path);
+			return (buffer[1]);
 		}
 	}
 	free_char_tab(path_dir);
-	return (cmd);
+	return (buffer[0]);
 }

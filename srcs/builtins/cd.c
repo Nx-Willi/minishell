@@ -1,20 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
+/*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wdebotte <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/29 14:45:39 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/05/27 11:53:05 by wdebotte         ###   ########.fr       */
+/*   Created: 2022/05/27 15:40:06 by wdebotte          #+#    #+#             */
+/*   Updated: 2022/05/27 17:12:40 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-void	ft_putstr_fd(char *s, int fd)
+void	builtin_cd(t_infos *infos)
 {
-	if (s == NULL)
+	char	*path_home;
+	char	*path_to;
+
+	path_home = get_env_var_value(infos, "HOME");
+	if (path_home == NULL)
 		return ;
-	write(fd, s, ft_strlen(s));
+	if (infos->argv[1] == NULL)
+		chdir(path_home);
+	else
+	{
+		path_to = fill_command_path(path_home, infos->argv[1]);
+		char *toto = malloc(sizeof(char) * 254);
+		printf("%s\n", getwd(toto));
+		//chdir(path_to);
+	}
 }

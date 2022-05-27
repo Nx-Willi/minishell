@@ -1,20 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
+/*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wdebotte <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/29 14:45:39 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/05/27 11:53:05 by wdebotte         ###   ########.fr       */
+/*   Created: 2022/05/27 12:39:10 by wdebotte          #+#    #+#             */
+/*   Updated: 2022/05/27 12:46:34 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-void	ft_putstr_fd(char *s, int fd)
+void	builtin_echo(t_infos *infos)
 {
-	if (s == NULL)
-		return ;
-	write(fd, s, ft_strlen(s));
+	int	i;
+	int	newline;
+
+	if (infos->argv[1] != NULL && _strcmp(infos->argv[1], "-n") == TRUE)
+	{
+		i = 2;
+		newline = FALSE;
+	}
+	else
+	{
+		i = 1;
+		newline = TRUE;
+	}
+	while (infos->argv[i] != NULL)
+	{
+		ft_putstr(infos->argv[i++]);
+		/*if (next arg refers to "" or '')
+			continue ;*/
+		ft_putchar(' ');
+	}
+	if (newline == TRUE)
+		ft_putchar('\n');
 }
