@@ -6,7 +6,7 @@
 #    By: wdebotte <wdebotte@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/18 14:12:28 by wdebotte          #+#    #+#              #
-#    Updated: 2022/05/27 16:49:35 by wdebotte         ###   ########.fr        #
+#    Updated: 2022/05/30 16:05:48 by wdebotte         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,8 +40,8 @@ SRCS		= $(addprefix ${PATHSRCS}, main.c) \
 			$(addprefix ${PATHSRCS}execution/, simple_exec.c) \
 			$(addprefix ${PATHSRCS}utils/, memory.c exit.c is_str_clear.c \
 						strcmp.c) \
-			$(addprefix ${PATHSRCS}utils/env/, env_utils.c varcmp.c cp_env.c \
-						is_var_in_env.c get_env_var_value.c) \
+			$(addprefix ${PATHSRCS}utils/env/, env_add_and_remove.c varcmp.c \
+						cp_env.c is_var_in_env.c get_env_var_value.c) \
 			$(addprefix ${PATHSRCS}signals/, signals.c)
 
 OBJS		= ${SRCS:.c=.o}

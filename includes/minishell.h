@@ -6,7 +6,7 @@
 /*   By: wdebotte <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 12:53:23 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/05/27 16:48:15 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/05/30 15:46:56 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	exec_simple(t_infos *infos);
 int		exit_program(int exit_code);
 int		is_str_clear(char *str);
 int		_strcmp(char *s1, char *s2);
-int		varcmp(char *env_var, char *var);
+int		varcmp(char *var1, char *var2);
 int		is_var_in_env(t_env *env, char *var);
 
 char	*get_env_var_value(t_infos *infos, char *var);
