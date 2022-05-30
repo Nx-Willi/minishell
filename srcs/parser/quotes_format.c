@@ -6,7 +6,7 @@
 /*   By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 11:56:18 by xle-baux          #+#    #+#             */
-/*   Updated: 2022/05/27 17:01:44 by xle-baux         ###   ########.fr       */
+/*   Updated: 2022/05/30 11:36:07 by xle-baux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ char	*ft_strjoins(char *s1, char *s2)
 	return (join);
 }
 
-int join_quotes(t_token *token)
+/* int join_quotes(t_token *token)
 {
 	int	close_quote;
 
@@ -84,7 +84,7 @@ int join_quotes(t_token *token)
 		}
 	}
 	return (0);
-}
+} */
 
 
 
@@ -127,11 +127,6 @@ int join_quotes(t_token *token)
 
 
 
-
-/* static void del_token(t_token *token)
-{
-
-}
 
 int	join_quotes(t_token *token)
 {
@@ -147,27 +142,28 @@ int	join_quotes(t_token *token)
 		if (token->type == QUOTE || token->type == D_QUOTE)
 		{
 			open_quote = token->type;
-			token->content = NULL;
-			token->type = 0;
+//			token->content = "";
+//			token->type = WORD;
 			token = token->next;
 			while (token->next && token->next->type != open_quote)
 			{
-				if (token->next->content != NULL)
-				{
-					token->content = ft_strjoin(token->content, token->next->content);
-				}
+//				if (token->next->content != NULL)
+//				{
+					token->content = ft_strjoins(token->content, token->next->content);
+//				}
 				tmp = token->next->next;
 				free(token->next->content);
 				free(token->next);
 				token->next = tmp;
 			}
-			tmp = token->next->next;
-			free(token->next->content);
-			free(token->next);
-			token->next = tmp;
+//			tmp = token->next->next;
+//			free(token->next->content);
+//			free(token->next);
+//			token->next = tmp;
+			token = token->next;
 		}
 		if (token->next)
 			token = token->next;
 	}
 	return (0);
-} */
+}
