@@ -6,7 +6,7 @@
 /*   By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 11:56:18 by xle-baux          #+#    #+#             */
-/*   Updated: 2022/05/30 11:36:07 by xle-baux         ###   ########.fr       */
+/*   Updated: 2022/05/30 13:16:46 by xle-baux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static int	check_quotes(t_token *token)
 	return (0);
 }
 
-char	*ft_strjoins(char *s1, char *s2)
+static char	*ft_strjoins(char *s1, char *s2)
 {
 	int		i;
 	char	*join;
@@ -61,106 +61,48 @@ char	*ft_strjoins(char *s1, char *s2)
 		i++;
 	}
 	join[i] = '\0';
+	free(s1);
 	return (join);
 }
 
-/* int join_quotes(t_token *token)
+static t_token	*clean_quotes(t_token *token, int open_quote)
 {
-	int	close_quote;
+	t_token	*tmp;
 
-	if (check_quotes(token))
-		return (1);
-	return (0);
-	while (token->next)
+	open_quote = token->type;
+	free(token->content);
+	token->content = NULL;
+	token->type = WORD;
+	while (token->next && token->next->type != open_quote)
 	{
-		if (token->type == D_QUOTE || token->type == QUOTE)
-		{
-			close_quote = token->type;
-			token = token->next;
-			while (token->type != close_quote)
-			{
-				
-			}
-		}
+		if (token->next->content != NULL)
+			token->content = ft_strjoins(token->content, token->next->content);
+		tmp = token->next->next;
+		if (token->next->type != DOLLAR)
+			free(token->next->content);
+		free(token->next);
+		token->next = tmp;
 	}
-	return (0);
-} */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	tmp = token->next->next;
+	free(token->next->content);
+	free(token->next);
+	token->next = tmp;
+	return (token);
+}
 
 int	join_quotes(t_token *token)
 {
 	int		open_quote;
-	t_token	*tmp;
 
 	if (check_quotes(token))
 		return (1);
-//	return (0);
 	open_quote = -1;
 	while (token->next)
 	{
 		if (token->type == QUOTE || token->type == D_QUOTE)
 		{
 			open_quote = token->type;
-//			token->content = "";
-//			token->type = WORD;
-			token = token->next;
-			while (token->next && token->next->type != open_quote)
-			{
-//				if (token->next->content != NULL)
-//				{
-					token->content = ft_strjoins(token->content, token->next->content);
-//				}
-				tmp = token->next->next;
-				free(token->next->content);
-				free(token->next);
-				token->next = tmp;
-			}
-//			tmp = token->next->next;
-//			free(token->next->content);
-//			free(token->next);
-//			token->next = tmp;
-			token = token->next;
+			token = clean_quotes(token, open_quote);
 		}
 		if (token->next)
 			token = token->next;

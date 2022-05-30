@@ -6,7 +6,7 @@
 /*   By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 12:06:17 by xlb               #+#    #+#             */
-/*   Updated: 2022/05/27 16:38:22 by xle-baux         ###   ########.fr       */
+/*   Updated: 2022/05/30 13:18:48 by xle-baux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,9 +95,7 @@ t_token	*get_tokens(char *input)
 	token_struct_address = token;
 	while (input[i])
 	{
-	//	get_token_char(token->content, &input[i], token_len(&input[i]));
 		token->content = ft_substr(&input[i], 0, token_len(&input[i]));
-	//	ft_strlcpy(token->content, &input[i], token_len(&input[i]) + 1);
 		token->type = get_token_type(token->content);
 		token->next = add_token();
 		token = token->next;

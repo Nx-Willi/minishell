@@ -6,13 +6,13 @@
 /*   By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 09:42:00 by xlb               #+#    #+#             */
-/*   Updated: 2022/05/30 11:36:22 by xle-baux         ###   ########.fr       */
+/*   Updated: 2022/05/30 13:20:19 by xle-baux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static char* token_type_print(int id)
+static char	*token_type_print(int id)
 {
 	if (id == 0)
 		return ("NULL");
@@ -45,7 +45,7 @@ static char* token_type_print(int id)
 
 static void	free_token(t_token *token)
 {
-	t_token *tmp;
+	t_token	*tmp;
 
 	tmp = token;
 	while (tmp->next)
@@ -59,15 +59,15 @@ static void	free_token(t_token *token)
 	free(tmp);
 }
 
-int parsing(char *input)
+int	parsing(char *input)
 {
-	t_token *token;
-	t_token *token_address;
-	
-	input = "ls -la | \"grep TESTENV\" h f";
-//	input = "/sbin/ifconfig | grep 'inet ' | awk '{if(NR==1) print $2}'";
-//	input = "\"cat TESTENV\"";
-//	input = "lsblk | grep \"lvm\" | \"wc -l\"";
+	t_token	*token;
+	t_token	*token_address;
+
+//	input = "ls -la | \"grep TESTENV\" h f";
+	input = "/sbin/ifconfig | grep 'inet ' | awk '{if(NR==1) print 2}'";
+//	input = "\"cat $TESTENV\"";
+//	input = "lsblk | grep \"lv    m\" | \"wc -l\"";
 	token = get_tokens(input);
 	token_address = token;
 	dollar_format(token);
