@@ -1,33 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   dollar_format.c                                    :+:      :+:    :+:   */
+/*   cat_word.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/25 14:59:57 by xle-baux          #+#    #+#             */
-/*   Updated: 2022/05/30 17:48:14 by xle-baux         ###   ########.fr       */
+/*   Created: 2022/05/30 16:14:45 by xle-baux          #+#    #+#             */
+/*   Updated: 2022/05/30 17:43:43 by xle-baux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	dollar_format(t_token *token)
+void cat_word(t_token *token)
 {
-	t_token	*tmp;
-
+	t_token *tmp;
+	
 	while (token->next)
 	{
-		if (token->type == DOLLAR)
+		if (token->next && token->type == WORD)
 		{
-			tmp = token->next->next;
-			free (token->content);
-//			token->content = getenv(token->next->content);
-			token->content = ft_strdup(getenv(token->next->content));
-			token->type = WORD;
-			free(token->next->content);
-			free(token->next);
-			token->next = tmp;
+			while (token->next && token->next->type == WORD)
+			{
+				if (token->next->content != NULL)
+					token->content = _strjoin(token->content, token->next->content);
+				tmp = token->next->next;
+				free(token->next->content);
+				free(token->next);
+				token->next = tmp;
+			}
 		}
 		token = token->next;
 	}

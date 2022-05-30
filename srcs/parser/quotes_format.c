@@ -6,7 +6,7 @@
 /*   By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 11:56:18 by xle-baux          #+#    #+#             */
-/*   Updated: 2022/05/30 13:16:46 by xle-baux         ###   ########.fr       */
+/*   Updated: 2022/05/30 17:41:06 by xle-baux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,34 +37,6 @@ static int	check_quotes(t_token *token)
 	return (0);
 }
 
-static char	*ft_strjoins(char *s1, char *s2)
-{
-	int		i;
-	char	*join;
-
-	if (!s1)
-	{
-		s1 = malloc(sizeof(char));
-		s1[0] = '\0';
-	}
-	if (!s2)
-		return (0);
-	i = -1;
-	join = malloc(sizeof(char) * ((ft_strlen(s1)) + (ft_strlen(s2)) + 1));
-	if (join == 0)
-		return (0);
-	while (s1[++i] != '\0')
-		join[i] = s1[i];
-	while (s2[i - ft_strlen(s1)] != '\0')
-	{
-		join[i] = s2[i - ft_strlen(s1)];
-		i++;
-	}
-	join[i] = '\0';
-	free(s1);
-	return (join);
-}
-
 static t_token	*clean_quotes(t_token *token, int open_quote)
 {
 	t_token	*tmp;
@@ -76,7 +48,7 @@ static t_token	*clean_quotes(t_token *token, int open_quote)
 	while (token->next && token->next->type != open_quote)
 	{
 		if (token->next->content != NULL)
-			token->content = ft_strjoins(token->content, token->next->content);
+			token->content = _strjoin(token->content, token->next->content);
 		tmp = token->next->next;
 		if (token->next->type != DOLLAR)
 			free(token->next->content);

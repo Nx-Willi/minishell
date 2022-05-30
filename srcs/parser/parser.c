@@ -6,7 +6,7 @@
 /*   By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 09:42:00 by xlb               #+#    #+#             */
-/*   Updated: 2022/05/30 13:20:19 by xle-baux         ###   ########.fr       */
+/*   Updated: 2022/05/30 17:52:23 by xle-baux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,7 @@ static void	free_token(t_token *token)
 	tmp = token;
 	while (tmp->next)
 	{
-		if (tmp->type != DOLLAR)
-			free(tmp->content);
+		free(tmp->content);
 		tmp = tmp->next;
 		free(token);
 		token = tmp;
@@ -64,10 +63,10 @@ int	parsing(char *input)
 	t_token	*token;
 	t_token	*token_address;
 
-//	input = "ls -la | \"grep TESTENV\" h f";
-	input = "/sbin/ifconfig | grep 'inet ' | awk '{if(NR==1) print 2}'";
+//	input = "\"ls -la\" | grep\'\'$TESTENV h f";
+//	input = "/sbin/ifconfig | grep 'inet ' | awk '{if(NR==1) print 2}'";
 //	input = "\"cat $TESTENV\"";
-//	input = "lsblk | grep \"lv    m\" | \"wc -l\"";
+	input = "lsblk | grep \"lvm\" | \"wc -l\" >> test.txt";
 	token = get_tokens(input);
 	token_address = token;
 	dollar_format(token);
@@ -76,6 +75,7 @@ int	parsing(char *input)
 		free_token(token_address);
 		return (printf("syntax error: quotes"), 1);
 	}
+	cat_word(token);
 	while (token->next)
 	{
 		ft_printf("%s\n%s\n\n", token->content, token_type_print(token->type));
