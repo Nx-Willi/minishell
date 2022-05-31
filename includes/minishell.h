@@ -6,7 +6,7 @@
 /*   By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 12:53:23 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/05/30 16:42:39 by xle-baux         ###   ########.fr       */
+/*   Updated: 2022/05/31 11:24:10 by xle-baux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ void dollar_format(t_token *token);
 //	cat_word.c
 void	cat_word(t_token *token);
 
+//
 char	*_strjoin(char *s1, char *s2);
 
 #endif
