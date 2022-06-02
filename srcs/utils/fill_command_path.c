@@ -6,7 +6,7 @@
 /*   By: wdebotte <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 16:46:53 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/05/27 16:57:44 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/06/02 14:44:17 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*fill_command_path(char *start_path, char *end_path)
 	char	*buffer;
 
 	buffer = malloc(sizeof(char) * (ft_strlen(start_path)
-		+ ft_strlen(end_path) + 2));
+				+ ft_strlen(end_path) + 2));
 	if (buffer == NULL)
 		return (NULL);
 	i = -1;

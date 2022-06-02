@@ -6,7 +6,7 @@
 /*   By: wdebotte <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 12:53:23 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/05/30 15:46:56 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/06/02 14:32:50 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ void	builtin_cd(t_infos *infos);
 char	*get_command_path(char *cmd);
 char	*get_cmd_name(char *line);
 char	**get_command_args(char *line);
-char	*fill_command_path(char *start_path, char *end_path);
 //------------------------------------------------------------------------------
 
 //-Execution--------------------------------------------------------------------
@@ -79,6 +78,8 @@ int		varcmp(char *var1, char *var2);
 int		is_var_in_env(t_env *env, char *var);
 
 char	*get_env_var_value(t_infos *infos, char *var);
+char	*fill_command_path(char *start_path, char *end_path);
+
 void	free_char_tab(char **tab);
 //--Env-&-Cp_env----------------------------------------------------------------
 int		varcmp(char *env_var, char *var);
