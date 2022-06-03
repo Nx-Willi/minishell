@@ -6,7 +6,7 @@
 /*   By: wdebotte <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 10:19:01 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/06/03 11:56:25 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/06/03 13:38:49 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 /*
 	if (_strcmp(infos->cmd_name, "echo") == TRUE)
 		builtin_echo(infos);
-	else if (_strcmp(infos->cmd_name, "exit") == TRUE)
-		builtin_exit(infos->argv);
 */
 
 void	exec_builtin(t_infos *infos)
@@ -31,4 +29,9 @@ void	exec_builtin(t_infos *infos)
 		builtin_env(infos);
 	else if (_strcmp(infos->cmd_name, "pwd") == TRUE)
 		builtin_pwd();
+	else if (_strcmp(infos->cmd_name, "exit") == TRUE)
+	{
+		ft_putstr("exit\n");
+		exit_program(infos, 0, TRUE);
+	}
 }

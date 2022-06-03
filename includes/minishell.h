@@ -6,7 +6,7 @@
 /*   By: wdebotte <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 12:53:23 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/06/03 11:56:37 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/06/03 13:36:36 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ void	builtin_env(t_infos *infos);
 void	builtin_echo(t_infos *infos);
 void	builtin_cd(t_infos *infos);
 void	builtin_pwd(void);
+void	builtin_exit(t_infos *infos);
 //------------------------------------------------------------------------------
 
 //-Parsing----------------------------------------------------------------------
@@ -72,7 +73,7 @@ void	exec_simple(t_infos *infos);
 //------------------------------------------------------------------------------
 
 //-Utils------------------------------------------------------------------------
-int		exit_program(int exit_code);
+int		exit_program(t_infos *infos, int exit_code, int started);
 int		is_str_clear(char *str);
 int		_strcmp(char *s1, char *s2);
 int		varcmp(char *var1, char *var2);

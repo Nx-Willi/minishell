@@ -6,7 +6,7 @@
 #    By: wdebotte <wdebotte@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/18 14:12:28 by wdebotte          #+#    #+#              #
-#    Updated: 2022/06/03 11:54:13 by wdebotte         ###   ########.fr        #
+#    Updated: 2022/06/03 13:37:59 by wdebotte         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,7 @@ SRCS		= $(addprefix ${PATHSRCS}, main.c) \
 			$(addprefix ${PATHSRCS}builtins/, is_builtin.c exec_builtin.c \
 						export.c unset.c env.c cd.c pwd.c) \
 			$(addprefix ${PATHSRCS}execution/, simple_exec.c) \
-			$(addprefix ${PATHSRCS}utils/, memory.c exit.c is_str_clear.c \
+			$(addprefix ${PATHSRCS}utils/, memory.c is_str_clear.c \
 						strcmp.c fill_command_path.c) \
 			$(addprefix ${PATHSRCS}utils/env/, env_add_and_remove.c varcmp.c \
 						cp_env.c is_var_in_env.c get_env_var_value.c \

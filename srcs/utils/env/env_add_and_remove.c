@@ -6,7 +6,7 @@
 /*   By: wdebotte <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 17:42:43 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/05/30 16:14:46 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/06/03 13:53:34 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ static void	replace_env_var(t_env *env, char *var)
 			env->variable = ft_substr(var, 0, ft_strlen(var) + 1);
 			if (env->variable == NULL)
 				printf("Error: malloc: env->variable in replace_env_var\n");
+			break ;
 		}
 		env = env->next;
 	}

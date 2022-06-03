@@ -6,7 +6,7 @@
 /*   By: wdebotte <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 12:54:03 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/06/03 11:40:00 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/06/03 14:15:42 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	main(int argc, char **argv, char **envp)
 		if (infos.line == NULL)
 		{
 			ft_putstr("exit\n");
-			return (exit_program(2));
+			return (exit_program(&infos, 2, FALSE));
 		}
 		if (!is_str_clear(infos.line))
 			add_history(infos.line);
