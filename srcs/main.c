@@ -6,7 +6,7 @@
 /*   By: wdebotte <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 12:54:03 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/05/27 12:04:21 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/06/03 11:40:00 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ int	main(int argc, char **argv, char **envp)
 	infos.envp = NULL;
 	cpy_env_to_lst(&infos, envp);
 	cpy_env_to_char(&infos);
+	if (is_var_in_env(infos.env, "PWD") == FALSE)
+		set_pwd_var(&infos);
 	while (1)
 	{
 		infos.line = readline(SH_NAME"$ ");

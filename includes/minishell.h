@@ -6,7 +6,7 @@
 /*   By: wdebotte <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 12:53:23 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/06/02 14:32:50 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/06/03 11:56:37 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ void	builtin_unset(t_infos *infos);
 void	builtin_env(t_infos *infos);
 void	builtin_echo(t_infos *infos);
 void	builtin_cd(t_infos *infos);
+void	builtin_pwd(void);
 //------------------------------------------------------------------------------
 
 //-Parsing----------------------------------------------------------------------
@@ -89,6 +90,8 @@ void	add_env_var(t_infos *infos, char *var, int from_env);
 void	remove_env_var(t_infos *infos, char *var);
 void	cpy_env_to_lst(t_infos *infos, char **envp);
 void	cpy_env_to_char(t_infos *infos);
+void	set_pwd_var(t_infos *infos);
+void	set_oldpwd_var(t_infos *infos);
 
 t_env	*new_env_var(char *var, int from_env);
 //------------------------------------------------------------------------------

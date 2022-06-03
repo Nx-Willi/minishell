@@ -1,39 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   echo.c                                             :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wdebotte <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/27 12:39:10 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/05/27 12:46:34 by wdebotte         ###   ########.fr       */
+/*   Created: 2022/06/03 11:54:19 by wdebotte          #+#    #+#             */
+/*   Updated: 2022/06/03 11:57:01 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	builtin_echo(t_infos *infos)
+void	builtin_pwd(void)
 {
-	int	i;
-	int	newline;
+	char	*buffer;
 
-	if (infos->argv[1] != NULL && _strcmp(infos->argv[1], "-n") == TRUE)
-	{
-		i = 2;
-		newline = FALSE;
-	}
-	else
-	{
-		i = 1;
-		newline = TRUE;
-	}
-	while (infos->argv[i] != NULL)
-	{
-		ft_putstr(infos->argv[i++]);
-		/*if (next arg refers to "" or '')
-			continue ;*/
-		ft_putchar(' ');
-	}
-	if (newline == TRUE)
-		ft_putchar('\n');
+	buffer = getcwd(NULL, 0);
+	ft_putstr(buffer);
+	ft_putchar('\n');
+	free(buffer);
 }
