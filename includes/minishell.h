@@ -6,7 +6,7 @@
 /*   By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 12:53:23 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/06/07 13:13:44 by xle-baux         ###   ########.fr       */
+/*   Updated: 2022/06/07 19:02:11 by xle-baux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,9 @@
 //# define CMD "ls -la | \"grep $TESTENVS\"h f"
 //# define CMD "/sbin/ifconfig | grep 'inet ' | awk '{if(NR==1) print 2}'"
 //# define CMD "\"cat $TESTENV\""
-# define CMD "lsblk | grep \"lvm\" | \"wc -l\" >> test.txt"
+//# define CMD "lsblk | grep loop0 | grep \"lvm\" | wc -l | ls -l -a -f -v -o -p"
+# define CMD "echo \"$TESTENVtoto\""
+//# define CMD "ls -la -l | -o | wc"
 
 enum	e_type_token
 {
@@ -53,7 +55,7 @@ typedef struct s_token
 
 typedef struct s_cmd
 {
-	char			*args;
+	char			**args;
 	struct s_cmd	*prev;
 	struct s_cmd	*next;
 }					t_cmd;
@@ -78,6 +80,9 @@ void dollar_format(t_token *token);
 
 //	cat_word.c
 void	cat_word(t_token *token);
+
+//	command_set.c
+t_cmd	*command_set(t_token *token);
 
 //	tools.c
 char	*_strjoin(char *s1, char *s2);

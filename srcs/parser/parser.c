@@ -6,7 +6,7 @@
 /*   By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 09:42:00 by xlb               #+#    #+#             */
-/*   Updated: 2022/06/07 13:08:43 by xle-baux         ###   ########.fr       */
+/*   Updated: 2022/06/07 18:51:06 by xle-baux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,30 @@ static void	free_token(t_token *token)
 	free(tmp);
 }
 
+/* static void	free_cmd(t_cmd *cmd)
+{
+	t_cmd	*tmp;
+	int		i;
+
+	tmp = cmd;
+	while (tmp)
+	{
+		i = 0;
+		while (cmd->args[i])
+			free(cmd->args[i++]);
+		free(cmd->args);
+		tmp = tmp->next;
+		free(cmd);
+		cmd = tmp;
+	}
+	free(cmd);
+} */
+
 int	parsing(char *input)
 {
 	t_token	*token;
 	t_token	*token_address;
+/* 	t_cmd	*cmd; */
 
 	(void)input;
 	token = get_tokens(CMD);
@@ -74,11 +94,31 @@ int	parsing(char *input)
 		return (printf("syntax error: quotes"), 1);
 	}
 	cat_word(token);
+/* 	cmd = command_set(token);
+	t_cmd *cmd_address = cmd; */
+
+	printf("\n\n---------------token-------------\n\n");
 	while (token->next)
 	{
 		ft_printf("%s\n%s\n\n", token->content, token_type_print(token->type));
 		token = token->next;
 	}
+	
 	free_token(token_address);
+	
+/* 	int i = 0;
+	int n = 0;
+	while (cmd)
+	{
+		printf("\n\n---------------cammand %i-------------\n\n", n++);
+		while (cmd->args[i])
+		{
+			printf("%s\t\ti = %i\n", cmd->args[i], i);
+			i++;
+		}
+		cmd = cmd->next;
+		i = 0;
+	}
+	free_cmd(cmd_address); */
 	return (0);
 }
