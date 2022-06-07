@@ -6,7 +6,7 @@
 /*   By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 09:42:00 by xlb               #+#    #+#             */
-/*   Updated: 2022/05/30 17:52:23 by xle-baux         ###   ########.fr       */
+/*   Updated: 2022/06/07 13:08:43 by xle-baux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ static void	free_token(t_token *token)
 	tmp = token;
 	while (tmp->next)
 	{
-		free(tmp->content);
+		if (token->type != 0)
+			free(tmp->content);
 		tmp = tmp->next;
 		free(token);
 		token = tmp;
@@ -63,11 +64,8 @@ int	parsing(char *input)
 	t_token	*token;
 	t_token	*token_address;
 
-//	input = "\"ls -la\" | grep\'\'$TESTENV h f";
-//	input = "/sbin/ifconfig | grep 'inet ' | awk '{if(NR==1) print 2}'";
-//	input = "\"cat $TESTENV\"";
-	input = "lsblk | grep \"lvm\" | \"wc -l\" >> test.txt";
-	token = get_tokens(input);
+	(void)input;
+	token = get_tokens(CMD);
 	token_address = token;
 	dollar_format(token);
 	if (join_quotes(token))

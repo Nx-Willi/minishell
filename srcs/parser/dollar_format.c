@@ -6,7 +6,7 @@
 /*   By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 14:59:57 by xle-baux          #+#    #+#             */
-/*   Updated: 2022/05/31 14:17:36 by xle-baux         ###   ########.fr       */
+/*   Updated: 2022/06/07 11:46:22 by xle-baux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,16 @@ void	dollar_format(t_token *token)
 		{
 			tmp = token->next->next;
 			free (token->content);
+			if (getenv(token->next->content) != NULL)
+			{
 			token->content = ft_strdup(getenv(token->next->content));
 			token->type = WORD;
+			}
+			else
+			{
+				token->content = NULL;
+				token->type = 0;
+			}
 			free(token->next->content);
 			free(token->next);
 			token->next = tmp;

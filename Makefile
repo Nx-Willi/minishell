@@ -6,7 +6,7 @@
 #    By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/18 14:12:28 by wdebotte          #+#    #+#              #
-#    Updated: 2022/05/30 16:40:05 by xle-baux         ###   ########.fr        #
+#    Updated: 2022/06/07 13:05:32 by xle-baux         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,8 @@ SRCS		= ${PATHSRCS}main.c \
 			${PATHPARSESRCS}quotes_format.c \
 			${PATHPARSESRCS}dollar_format.c \
 			${PATHPARSESRCS}cat_word.c \
-			${PATHPARSESRCS}tools.c
+			${PATHPARSESRCS}tools.c \
+			${PATHPARSESRCS}command_set.c
 
 OBJS		= ${SRCS:.c=.o}
 HEADERS		= ${PATHHEADERS}
