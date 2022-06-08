@@ -6,7 +6,7 @@
 /*   By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 14:59:57 by xle-baux          #+#    #+#             */
-/*   Updated: 2022/06/07 19:07:06 by xle-baux         ###   ########.fr       */
+/*   Updated: 2022/06/08 11:27:29 by xle-baux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	dollar_format(t_token *token)
 
 	while (token->next)
 	{
-		if (token->type == DOLLAR)	
+		if (token->type == DOLLAR)
 		{
 			tmp = token->next->next;
 			free (token->content);

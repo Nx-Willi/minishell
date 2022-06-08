@@ -6,11 +6,20 @@
 /*   By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 16:36:04 by xle-baux          #+#    #+#             */
-/*   Updated: 2022/06/07 10:07:04 by xle-baux         ###   ########.fr       */
+/*   Updated: 2022/06/08 11:54:54 by xle-baux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static char	*missing(void)
+{
+	char	*s;
+
+	s = malloc(sizeof(char));
+	s[0] = '\0';
+	return (s);
+}
 
 char	*_strjoin(char *s1, char *s2)
 {
@@ -18,15 +27,9 @@ char	*_strjoin(char *s1, char *s2)
 	char	*join;
 
 	if (!s1)
-	{
-		s1 = malloc(sizeof(char));
-		s1[0] = '\0';
-	}
+		s1 = missing();
 	if (!s2)
-	{
-		s2 = malloc(sizeof(char));
-		s2[0] = '\0';
-	}
+		s2 = missing();
 	i = -1;
 	join = malloc(sizeof(char) * ((ft_strlen(s1)) + (ft_strlen(s2)) + 1));
 	if (join == 0)

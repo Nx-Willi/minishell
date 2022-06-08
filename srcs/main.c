@@ -6,7 +6,7 @@
 /*   By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 12:54:03 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/05/26 16:57:14 by xle-baux         ###   ########.fr       */
+/*   Updated: 2022/06/08 12:10:22 by xle-baux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,12 @@
 
 int	main(int argc, char **argv)
 {
+	t_cmd	*cmd;
+
 	(void)argc;
 	(void)argv;
-	parsing(argv[1]);
+	cmd = parsing(CMD);
+	print_cmd_struct(cmd);
+	free_cmd(cmd);
 	return (0);
 }
