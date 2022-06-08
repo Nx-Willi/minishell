@@ -1,20 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wdebotte <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/29 14:45:39 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/05/27 11:53:05 by wdebotte         ###   ########.fr       */
+/*   Created: 2022/06/03 11:54:19 by wdebotte          #+#    #+#             */
+/*   Updated: 2022/06/03 11:57:01 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-void	ft_putstr_fd(char *s, int fd)
+void	builtin_pwd(void)
 {
-	if (s == NULL)
-		return ;
-	write(fd, s, ft_strlen(s));
+	char	*buffer;
+
+	buffer = getcwd(NULL, 0);
+	ft_putstr(buffer);
+	ft_putchar('\n');
+	free(buffer);
 }

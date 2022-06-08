@@ -1,20 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
+/*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wdebotte <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/29 14:45:39 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/05/27 11:53:05 by wdebotte         ###   ########.fr       */
+/*   Created: 2022/05/22 15:34:45 by wdebotte          #+#    #+#             */
+/*   Updated: 2022/05/22 16:27:57 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-void	ft_putstr_fd(char *s, int fd)
+void	handler(int signum)
 {
-	if (s == NULL)
-		return ;
-	write(fd, s, ft_strlen(s));
+	if (signum == CTRL_C)
+	{
+		ft_putstr("\n");
+		rl_replace_line("", 1);
+		rl_on_new_line();
+		rl_redisplay();
+	}
 }

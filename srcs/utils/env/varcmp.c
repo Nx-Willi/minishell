@@ -1,20 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
+/*   varcmp.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wdebotte <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/29 14:45:39 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/05/27 11:53:05 by wdebotte         ###   ########.fr       */
+/*   Created: 2022/05/24 17:42:43 by wdebotte          #+#    #+#             */
+/*   Updated: 2022/05/30 15:46:30 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-void	ft_putstr_fd(char *s, int fd)
+int	varcmp(char *var1, char *var2)
 {
-	if (s == NULL)
-		return ;
-	write(fd, s, ft_strlen(s));
+	size_t	i;
+	size_t	n;
+
+	i = 0;
+	while (var1[i] != '\0' && var1[i] != '=')
+		i++;
+	n = 0;
+	while (var2[n] != '\0' && var2[n] != '=')
+		n++;
+	if (i != n)
+		return (FALSE);
+	i = 0;
+	while ((var1[i] != '\0' && var2[i] != '\0') && i <= n)
+	{
+		if (var1[i] != var2[i])
+			return (FALSE);
+		i++;
+	}
+	return (TRUE);
 }

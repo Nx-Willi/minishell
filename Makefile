@@ -6,7 +6,7 @@
 #    By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/18 14:12:28 by wdebotte          #+#    #+#              #
-#    Updated: 2022/06/08 12:05:56 by xle-baux         ###   ########.fr        #
+#    Updated: 2022/06/08 14:47:40 by wdebotte         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,21 +28,25 @@ CYAN	= \033[96m
 
 NAME		= minishell
 
-PATHSRCS	= ./srcs/
-PATHPARSESRCS	= ./srcs/parser/
-PATHHEADERS	= ./includes/
-PATHLIBFT	= ./libft/
+PATHSRCS	= srcs/
+PATHHEADERS	= includes/
+PATHLIBFT	= libft/
 PATHNULL	= /dev/null
 
-SRCS		= ${PATHSRCS}main.c \
-			${PATHPARSESRCS}parser.c \
-			${PATHPARSESRCS}token_lexer.c \
-			${PATHPARSESRCS}quotes_format.c \
-			${PATHPARSESRCS}dollar_format.c \
-			${PATHPARSESRCS}cat_word.c \
-			${PATHPARSESRCS}tools.c \
-			${PATHPARSESRCS}command_set.c \
-			${PATHPARSESRCS}tmp_tools.c
+SRCS		= $(addprefix ${PATHSRCS}, main.c) \
+			$(addprefix ${PATHSRCS}parsing/, path.c args.c) \
+			$(addprefix ${PATHSRCS}builtins/, is_builtin.c exec_builtin.c \
+						export.c unset.c env.c cd.c pwd.c) \
+			$(addprefix ${PATHSRCS}execution/, simple_exec.c) \
+			$(addprefix ${PATHSRCS}utils/, memory.c is_str_clear.c \
+						strcmp.c fill_command_path.c) \
+			$(addprefix ${PATHSRCS}utils/env/, env_add_and_remove.c varcmp.c \
+						cp_env.c is_var_in_env.c get_env_var_value.c \
+						set_pwd_var.c) \
+			$(addprefix ${PATHSRCS}signals/, signals.c) \
+			$(addprefix ${PATHSRCS}parser/, parser.c token_lexer.c \
+						quotes_format.c dollar_format.c cat_word.c tools.c \
+						command_set.c tmp_tools.c)
 
 OBJS		= ${SRCS:.c=.o}
 HEADERS		= ${PATHHEADERS}
@@ -74,7 +78,7 @@ ${NAME}:	${OBJS}
 				@echo "${BOLD}${GREEN}Building:${END}\tlibft.a"
 				@${MAKE} ${PATHLIBFT} >${PATHNULL}
 				@echo "${BOLD}${GREEN}Building:${END}\t${NAME}"
-				@${CC} ${OBJS} ${INCS} ${LIBFT} -o ${NAME} >${PATHNULL}
+				@${CC} ${OBJS} ${INCS} ${LIBFT} -lreadline -o ${NAME} >${PATHNULL}
 
 clean:
 				@echo "${BOLD}${RED}Removing:${END}\tAll .o files"

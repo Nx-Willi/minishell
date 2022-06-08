@@ -1,20 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
+/*   strcmp.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wdebotte <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/29 14:45:39 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/05/27 11:53:05 by wdebotte         ###   ########.fr       */
+/*   Created: 2022/05/26 13:21:08 by wdebotte          #+#    #+#             */
+/*   Updated: 2022/05/26 13:25:53 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-void	ft_putstr_fd(char *s, int fd)
+int	_strcmp(char *s1, char *s2)
 {
-	if (s == NULL)
-		return ;
-	write(fd, s, ft_strlen(s));
+	int	i;
+
+	if (s1 == NULL || s2 == NULL)
+		return (FALSE);
+	if (ft_strlen(s1) != ft_strlen(s2))
+		return (FALSE);
+	i = 0;
+	while (s1[i] != '\0' && s2[i] != '\0')
+	{
+		if (s1[i] != s2[i])
+			return (FALSE);
+		i++;
+	}
+	return (TRUE);
 }
