@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: wdebotte <wdebotte@student.42.fr>          +#+  +:+       +#+         #
+#    By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/18 14:12:28 by wdebotte          #+#    #+#              #
-#    Updated: 2022/05/17 12:52:13 by wdebotte         ###   ########.fr        #
+#    Updated: 2022/06/08 12:05:56 by xle-baux         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,17 +29,26 @@ CYAN	= \033[96m
 NAME		= minishell
 
 PATHSRCS	= ./srcs/
+PATHPARSESRCS	= ./srcs/parser/
 PATHHEADERS	= ./includes/
 PATHLIBFT	= ./libft/
 PATHNULL	= /dev/null
 
-SRCS		= ${PATHSRCS}main.c
+SRCS		= ${PATHSRCS}main.c \
+			${PATHPARSESRCS}parser.c \
+			${PATHPARSESRCS}token_lexer.c \
+			${PATHPARSESRCS}quotes_format.c \
+			${PATHPARSESRCS}dollar_format.c \
+			${PATHPARSESRCS}cat_word.c \
+			${PATHPARSESRCS}tools.c \
+			${PATHPARSESRCS}command_set.c \
+			${PATHPARSESRCS}tmp_tools.c
 
 OBJS		= ${SRCS:.c=.o}
 HEADERS		= ${PATHHEADERS}
 
 CC			= clang
-CFLAGS		= -Wall -Wextra -Werror
+CFLAGS		= -Wall -Wextra -Werror -g3
 INCS		= -I${PATHHEADERS} -I${PATHLIBFT}${PATHHEADERS}
 
 RM			= rm -rf
