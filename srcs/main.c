@@ -6,7 +6,7 @@
 /*   By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 12:54:03 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/06/08 14:56:58 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/06/08 19:28:25 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,31 +27,24 @@ static void	init_main(t_infos *infos, int argc, char **argv, char **envp)
 
 static int	get_line_infos(t_infos *infos)
 {
-	//--- Xavier
-	t_cmd	*cmd;
-
-	//cmd = parsing(CMD);
-	//print_cmd_struct(cmd);
-	//free_cmd(cmd);
-	//------------
-	infos->line = readline(SH_NAME"$ ");
-	cmd = parsing(infos->line);
-	if (infos->line == NULL)
+	infos->prompt = readline(SH_NAME"$ ");
+	infos->cmd = parsing(infos->prompt);
+	if (infos->prompt == NULL)
 	{
 		ft_putstr("exit\n");
 		exit_program(infos, 2, FALSE);
 		return (FALSE);
 	}
-	if (!is_str_clear(infos->line))
-		add_history(infos->line);
+	if (!is_str_clear(infos->prompt))
+		add_history(infos->prompt);
 	else
 	{
-		free(infos->line);
+		free(infos->prompt);
 		return (FALSE);
 	}
-	infos->cmd_name = get_cmd_name(infos->line);
-	infos->cmd_path = get_command_path(infos->line);
-	infos->argv = get_command_args(infos->line);
+//	infos->cmd_name = get_cmd_name(infos->line);
+	infos->cmd->cmd_path = get_command_path(infos->cmd->argv[0]);
+//	infos->argv = get_command_args(infos->line);
 	return (TRUE);
 }
 
@@ -64,16 +57,15 @@ int	main(int argc, char **argv, char **envp)
 	{
 		if (get_line_infos(&infos) == FALSE)
 			continue ;
-		if (!is_builtin(&infos))
+		/*if (!is_builtin(&infos))
 			exec_simple(&infos);
 		else
-			exec_builtin(&infos);
-		free(infos.line);
-		infos.line = NULL;
-		free(infos.cmd_name);
+			exec_builtin(&infos);*/
+		free(infos.prompt);
+		infos.prompt = NULL;
+//		free(infos.cmd_name);
 		free(infos.cmd_path);
-		free_char_tab(infos.argv);
-		
+//		free_char_tab(infos.argv);		
 	}
 	free(infos.envp);
 	free_env(infos.env);

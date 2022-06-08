@@ -6,7 +6,7 @@
 /*   By: wdebotte <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 14:57:41 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/05/27 12:24:13 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/06/08 19:40:58 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,20 +36,20 @@ static int	is_valid_identifier(char *var)
 	return (TRUE);
 }
 
-void	builtin_export(t_infos *infos)
+void	builtin_export(t_infos *infos, t_cmd *cmd)
 {
 	int	i;
 	int	new_var;
 
 	new_var = FALSE;
 	i = 0;
-	while (infos->argv[++i] != NULL)
+	while (cmd->argv[++i] != NULL)
 	{
-		if (is_valid_identifier(infos->argv[i]) == TRUE)
+		if (is_valid_identifier(cmd->argv[i]) == TRUE)
 		{
 			if (new_var == FALSE)
 				new_var = TRUE;
-			add_env_var(infos, infos->argv[i], FALSE);
+			add_env_var(infos, cmd->argv[i], FALSE);
 		}
 	}
 	if (new_var == TRUE)

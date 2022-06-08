@@ -6,7 +6,7 @@
 /*   By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 12:53:23 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/06/08 15:01:23 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/06/08 19:41:16 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 # define FALSE		0
 # define TRUE		1
 # define CTRL_C		2
-# define CMD "ls -la | grep $TESTENV h f"
+//# define CMD "ls -la | grep $TESTENV h f"
 //# define CMD "/sbin/ifconfig | grep 'inet ' | awk '{if(NR==1) print 2}'"
 //# define CMD "\"cat $TESTENV\""
 //# define CMD "lsblk | grep loop0 | grep \"lvm\" | wc -l | ls -l -a -v -o -p"
@@ -67,12 +67,21 @@ struct s_env
 
 struct	s_infos
 {
-	char	*line;
-	char	*cmd_name;
+	char	*prompt;
+//	char	*cmd_name;
 	char	*cmd_path;
-	char	**argv;
+//	char	**argv;
 	char	**envp;
 	t_env	*env;
+	t_cmd	*cmd;
+};
+
+struct s_cmd
+{
+	char	*cmd_path;
+	char	**argv;
+	t_cmd	*prev;
+	t_cmd	*next;
 };
 
 struct s_token_type
@@ -88,12 +97,6 @@ struct s_token
 	char			*content;
 };
 
-struct s_cmd
-{
-	char	**args;
-	t_cmd	*prev;
-	t_cmd	*next;
-};
 //------------------------------------------------------------------------------
 
 //-Parser-----------------------------------------------------------------------
@@ -114,14 +117,13 @@ char	*token_type_print(int id);
 void	free_cmd(t_cmd *cmd);
 void	print_token_struct(t_token *token);
 void	print_cmd_struct(t_cmd *cmd);
-//----------------------------------------
 //------------------------------------------------------------------------------
 
 //-Builtins---------------------------------------------------------------------
-int		is_builtin(t_infos *infos);
+int		is_builtin(char *cmd_name);
 
-void	exec_builtin(t_infos *infos);
-void	builtin_export(t_infos *infos);
+void	exec_builtin(t_infos *infos, char *cmd_name);
+void	builtin_export(t_infos *infos, t_cmd *cmd);
 void	builtin_unset(t_infos *infos);
 void	builtin_env(t_infos *infos);
 void	builtin_echo(t_infos *infos);

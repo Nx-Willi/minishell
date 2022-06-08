@@ -6,7 +6,7 @@
 /*   By: wdebotte <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 14:35:36 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/05/27 16:54:33 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/06/08 19:25:47 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,14 +63,15 @@ char	*get_cmd_name(char *line)
 	return (cmd);
 }
 
-char	*get_command_path(char *line)
+char	*get_command_path(char *cmd)
 {
 	int		i;
 	char	**path_dir;
 	char	*path_env;
 	char	*buffer[2];
 
-	buffer[0] = get_cmd_name(line);
+//	buffer[0] = get_cmd_name(line);
+	buffer[0] = cmd;
 	path_env = getenv("PATH");
 	if (path_env == NULL)
 		return (buffer[0]);
@@ -83,7 +84,7 @@ char	*get_command_path(char *line)
 		if (is_cmd_in_dir(buffer[0], path_dir[i], 1))
 		{
 			buffer[1] = fill_command_path(path_dir[i], buffer[0]);
-			free(buffer[0]);
+//			free(buffer[0]);
 			free_char_tab(path_dir);
 			return (buffer[1]);
 		}

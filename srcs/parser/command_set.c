@@ -6,7 +6,7 @@
 /*   By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 13:05:43 by xle-baux          #+#    #+#             */
-/*   Updated: 2022/06/08 12:28:36 by xle-baux         ###   ########.fr       */
+/*   Updated: 2022/06/08 19:29:22 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static t_cmd	*add_command(t_cmd *prev)
 	cmd = (t_cmd *)malloc(sizeof(t_cmd));
 	if (!cmd)
 		return (NULL);
-	cmd->args = NULL;
+	cmd->argv = NULL;
 	cmd->next = NULL;
 	cmd->prev = prev;
 	return (cmd);
@@ -46,16 +46,16 @@ static int	fill_command(t_cmd *cmd, t_token *token)
 	while (token->next)
 	{
 		i = 0;
-		cmd->args = malloc(sizeof(char *) * (count_args(token) + 1));
-		if (cmd->args == NULL)
+		cmd->argv = malloc(sizeof(char *) * (count_args(token) + 1));
+		if (cmd->argv == NULL)
 			return (1);
 		while (token->next && token->type != PIPE)
 		{
 			if (token->type == WORD)
-				cmd->args[i++] = ft_strdup(token->content);
+				cmd->argv[i++] = ft_strdup(token->content);
 			token = token->next;
 		}
-		cmd->args[i] = NULL;
+		cmd->argv[i] = NULL;
 		if (token->type == PIPE)
 		{
 			cmd->next = add_command(cmd);

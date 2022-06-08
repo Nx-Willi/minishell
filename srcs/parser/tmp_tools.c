@@ -6,7 +6,7 @@
 /*   By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 12:04:37 by xle-baux          #+#    #+#             */
-/*   Updated: 2022/06/08 12:23:00 by xle-baux         ###   ########.fr       */
+/*   Updated: 2022/06/08 19:30:08 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,9 @@ void	free_cmd(t_cmd *cmd)
 	while (tmp)
 	{
 		i = 0;
-		while (cmd->args[i])
-			free(cmd->args[i++]);
-		free(cmd->args);
+		while (cmd->argv[i])
+			free(cmd->argv[i++]);
+		free(cmd->argv);
 		tmp = tmp->next;
 		free(cmd);
 		cmd = tmp;
@@ -92,9 +92,9 @@ void	print_cmd_struct(t_cmd *cmd)
 	{
 		i = 0;
 		printf("\n\n---------------cammand %i-------------\n\n", n++);
-		while (cmd->args[i])
+		while (cmd->argv[i])
 		{
-			printf("%s\t\ti = %i\n", cmd->args[i], i);
+			printf("%s\t\ti = %i\n", cmd->argv[i], i);
 			i++;
 		}
 		cmd = cmd->next;
