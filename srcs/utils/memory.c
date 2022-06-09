@@ -6,7 +6,7 @@
 /*   By: wdebotte <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 16:49:59 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/06/03 14:21:18 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/06/09 18:30:51 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,20 +35,33 @@ void	free_env(t_env *env)
 		free(env);
 		env = tmp;
 	}
+	free(env);
 }
 
-//Censer etre free mais ca marche sans free
-//free(infos->envp);
-//free_env(infos->env);
-int	exit_program(t_infos *infos, int exit_code, int started)
+void	free_cmd(t_cmd *cmd)
 {
-	if (started == TRUE)
+	t_cmd	*tmp;
+	int		i;
+
+	tmp = cmd;
+	while (tmp)
 	{
-		free(infos->line);
-		free(infos->cmd_name);
-		free(infos->cmd_path);
-		free_char_tab(infos->argv);
+		if (_strcmp(cmd->cmd_path, cmd->argv[0]) == FALSE)
+			free(cmd->cmd_path);
+		i = 0;
+		while (cmd->argv[i])
+			free(cmd->argv[i++]);
+		free(cmd->argv);
+		tmp = tmp->next;
+		free(cmd);
+		cmd = tmp;
 	}
+	free(cmd);
+}
+
+int	exit_program(int exit_code)
+{
+	ft_putstr("exit\n");
 	rl_clear_history();
 	exit(exit_code);
 	return (exit_code);

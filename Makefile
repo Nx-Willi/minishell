@@ -6,7 +6,7 @@
 #    By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/18 14:12:28 by wdebotte          #+#    #+#              #
-#    Updated: 2022/06/08 14:47:40 by wdebotte         ###   ########.fr        #
+#    Updated: 2022/06/09 16:58:42 by wdebotte         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,6 @@ PATHLIBFT	= libft/
 PATHNULL	= /dev/null
 
 SRCS		= $(addprefix ${PATHSRCS}, main.c) \
-			$(addprefix ${PATHSRCS}parsing/, path.c args.c) \
 			$(addprefix ${PATHSRCS}builtins/, is_builtin.c exec_builtin.c \
 						export.c unset.c env.c cd.c pwd.c) \
 			$(addprefix ${PATHSRCS}execution/, simple_exec.c) \
@@ -46,7 +45,7 @@ SRCS		= $(addprefix ${PATHSRCS}, main.c) \
 			$(addprefix ${PATHSRCS}signals/, signals.c) \
 			$(addprefix ${PATHSRCS}parser/, parser.c token_lexer.c \
 						quotes_format.c dollar_format.c cat_word.c tools.c \
-						command_set.c tmp_tools.c)
+						command_set.c tmp_tools.c get_command_path.c)
 
 OBJS		= ${SRCS:.c=.o}
 HEADERS		= ${PATHHEADERS}

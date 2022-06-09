@@ -6,7 +6,7 @@
 /*   By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 12:53:23 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/06/08 19:41:16 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/06/09 18:31:30 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,6 @@ struct s_env
 struct	s_infos
 {
 	char	*prompt;
-//	char	*cmd_name;
-	char	*cmd_path;
-//	char	**argv;
 	char	**envp;
 	t_env	*env;
 	t_cmd	*cmd;
@@ -82,6 +79,7 @@ struct s_cmd
 	char	**argv;
 	t_cmd	*prev;
 	t_cmd	*next;
+	t_infos	*infos;
 };
 
 struct s_token_type
@@ -106,15 +104,16 @@ int		join_quotes(t_token *token);
 void	dollar_format(t_token *token);
 void	cat_word(t_token *token);
 
-t_cmd	*parsing(char *input);
-t_cmd	*command_set(t_token *token);
+t_cmd	*parsing(t_infos *infos, char *input);
+t_cmd	*command_set(t_infos *infos, t_token *token);
 
 char	*_strjoin(char *s1, char *s2);
+char	*get_command_path(t_infos *infos, char *cmd);
+
 t_token	*get_tokens(char *input);
 
 //tmp_tools.c
 char	*token_type_print(int id);
-void	free_cmd(t_cmd *cmd);
 void	print_token_struct(t_token *token);
 void	print_cmd_struct(t_cmd *cmd);
 //------------------------------------------------------------------------------
@@ -122,39 +121,33 @@ void	print_cmd_struct(t_cmd *cmd);
 //-Builtins---------------------------------------------------------------------
 int		is_builtin(char *cmd_name);
 
-void	exec_builtin(t_infos *infos, char *cmd_name);
+void	exec_builtin(t_infos *infos, t_cmd *cmd);
 void	builtin_export(t_infos *infos, t_cmd *cmd);
-void	builtin_unset(t_infos *infos);
+void	builtin_unset(t_infos *infos, t_cmd *cmd);
 void	builtin_env(t_infos *infos);
 void	builtin_echo(t_infos *infos);
-void	builtin_cd(t_infos *infos);
+void	builtin_cd(t_infos *infos, t_cmd *cmd);
 void	builtin_pwd(void);
 void	builtin_exit(t_infos *infos);
 //------------------------------------------------------------------------------
 
-//-Parsing----------------------------------------------------------------------
-char	*get_command_path(char *cmd);
-char	*get_cmd_name(char *line);
-char	**get_command_args(char *line);
-//------------------------------------------------------------------------------
-
 //-Execution--------------------------------------------------------------------
-void	exec_simple(t_infos *infos);
+void	exec_simple(t_infos *infos, t_cmd *cmd);
 //------------------------------------------------------------------------------
 
 //-Utils------------------------------------------------------------------------
-int		exit_program(t_infos *infos, int exit_code, int started);
+int		exit_program(int exit_code);
 int		is_str_clear(char *str);
 int		_strcmp(char *s1, char *s2);
-int		varcmp(char *var1, char *var2);
-int		is_var_in_env(t_env *env, char *var);
-
-char	*get_env_var_value(t_infos *infos, char *var);
-char	*fill_command_path(char *start_path, char *end_path);
 
 void	free_char_tab(char **tab);
-//--Env-&-Cp_env----------------------------------------------------------------
+void	free_cmd(t_cmd *cmd);
+
+char	*fill_command_path(char *start_path, char *end_path);
+//--Env-------------------------------------------------------------------------
 int		varcmp(char *env_var, char *var);
+int		is_var_in_env(t_env *env, char *var);
+int		varcmp(char *var1, char *var2);
 
 void	free_env(t_env *env);
 void	add_env_var(t_infos *infos, char *var, int from_env);
@@ -164,6 +157,7 @@ void	cpy_env_to_char(t_infos *infos);
 void	set_pwd_var(t_infos *infos);
 void	set_oldpwd_var(t_infos *infos);
 
+char	*get_env_var_value(t_infos *infos, char *var);
 t_env	*new_env_var(char *var, int from_env);
 //------------------------------------------------------------------------------
 

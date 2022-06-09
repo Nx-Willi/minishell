@@ -6,7 +6,7 @@
 /*   By: wdebotte <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 16:32:46 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/05/26 18:05:06 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/06/09 14:10:59 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ static int	get_env_size(t_env *env)
 	int		i;
 	t_env	*tmp;
 
+	if (env == NULL)
+		return (0);
 	i = 0;
 	tmp = env;
 	while (tmp != NULL)

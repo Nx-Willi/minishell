@@ -6,7 +6,7 @@
 /*   By: wdebotte <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 11:26:07 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/05/27 16:00:22 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/06/09 12:19:46 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,26 +34,26 @@ static int	is_valid_var(char *var)
 	return (TRUE);
 }
 
-void	builtin_unset(t_infos *infos)
+void	builtin_unset(t_infos *infos, t_cmd *cmd)
 {
 	int	i;
 	int	rem_var;
 
 	rem_var = FALSE;
 	i = 1;
-	if (infos->argv[i] == NULL)
+	if (cmd->argv[i] == NULL)
 		return ;
-	while (infos->argv[i] != NULL)
+	while (cmd->argv[i] != NULL)
 	{
-		if (is_valid_var(infos->argv[i]) == FALSE)
+		if (is_valid_var(cmd->argv[i]) == FALSE)
 		{
 			i++;
 			continue ;
 		}
-		if (is_var_in_env(infos->env, infos->argv[i]))
+		if (is_var_in_env(infos->env, cmd->argv[i]))
 		{
 			rem_var = TRUE;
-			remove_env_var(infos, infos->argv[i]);
+			remove_env_var(infos, cmd->argv[i]);
 		}
 		i++;
 	}

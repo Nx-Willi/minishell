@@ -6,13 +6,13 @@
 /*   By: wdebotte <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 18:02:13 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/05/26 16:50:56 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/06/09 12:31:43 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	exec_simple(t_infos *infos)
+void	exec_simple(t_infos *infos, t_cmd *cmd)
 {
 	pid_t	child_pid;
 	pid_t	tmp_pid;
@@ -21,8 +21,8 @@ void	exec_simple(t_infos *infos)
 	child_pid = fork();
 	if (child_pid == 0)
 	{
-		execve(infos->cmd_path, infos->argv, infos->envp);
-		printf("%s: command not found\n", infos->cmd_path);
+		execve(cmd->cmd_path, cmd->argv, infos->envp);
+		printf("%s: command not found\n", cmd->cmd_path);
 		exit(0);
 	}
 	else

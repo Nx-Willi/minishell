@@ -6,7 +6,7 @@
 /*   By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 12:04:37 by xle-baux          #+#    #+#             */
-/*   Updated: 2022/06/08 19:30:08 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/06/09 17:59:19 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,25 +51,6 @@ char	*token_type_print(int id)
 	else
 		return (token_type_print_2(id));
 	return (NULL);
-}
-
-void	free_cmd(t_cmd *cmd)
-{
-	t_cmd	*tmp;
-	int		i;
-
-	tmp = cmd;
-	while (tmp)
-	{
-		i = 0;
-		while (cmd->argv[i])
-			free(cmd->argv[i++]);
-		free(cmd->argv);
-		tmp = tmp->next;
-		free(cmd);
-		cmd = tmp;
-	}
-	free(cmd);
 }
 
 void	print_token_struct(t_token *token)
