@@ -6,7 +6,7 @@
 /*   By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 12:53:23 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/06/09 18:31:30 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/06/13 17:15:34 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,10 @@ enum	e_type_token
 	BACKSLASH
 };
 
-
 //-Structures-------------------------------------------------------------------
 typedef struct s_infos		t_infos;
 typedef struct s_env		t_env;
 typedef struct s_token_type	t_token_type;
-typedef struct s_token		t_token;
 typedef struct s_token		t_token;
 typedef struct s_cmd		t_cmd;
 
@@ -94,7 +92,6 @@ struct s_token
 	int				type;
 	char			*content;
 };
-
 //------------------------------------------------------------------------------
 
 //-Parser-----------------------------------------------------------------------
@@ -132,6 +129,7 @@ void	builtin_exit(t_infos *infos);
 //------------------------------------------------------------------------------
 
 //-Execution--------------------------------------------------------------------
+void	exec_commands(t_infos *infos);
 void	exec_simple(t_infos *infos, t_cmd *cmd);
 //------------------------------------------------------------------------------
 

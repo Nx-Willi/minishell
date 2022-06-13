@@ -6,7 +6,7 @@
 /*   By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 13:05:43 by xle-baux          #+#    #+#             */
-/*   Updated: 2022/06/09 18:05:09 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/06/13 13:21:38 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static int	count_args(t_token *token)
 	return (i);
 }
 
-static int	fill_command(t_cmd *cmd, t_token *token)
+static int	fill_command(t_infos *infos, t_cmd *cmd, t_token *token)
 {
 	int	i;
 
@@ -57,7 +57,8 @@ static int	fill_command(t_cmd *cmd, t_token *token)
 			token = token->next;
 		}
 		cmd->argv[i] = NULL;
-		cmd->cmd_path = get_command_path(cmd->infos, cmd->argv[0]);
+		cmd->cmd_path = get_command_path(infos, cmd->argv[0]);
+		cmd->infos = infos;
 		if (token->type == PIPE)
 		{
 			cmd->next = add_command(cmd);
@@ -77,8 +78,7 @@ t_cmd	*command_set(t_infos *infos, t_token *token)
 		return (NULL);
 	cmd->prev = NULL;
 	cmd->next = NULL;
-	cmd->infos = infos;
-	if (fill_command(cmd, token))
+	if (fill_command(infos, cmd, token))
 		return (NULL);
 	return (cmd);
 }

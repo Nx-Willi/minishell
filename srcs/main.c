@@ -6,7 +6,7 @@
 /*   By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 12:54:03 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/06/09 18:31:17 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/06/13 13:25:54 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,7 @@ int	main(int argc, char **argv, char **envp)
 	{
 		if (get_line_infos(&infos) == FALSE)
 			continue ;
-		if (!is_builtin(infos.cmd->argv[0]))
-			exec_simple(&infos, infos.cmd);
-		else
-			exec_builtin(&infos, infos.cmd);
+		exec_commands(&infos);
 		free(infos.prompt);
 		infos.prompt = NULL;
 		free_cmd(infos.cmd);
