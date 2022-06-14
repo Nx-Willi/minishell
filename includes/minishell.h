@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wdebotte <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/17 12:53:23 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/06/13 17:15:34 by wdebotte         ###   ########.fr       */
+/*   Created: 2022/06/14 09:45:25 by wdebotte          #+#    #+#             */
+/*   Updated: 2022/06/14 09:48:33 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,9 +88,9 @@ struct s_token_type
 
 struct s_token
 {
-	struct s_token	*next;
-	int				type;
-	char			*content;
+	t_token	*next;
+	int		type;
+	char	*content;
 };
 //------------------------------------------------------------------------------
 
@@ -108,7 +108,6 @@ char	*_strjoin(char *s1, char *s2);
 char	*get_command_path(t_infos *infos, char *cmd);
 
 t_token	*get_tokens(char *input);
-
 //tmp_tools.c
 char	*token_type_print(int id);
 void	print_token_struct(t_token *token);
