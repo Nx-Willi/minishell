@@ -6,7 +6,7 @@
 /*   By: wdebotte <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 09:45:25 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/06/20 12:30:48 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/06/20 16:16:27 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@
 # define FALSE		0
 # define TRUE		1
 # define CTRL_C		2
+# define READ		0
+# define WRITE		1
 //# define CMD "ls -la | grep $TESTENV h f"
 //# define CMD "/sbin/ifconfig | grep 'inet ' | awk '{if(NR==1) print 2}'"
 //# define CMD "\"cat $TESTENV\""
@@ -74,6 +76,8 @@ struct	s_infos
 
 struct s_cmd
 {
+	int		f_pid;
+	int		pfd[2];
 	char	*cmd_path;
 	char	**argv;
 	t_cmd	*prev;
