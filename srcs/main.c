@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: wdebotte <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/20 14:27:08 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/06/20 16:37:17 by wdebotte         ###   ########.fr       */
+/*   Created: 2022/05/17 12:54:03 by wdebotte          #+#    #+#             */
+/*   Updated: 2022/06/20 19:11:52 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ static int	get_line_infos(t_infos *infos)
 		return (FALSE);
 	}
 	infos->cmd = parsing(infos, infos->prompt);
-	printf("Num pipes: %d\n", infos->pipes);
 	return (TRUE);
 }
 
