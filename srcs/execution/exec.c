@@ -6,7 +6,7 @@
 /*   By: wdebotte <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 12:51:31 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/06/14 13:38:13 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/06/20 12:21:38 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,21 @@ void	exec_pipes(t_infos *infos)
 		close(fd[1]);
 		dup2(fd[0], 0);
 		close(fd[0]);
-		execve(cmds->next->cmd_path, cmds->next->argv, (char **)0);
+		execve(cmds->cmd_path, cmds->argv, cmds->infos->envp);
+		printf("child\n");
+		return ;
 	}
 	else
 	{
-		char buffer[4096];
-
+		int	status;
+		waitpid(-1, &status, 0);
+		printf("toto\n");
+		close(fd[0]);
+		dup2(fd[1], 1);
 		close(fd[1]);
-		read(fd[0], buffer, sizeof(buffer));
+		execve(cmds->next->cmd_path, cmds->next->argv, cmds->infos->envp);
+		printf("parent\n");
+		return ;
 	}
 }
 
