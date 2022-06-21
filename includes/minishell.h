@@ -6,7 +6,7 @@
 /*   By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 09:45:25 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/06/20 13:40:56 by xle-baux         ###   ########.fr       */
+/*   Updated: 2022/06/21 10:59:14 by xle-baux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ struct	s_infos
 
 struct s_cmd
 {
+	int		id;
 	char	*cmd_path;
 	char	**argv;
 	t_cmd	*prev;
