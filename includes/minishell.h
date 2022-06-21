@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: wdebotte <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/20 16:39:28 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/06/20 16:41:08 by wdebotte         ###   ########.fr       */
+/*   Created: 2022/06/14 09:45:25 by wdebotte          #+#    #+#             */
+/*   Updated: 2022/06/21 11:12:59 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ struct	s_infos
 
 struct s_cmd
 {
+	int		id;
 	char	*cmd_path;
 	char	**argv;
 	t_cmd	*prev;
