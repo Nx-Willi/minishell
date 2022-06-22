@@ -6,7 +6,7 @@
 /*   By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 09:45:25 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/06/21 10:59:14 by xle-baux         ###   ########.fr       */
+/*   Updated: 2022/06/21 12:25:33 by xle-baux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ int		join_quotes(t_token *token);
 
 void	dollar_format(t_token *token);
 void	cat_word(t_token *token);
+void	add_id(t_cmd *cmd);
 
 t_cmd	*parsing(t_infos *infos, char *input);
 t_cmd	*command_set(t_infos *infos, t_token *token);
