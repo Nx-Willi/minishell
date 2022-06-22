@@ -6,7 +6,7 @@
 /*   By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 13:05:43 by xle-baux          #+#    #+#             */
-/*   Updated: 2022/06/21 11:01:26 by xle-baux         ###   ########.fr       */
+/*   Updated: 2022/06/21 12:27:40 by xle-baux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,7 @@ static int	count_args(t_token *token)
 static int	fill_command(t_infos *infos, t_cmd *cmd, t_token *token)
 {
 	int	i;
-	int	id;
 
-	id = 0;
 	while (token->next)
 	{
 		i = 0;
@@ -61,7 +59,6 @@ static int	fill_command(t_infos *infos, t_cmd *cmd, t_token *token)
 		cmd->argv[i] = NULL;
 		cmd->cmd_path = get_command_path(infos, cmd->argv[0]);
 		cmd->infos = infos;
-		cmd->id = id++;
 		if (token->type == PIPE)
 		{
 			cmd->next = add_command(cmd);
@@ -83,6 +80,7 @@ t_cmd	*command_set(t_infos *infos, t_token *token)
 	cmd->next = NULL;
 	if (fill_command(infos, cmd, token))
 		return (NULL);
+	add_id(cmd);
 	infos->pipes = count_commands(token) - 1;
 	return (cmd);
 }

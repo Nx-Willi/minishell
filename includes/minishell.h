@@ -6,7 +6,7 @@
 /*   By: wdebotte <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 09:45:25 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/06/21 11:12:59 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/06/22 14:05:42 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,7 @@ int		join_quotes(t_token *token);
 
 void	dollar_format(t_token *token);
 void	cat_word(t_token *token);
+void	add_id(t_cmd *cmd);
 
 t_cmd	*parsing(t_infos *infos, char *input);
 t_cmd	*command_set(t_infos *infos, t_token *token);
