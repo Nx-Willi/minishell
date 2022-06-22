@@ -6,7 +6,7 @@
 /*   By: wdebotte <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 09:45:25 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/06/22 14:05:42 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/06/22 14:17:45 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ struct s_env
 
 struct	s_infos
 {
-	int		pipes;
+	int		npipes;
 	char	*prompt;
 	char	**envp;
 	t_env	*env;

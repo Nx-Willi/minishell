@@ -6,7 +6,7 @@
 /*   By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 13:05:43 by xle-baux          #+#    #+#             */
-/*   Updated: 2022/06/21 12:27:40 by xle-baux         ###   ########.fr       */
+/*   Updated: 2022/06/22 14:18:38 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,6 @@ t_cmd	*command_set(t_infos *infos, t_token *token)
 	if (fill_command(infos, cmd, token))
 		return (NULL);
 	add_id(cmd);
-	infos->pipes = count_commands(token) - 1;
+	infos->npipes = count_commands(token) - 1;
 	return (cmd);
 }

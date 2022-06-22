@@ -6,7 +6,7 @@
 /*   By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 12:51:31 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/06/21 11:25:48 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/06/22 14:18:04 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 void	exec_pipes(t_infos *infos)
 {
-	int	*pfd;
+	int	**pfd;
 
-	pfd = (int *)
+	pfd = (int **)malloc(sizeof(int *) * (infos->npipes * 2));
 }
 
 /*void	exec_pipes(t_infos *infos)
