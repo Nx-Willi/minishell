@@ -6,7 +6,7 @@
 /*   By: wdebotte <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 11:26:07 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/06/09 12:19:46 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/06/23 12:41:16 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static int	is_valid_var(char *var)
 	return (TRUE);
 }
 
-void	builtin_unset(t_infos *infos, t_cmd *cmd)
+void	builtin_unset(t_cmd *cmd)
 {
 	int	i;
 	int	rem_var;
@@ -50,13 +50,13 @@ void	builtin_unset(t_infos *infos, t_cmd *cmd)
 			i++;
 			continue ;
 		}
-		if (is_var_in_env(infos->env, cmd->argv[i]))
+		if (is_var_in_env(cmd->infos->env, cmd->argv[i]))
 		{
 			rem_var = TRUE;
-			remove_env_var(infos, cmd->argv[i]);
+			remove_env_var(cmd->infos, cmd->argv[i]);
 		}
 		i++;
 	}
 	if (rem_var == TRUE)
-		cpy_env_to_char(infos);
+		cpy_env_to_char(cmd->infos);
 }

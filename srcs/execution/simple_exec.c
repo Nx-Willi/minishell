@@ -6,7 +6,7 @@
 /*   By: wdebotte <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 18:02:13 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/06/09 12:31:43 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/06/23 13:28:41 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,21 @@
 
 void	exec_simple(t_infos *infos, t_cmd *cmd)
 {
-	pid_t	child_pid;
-	pid_t	tmp_pid;
+	int	pid;
 
-	tmp_pid = 0;
-	child_pid = fork();
-	if (child_pid == 0)
+	pid = fork();
+	if (pid < 0)
 	{
-		execve(cmd->cmd_path, cmd->argv, infos->envp);
-		printf("%s: command not found\n", cmd->cmd_path);
-		exit(0);
-	}
-	else
-	{
-		while (tmp_pid != child_pid)
-			tmp_pid = wait(NULL);
+		ft_putstr_fd(SH_NAME": exec_simple: fork error\n", 2);
 		return ;
 	}
+	else if (pid == 0)
+	{
+		execve(cmd->cmd_path, cmd->argv, infos->envp);
+		ft_putstr_fd(SH_NAME": ", 2);
+		ft_putstr_fd(cmd->argv[0], 2);
+		ft_putstr_fd(": command not found\n", 2);
+		exit(0);
+	}
+	waitpid(pid, NULL, 0);
 }

@@ -6,7 +6,7 @@
 /*   By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 09:45:25 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/06/23 12:00:46 by xle-baux         ###   ########.fr       */
+/*   Updated: 2022/06/24 12:51:17 by xle-baux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@
 # define FALSE		0
 # define TRUE		1
 # define CTRL_C		2
+# define READ		0
+# define WRITE		1
 //# define CMD "ls -la | grep $TESTENV h f"
 //# define CMD "/sbin/ifconfig | grep 'inet ' | awk '{if(NR==1) print 2}'"
 //# define CMD "\"cat $TESTENV\""
@@ -65,7 +67,7 @@ struct s_env
 
 struct	s_infos
 {
-	int		pipes;
+	int		npipes;
 	char	*prompt;
 	char	**envp;
 	t_env	*env;
@@ -121,12 +123,12 @@ void	print_cmd_struct(t_cmd *cmd);
 //-Builtins---------------------------------------------------------------------
 int		is_builtin(char *cmd_name);
 
-void	exec_builtin(t_infos *infos, t_cmd *cmd);
-void	builtin_export(t_infos *infos, t_cmd *cmd);
-void	builtin_unset(t_infos *infos, t_cmd *cmd);
+void	exec_builtin(t_cmd *cmd);
+void	builtin_export(t_cmd *cmd);
+void	builtin_unset(t_cmd *cmd);
 void	builtin_env(t_infos *infos);
 void	builtin_echo(t_infos *infos);
-void	builtin_cd(t_infos *infos, t_cmd *cmd);
+void	builtin_cd(t_cmd *cmd);
 void	builtin_pwd(void);
 void	builtin_exit(t_infos *infos);
 //------------------------------------------------------------------------------
@@ -146,7 +148,6 @@ void	free_cmd(t_cmd *cmd);
 
 char	*fill_command_path(char *start_path, char *end_path);
 //--Env-------------------------------------------------------------------------
-int		varcmp(char *env_var, char *var);
 int		is_var_in_env(t_env *env, char *var);
 int		varcmp(char *var1, char *var2);
 

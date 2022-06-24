@@ -6,7 +6,7 @@
 /*   By: wdebotte <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 10:19:01 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/06/09 18:31:03 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/06/23 12:41:47 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,16 @@
 		builtin_echo(infos);
 */
 
-void	exec_builtin(t_infos *infos, t_cmd *cmd)
+void	exec_builtin(t_cmd *cmd)
 {
 	if (_strcmp(cmd->argv[0], "cd") == TRUE)
-		builtin_cd(infos, cmd);
+		builtin_cd(cmd);
 	else if (_strcmp(cmd->argv[0], "export") == TRUE)
-		builtin_export(infos, cmd);
+		builtin_export(cmd);
 	else if (_strcmp(cmd->argv[0], "unset") == TRUE)
-		builtin_unset(infos, cmd);
+		builtin_unset(cmd);
 	else if (_strcmp(cmd->argv[0], "env") == TRUE)
-		builtin_env(infos);
+		builtin_env(cmd->infos);
 	else if (_strcmp(cmd->argv[0], "pwd") == TRUE)
 		builtin_pwd();
 	else if (_strcmp(cmd->argv[0], "exit") == TRUE)
