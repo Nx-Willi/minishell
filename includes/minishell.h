@@ -6,7 +6,7 @@
 /*   By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 09:45:25 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/06/21 12:25:33 by xle-baux         ###   ########.fr       */
+/*   Updated: 2022/06/23 12:00:46 by xle-baux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,8 +99,9 @@ struct s_token
 //-Parser-----------------------------------------------------------------------
 int		count_commands(t_token *token);
 int		join_quotes(t_token *token);
+int		check_syntax(t_token *token);
 
-void	dollar_format(t_token *token);
+void	dollar_format(t_infos *infos, t_token *token);
 void	cat_word(t_token *token);
 void	add_id(t_cmd *cmd);
 

@@ -6,7 +6,7 @@
 #    By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/18 14:12:28 by wdebotte          #+#    #+#              #
-#    Updated: 2022/06/13 12:55:20 by wdebotte         ###   ########.fr        #
+#    Updated: 2022/06/23 12:02:35 by xle-baux         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,7 +45,8 @@ SRCS		= $(addprefix ${PATHSRCS}, main.c) \
 			$(addprefix ${PATHSRCS}signals/, signals.c) \
 			$(addprefix ${PATHSRCS}parser/, parser.c token_lexer.c \
 						quotes_format.c dollar_format.c cat_word.c tools.c \
-						command_set.c tmp_tools.c get_command_path.c)
+						command_set.c tmp_tools.c get_command_path.c \
+						check_syntax.c)
 
 OBJS		= ${SRCS:.c=.o}
 HEADERS		= ${PATHHEADERS}

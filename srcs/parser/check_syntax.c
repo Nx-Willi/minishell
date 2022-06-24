@@ -1,41 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   dollar_format.c                                    :+:      :+:    :+:   */
+/*   check_syntax.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/25 14:59:57 by xle-baux          #+#    #+#             */
-/*   Updated: 2022/06/23 11:46:04 by xle-baux         ###   ########.fr       */
+/*   Created: 2022/06/23 11:16:59 by xle-baux          #+#    #+#             */
+/*   Updated: 2022/06/23 13:32:15 by xle-baux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	dollar_format(t_infos *infos, t_token *token)
+static int	check_pipe(t_token *token)
 {
-	t_token	*tmp;
-
 	while (token->next)
 	{
-		if (token->type == DOLLAR)
+		if (token->type == PIPE)
 		{
-			tmp = token->next->next;
-			free (token->content);
-			if (get_env_var_value(infos, token->next->content) != NULL)
-			{
-			token->content = ft_strdup(get_env_var_value(infos, token->next->content));
-			token->type = WORD;
-			}
-			else
-			{
-				token->content = NULL;
-				token->type = 0;
-			}
-			free(token->next->content);
-			free(token->next);
-			token->next = tmp;
+			token = token->next;
+			while (token->type == SPACE)
+				token = token->next;
+			if (token->next == NULL || token->next->type != WORD)
+				return (FALSE);
 		}
 		token = token->next;
 	}
+	return (TRUE);
+}
+
+int	check_syntax(t_token *token)
+{
+	if (check_pipe(token) == FALSE)
+		return (printf(SH_NAME": syntax error pipe\n"), FALSE);
+	return (TRUE);
 }
