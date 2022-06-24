@@ -6,7 +6,7 @@
 /*   By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 12:51:31 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/06/24 12:47:09 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/06/24 17:28:59 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,11 @@ static int	exec_child(t_cmd *cmd, int *pids, int **pfds)
 	if (cmd->next != NULL)
 		dup2(pfds[cmd->id][1], STDOUT_FILENO);
 	close_pipes(NULL, pfds, cmd->infos->npipes, 0);
+	if (is_builtin(cmd->argv[0]))
+	{
+		exec_builtin(cmd);
+		exit(EXIT_SUCCESS);
+	}
 	execve(cmd->cmd_path, cmd->argv, cmd->infos->envp);
 	ft_putstr_fd(SH_NAME": ", 2);
 	ft_putstr_fd(cmd->cmd_path, 2);
@@ -121,10 +126,10 @@ void	exec_commands(t_infos *infos)
 	t_cmd	*cmds;
 
 	cmds = infos->cmd;
-	if (cmds->next == NULL)
+	if (infos->npipes == 0)
 	{
 		if (!is_builtin(cmds->argv[0]))
-			exec_simple(infos, cmds);
+			exec_simple(cmds);
 		else
 			exec_builtin(cmds);
 	}

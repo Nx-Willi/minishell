@@ -6,7 +6,7 @@
 /*   By: wdebotte <wdebotte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 12:37:38 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/06/24 14:45:16 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/06/24 15:26:25 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,9 @@ void	builtin_echo(t_cmd *cmd)
 	}
 	while (cmd->argv[i] != NULL)
 	{
-		ft_putstr(cmd->argv[i++]);
-		ft_putchar(' ');
+		ft_putstr(cmd->argv[i]);
+		if (cmd->argv[++i] != NULL)
+			ft_putchar(' ');
 	}
 	if (newline == TRUE)
 		ft_putchar('\n');

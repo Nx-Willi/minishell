@@ -6,13 +6,13 @@
 /*   By: wdebotte <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 18:02:13 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/06/23 13:28:41 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/06/24 17:28:52 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	exec_simple(t_infos *infos, t_cmd *cmd)
+void	exec_simple(t_cmd *cmd)
 {
 	int	pid;
 
@@ -24,11 +24,16 @@ void	exec_simple(t_infos *infos, t_cmd *cmd)
 	}
 	else if (pid == 0)
 	{
-		execve(cmd->cmd_path, cmd->argv, infos->envp);
+		if (is_builtin(cmd->argv[0]))
+		{
+			exec_builtin(cmd);
+			exit(EXIT_SUCCESS);
+		}
+		execve(cmd->cmd_path, cmd->argv, cmd->infos->envp);
 		ft_putstr_fd(SH_NAME": ", 2);
 		ft_putstr_fd(cmd->argv[0], 2);
 		ft_putstr_fd(": command not found\n", 2);
-		exit(0);
+		exit(EXIT_FAILURE);
 	}
 	waitpid(pid, NULL, 0);
 }
