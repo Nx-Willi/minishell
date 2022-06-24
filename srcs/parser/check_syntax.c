@@ -6,7 +6,7 @@
 /*   By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 11:16:59 by xle-baux          #+#    #+#             */
-/*   Updated: 2022/06/23 13:32:15 by xle-baux         ###   ########.fr       */
+/*   Updated: 2022/06/24 14:31:58 by xle-baux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ static int	check_pipe(t_token *token)
 		if (token->type == PIPE)
 		{
 			token = token->next;
-			while (token->type == SPACE)
+			while (token->type == WHITE_SPACE)
 				token = token->next;
-			if (token->next == NULL || token->next->type != WORD)
+			if (token->next == NULL || token->type != WORD)
 				return (FALSE);
 		}
 		token = token->next;
