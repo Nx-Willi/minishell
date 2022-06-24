@@ -6,7 +6,7 @@
 /*   By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 12:54:03 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/06/24 12:51:09 by xle-baux         ###   ########.fr       */
+/*   Updated: 2022/06/24 14:47:37 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,7 @@ static int	get_line_infos(t_infos *infos)
 int	main(int argc, char **argv, char **envp)
 {
 	t_infos	infos;
-	(void)argc;
-	(void)envp;
-	
+
 	init_main(&infos, argc, argv, envp);
 	while (1)
 	{
