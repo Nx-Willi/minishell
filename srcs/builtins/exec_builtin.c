@@ -6,20 +6,17 @@
 /*   By: wdebotte <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 10:19:01 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/06/23 12:41:47 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/06/24 14:32:10 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/*
-	if (_strcmp(cmd->argv[0], "echo") == TRUE)
-		builtin_echo(infos);
-*/
-
 void	exec_builtin(t_cmd *cmd)
 {
-	if (_strcmp(cmd->argv[0], "cd") == TRUE)
+	if (_strcmp(cmd->argv[0], "echo") == TRUE)
+		builtin_echo(cmd);
+	else if (_strcmp(cmd->argv[0], "cd") == TRUE)
 		builtin_cd(cmd);
 	else if (_strcmp(cmd->argv[0], "export") == TRUE)
 		builtin_export(cmd);
