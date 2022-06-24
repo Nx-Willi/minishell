@@ -6,7 +6,7 @@
 /*   By: wdebotte <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 14:35:36 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/06/09 17:15:12 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/06/23 13:31:23 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,25 +68,3 @@ char	*get_command_path(t_infos *infos, char *cmd)
 	free_char_tab(path_dir);
 	return (buffer[0]);
 }
-
-/*char	*get_cmd_name(char *line)
-{
-	int		n;
-	int		i;
-	char	*cmd;
-
-	i = 0;
-	while (line[i] != '\0' && is_whitespace(line[i]))
-		i++;
-	n = 0;
-	while (line[i + n] != '\0' && !is_whitespace(line[i + n]))
-		n++;
-	cmd = malloc(sizeof(char) * (n + 1));
-	if (cmd == NULL)
-		return (NULL);
-	n = 0;
-	while (line[i] != '\0' && !is_whitespace(line[i]))
-		cmd[n++] = line[i++];
-	cmd[n] = '\0';
-	return (cmd);
-}*/
