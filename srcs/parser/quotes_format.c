@@ -6,7 +6,7 @@
 /*   By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 11:56:18 by xle-baux          #+#    #+#             */
-/*   Updated: 2022/06/08 12:05:57 by xle-baux         ###   ########.fr       */
+/*   Updated: 2022/06/22 14:53:41 by xle-baux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int	join_quotes(t_token *token)
 	int		open_quote;
 
 	if (check_quotes(token))
-		return (printf("syntax error: quotes"), 1);
+		return (printf(SH_NAME": syntax error quotes\n"), 1);
 	open_quote = -1;
 	while (token->next)
 	{
