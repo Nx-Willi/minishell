@@ -6,7 +6,7 @@
 /*   By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 13:05:43 by xle-baux          #+#    #+#             */
-/*   Updated: 2022/06/22 14:18:38 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/06/25 17:55:08 by xle-baux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,16 @@ static int	fill_command(t_infos *infos, t_cmd *cmd, t_token *token)
 		cmd->argv = malloc(sizeof(char *) * (count_args(token) + 1));
 		if (cmd->argv == NULL)
 			return (1);
+		cmd->fd_in = 0;
+		cmd->fd_out = 1;
 		while (token->next && token->type != PIPE)
 		{
 			if (token->type == WORD)
 				cmd->argv[i++] = ft_strdup(token->content);
-			token = token->next;
+			if (token->type == GREAT || token->type == D_GREAT)
+				token = redir(token, cmd);
+			else
+				token = token->next;
 		}
 		cmd->argv[i] = NULL;
 		cmd->cmd_path = get_command_path(infos, cmd->argv[0]);

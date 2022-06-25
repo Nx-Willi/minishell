@@ -6,7 +6,7 @@
 /*   By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 09:45:25 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/06/24 12:51:17 by xle-baux         ###   ########.fr       */
+/*   Updated: 2022/06/25 17:59:06 by xle-baux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,10 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <dirent.h>
+# include <fcntl.h>
 # include <sys/wait.h>
 # include <sys/types.h>
+# include <sys/stat.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 
@@ -77,6 +79,8 @@ struct	s_infos
 struct s_cmd
 {
 	int		id;
+	int		fd_in;
+	int		fd_out;
 	char	*cmd_path;
 	char	**argv;
 	t_cmd	*prev;
@@ -92,9 +96,9 @@ struct s_token_type
 
 struct s_token
 {
-	t_token	*next;
 	int		type;
 	char	*content;
+	t_token	*next;
 };
 //------------------------------------------------------------------------------
 
@@ -114,6 +118,9 @@ char	*_strjoin(char *s1, char *s2);
 char	*get_command_path(t_infos *infos, char *cmd);
 
 t_token	*get_tokens(char *input);
+t_token	*ignore_white_space(t_token *token);
+t_token	*redir(t_token *token, t_cmd *cmd);
+
 //tmp_tools.c
 char	*token_type_print(int id);
 void	print_token_struct(t_token *token);

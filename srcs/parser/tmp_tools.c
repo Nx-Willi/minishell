@@ -6,7 +6,7 @@
 /*   By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 12:04:37 by xle-baux          #+#    #+#             */
-/*   Updated: 2022/06/21 11:03:54 by xle-baux         ###   ########.fr       */
+/*   Updated: 2022/06/25 16:22:02 by xle-baux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,10 +72,11 @@ void	print_cmd_struct(t_cmd *cmd)
 	while (cmd)
 	{
 		i = 0;
-		printf("\n\n---------------cammand id = %i-------------\n\n", cmd->id);
+		printf("\n\n---------------cammand id = %i-------------\n", cmd->id);
 		while (cmd->argv[i])
 		{
 			printf("%s\t\ti = %i\n", cmd->argv[i], i);
+			printf("fd_in = %i\nfd_out = %i\n\n", cmd->fd_in, cmd->fd_out);
 			i++;
 		}
 		cmd = cmd->next;

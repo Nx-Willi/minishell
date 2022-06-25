@@ -6,7 +6,7 @@
 /*   By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 16:36:04 by xle-baux          #+#    #+#             */
-/*   Updated: 2022/06/21 12:27:56 by xle-baux         ###   ########.fr       */
+/*   Updated: 2022/06/25 17:59:29 by xle-baux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,4 +70,11 @@ void	add_id(t_cmd *cmd)
 		cmd->id = id++;
 		cmd = cmd->next;
 	}
+}
+
+t_token	*ignore_white_space(t_token *token)
+{
+	while (token->type == WHITE_SPACE)
+		token = token->next;
+	return (token);
 }
