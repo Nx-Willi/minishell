@@ -6,7 +6,7 @@
 /*   By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 12:51:31 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/06/24 17:28:59 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/06/25 17:13:40 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,16 +123,8 @@ static void	exec_pipes(t_infos *inf)
 
 void	exec_commands(t_infos *infos)
 {
-	t_cmd	*cmds;
-
-	cmds = infos->cmd;
 	if (infos->npipes == 0)
-	{
-		if (!is_builtin(cmds->argv[0]))
-			exec_simple(cmds);
-		else
-			exec_builtin(cmds);
-	}
+		exec_simple(infos->cmd);
 	else
 		exec_pipes(infos);
 }

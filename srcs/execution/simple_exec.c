@@ -6,7 +6,7 @@
 /*   By: wdebotte <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 18:02:13 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/06/24 17:28:52 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/06/25 17:45:54 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 void	exec_simple(t_cmd *cmd)
 {
 	int	pid;
+	int	status;
+	int	exit_status;
 
 	pid = fork();
 	if (pid < 0)
@@ -35,5 +37,10 @@ void	exec_simple(t_cmd *cmd)
 		ft_putstr_fd(": command not found\n", 2);
 		exit(EXIT_FAILURE);
 	}
-	waitpid(pid, NULL, 0);
+	waitpid(pid, &status, 0);
+	if (WIFEXITED(status))
+	{
+		exit_status = WEXITSTATUS(status);
+		printf("%d\n", exit_status);
+	}
 }
