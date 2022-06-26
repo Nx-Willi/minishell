@@ -6,7 +6,7 @@
 /*   By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 09:45:25 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/06/25 17:59:06 by xle-baux         ###   ########.fr       */
+/*   Updated: 2022/06/26 21:35:46 by xle-baux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,18 +24,12 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
-# define SH_NAME	"miniche"
+# define SH_NAME	"\x1B[2m""miniche""\x1B[0m"
 # define FALSE		0
 # define TRUE		1
 # define CTRL_C		2
 # define READ		0
 # define WRITE		1
-//# define CMD "ls -la | grep $TESTENV h f"
-//# define CMD "/sbin/ifconfig | grep 'inet ' | awk '{if(NR==1) print 2}'"
-//# define CMD "\"cat $TESTENV\""
-//# define CMD "lsblk | grep loop0 | grep \"lvm\" | wc -l | ls -l -a -v -o -p"
-//# define CMD "echo \"TESTENVtoto\""
-//# define CMD "ls -la -l | -o | wc"
 
 enum	e_type_token
 {

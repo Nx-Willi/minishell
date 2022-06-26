@@ -6,7 +6,7 @@
 /*   By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 13:05:43 by xle-baux          #+#    #+#             */
-/*   Updated: 2022/06/25 17:55:08 by xle-baux         ###   ########.fr       */
+/*   Updated: 2022/06/26 21:48:31 by xle-baux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,10 @@ static int	fill_command(t_infos *infos, t_cmd *cmd, t_token *token)
 		i = 0;
 		cmd->argv = malloc(sizeof(char *) * (count_args(token) + 1));
 		if (cmd->argv == NULL)
-			return (1);
+			return (FALSE);
 		cmd->fd_in = 0;
 		cmd->fd_out = 1;
-		while (token->next && token->type != PIPE)
+		while (token != NULL && token->next && token->type != PIPE)
 		{
 			if (token->type == WORD)
 				cmd->argv[i++] = ft_strdup(token->content);
@@ -64,14 +64,16 @@ static int	fill_command(t_infos *infos, t_cmd *cmd, t_token *token)
 		cmd->argv[i] = NULL;
 		cmd->cmd_path = get_command_path(infos, cmd->argv[0]);
 		cmd->infos = infos;
-		if (token->type == PIPE)
+		if (token != NULL && token->type == PIPE)
 		{
 			cmd->next = add_command(cmd);
 			cmd = cmd->next;
 			token = token->next;
 		}
+		if (token == NULL)
+			return (FALSE);
 	}
-	return (0);
+	return (TRUE);
 }
 
 t_cmd	*command_set(t_infos *infos, t_token *token)
@@ -83,7 +85,7 @@ t_cmd	*command_set(t_infos *infos, t_token *token)
 		return (NULL);
 	cmd->prev = NULL;
 	cmd->next = NULL;
-	if (fill_command(infos, cmd, token))
+	if (fill_command(infos, cmd, token) == FALSE)
 		return (NULL);
 	add_id(cmd);
 	infos->npipes = count_commands(token) - 1;
