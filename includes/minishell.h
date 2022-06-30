@@ -6,7 +6,7 @@
 /*   By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 09:45:25 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/06/30 18:36:38 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/06/30 18:56:09 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,8 +137,14 @@ void	builtin_exit(t_infos *infos);
 
 //-Execution--------------------------------------------------------------------
 void	exec_commands(t_infos *infos);
+void	exec_simple(t_cmd *cmd);
 void	exec_pipes(t_infos *inf);
 void	exec_cmd(t_cmd *cmd);
+//--Utils
+void	close_pipes(char *error, int **pfds, int idx_pipes, int idx_tab);
+void	retwait_pids(t_infos *infos, int *pids);
+
+int		**init_pipefds(int npipes);
 //------------------------------------------------------------------------------
 
 //-Utils------------------------------------------------------------------------
