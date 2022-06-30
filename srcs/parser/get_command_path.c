@@ -6,13 +6,22 @@
 /*   By: wdebotte <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 14:35:36 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/06/23 13:31:23 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/06/24 14:57:46 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	is_cmd_in_dir(char *cmd, char *dir_name, int res)
+/*		if (ft_strlen(dir->d_name) > ft_strlen(cmd))
+			res = ft_strncmp(dir->d_name, cmd, ft_strlen(dir->d_name));
+		else
+			res = ft_strncmp(dir->d_name, cmd, ft_strlen(cmd));
+		if (res == 0)
+		{
+			closedir(fd_dir);
+			return (TRUE);
+		}*/
+static int	is_cmd_in_dir(char *cmd, char *dir_name)
 {
 	DIR				*fd_dir;
 	struct dirent	*dir;
@@ -27,11 +36,7 @@ static int	is_cmd_in_dir(char *cmd, char *dir_name, int res)
 		dir = readdir(fd_dir);
 		if (dir == NULL)
 			break ;
-		if (ft_strlen(dir->d_name) > ft_strlen(cmd))
-			res = ft_strncmp(dir->d_name, cmd, ft_strlen(dir->d_name));
-		else
-			res = ft_strncmp(dir->d_name, cmd, ft_strlen(cmd));
-		if (res == 0)
+		if (_strcmp(dir->d_name, cmd) == TRUE)
 		{
 			closedir(fd_dir);
 			return (TRUE);
@@ -58,7 +63,7 @@ char	*get_command_path(t_infos *infos, char *cmd)
 	i = -1;
 	while (path_dir[++i] != NULL)
 	{
-		if (is_cmd_in_dir(buffer[0], path_dir[i], 1))
+		if (is_cmd_in_dir(buffer[0], path_dir[i]))
 		{
 			buffer[1] = fill_command_path(path_dir[i], buffer[0]);
 			free_char_tab(path_dir);

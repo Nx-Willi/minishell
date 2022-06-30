@@ -6,7 +6,7 @@
 #    By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/18 14:12:28 by wdebotte          #+#    #+#              #
-#    Updated: 2022/06/24 14:38:35 by xle-baux         ###   ########.fr        #
+#    Updated: 2022/06/30 18:38:00 by wdebotte         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,8 +35,8 @@ PATHNULL	= /dev/null
 
 SRCS		= $(addprefix ${PATHSRCS}, main.c) \
 			$(addprefix ${PATHSRCS}builtins/, is_builtin.c exec_builtin.c \
-						export.c unset.c env.c cd.c pwd.c) \
-			$(addprefix ${PATHSRCS}execution/, exec.c simple_exec.c) \
+						export.c unset.c env.c cd.c pwd.c echo.c) \
+			$(addprefix ${PATHSRCS}execution/, exec.c pipes.c exec_cmd.c) \
 			$(addprefix ${PATHSRCS}utils/, memory.c is_str_clear.c \
 						strcmp.c fill_command_path.c) \
 			$(addprefix ${PATHSRCS}utils/env/, env_add_and_remove.c varcmp.c \

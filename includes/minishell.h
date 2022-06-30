@@ -6,7 +6,7 @@
 /*   By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 09:45:25 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/06/26 21:35:46 by xle-baux         ###   ########.fr       */
+/*   Updated: 2022/06/30 18:36:38 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ struct s_env
 
 struct	s_infos
 {
+	int		wstatus;
 	int		npipes;
 	char	*prompt;
 	char	**envp;
@@ -128,7 +129,7 @@ void	exec_builtin(t_cmd *cmd);
 void	builtin_export(t_cmd *cmd);
 void	builtin_unset(t_cmd *cmd);
 void	builtin_env(t_infos *infos);
-void	builtin_echo(t_infos *infos);
+void	builtin_echo(t_cmd *cmd);
 void	builtin_cd(t_cmd *cmd);
 void	builtin_pwd(void);
 void	builtin_exit(t_infos *infos);
@@ -136,7 +137,8 @@ void	builtin_exit(t_infos *infos);
 
 //-Execution--------------------------------------------------------------------
 void	exec_commands(t_infos *infos);
-void	exec_simple(t_infos *infos, t_cmd *cmd);
+void	exec_pipes(t_infos *inf);
+void	exec_cmd(t_cmd *cmd);
 //------------------------------------------------------------------------------
 
 //-Utils------------------------------------------------------------------------

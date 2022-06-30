@@ -6,7 +6,7 @@
 /*   By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 09:42:00 by xlb               #+#    #+#             */
-/*   Updated: 2022/06/27 11:47:47 by xle-baux         ###   ########.fr       */
+/*   Updated: 2022/06/30 18:35:34 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,11 @@ t_cmd	*parsing(t_infos *infos, char *input)
 		return (free_token(token_address), NULL);
 	print_token_struct(token);
 	cmd = command_set(infos, token);
+<<<<<<< HEAD
 	if (cmd == NULL)
 		return (NULL);
+=======
+>>>>>>> wdebotte
 	free_token(token_address);
 	print_cmd_struct(cmd);
 	return (cmd);
