@@ -6,7 +6,7 @@
 /*   By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 09:45:25 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/06/30 18:56:09 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/07/11 14:15:31 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ struct s_cmd
 	int		id;
 	int		fd_in;
 	int		fd_out;
+	int		fd_tmp;
 	char	*cmd_path;
 	char	**argv;
 	t_cmd	*prev;
