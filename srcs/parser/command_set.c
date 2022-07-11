@@ -6,7 +6,7 @@
 /*   By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 13:05:43 by xle-baux          #+#    #+#             */
-/*   Updated: 2022/06/27 11:58:48 by xle-baux         ###   ########.fr       */
+/*   Updated: 2022/07/11 18:14:35 by xle-baux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static int	fill_command(t_infos *infos, t_cmd *cmd, t_token *token)
 			if (token->type == WORD)
 				cmd->argv[i++] = ft_strdup(token->content);
 			if (token->type == GREAT || token->type == D_GREAT
-				|| token->type == LESS)
+				|| token->type == LESS || token->type == D_LESS)
 				token = redir(token, cmd);
 			else
 				token = token->next;
