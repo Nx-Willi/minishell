@@ -6,11 +6,32 @@
 /*   By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 12:51:31 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/06/30 19:06:37 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/07/11 11:13:24 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static void	do_redirect(t_cmd *cmd, int **pfds)
+{
+	if (cmd->fd_in != STDIN_FILENO)
+		dup2(cmd->fd_in, STDIN_FILENO);
+	if (cmd->prev != NULL)
+		dup2(pfds[cmd->prev->id][0], STDIN_FILENO);
+	if (cmd->next != NULL)
+		dup2(pfds[cmd->id][1], STDOUT_FILENO);
+}
+
+static void	read_and_write_in_fd(t_cmd *cmd)
+{
+	char	buffer[SSIZE_MAX];
+
+	if (cmd->fd_out != STDOUT_FILENO)
+	{
+		read(STDOUT_FILENO, buffer, sizeof(buffer));
+		printf("%s\n", buffer);
+	}
+}
 
 static int	exec_child(t_cmd *cmd, int *pids, int **pfds)
 {
@@ -23,17 +44,16 @@ static int	exec_child(t_cmd *cmd, int *pids, int **pfds)
 	}
 	else if (pids[cmd->id] > 0)
 		return (TRUE);
-	if (cmd->prev != NULL)
-		dup2(pfds[cmd->prev->id][0], STDIN_FILENO);
-	if (cmd->next != NULL)
-		dup2(pfds[cmd->id][1], STDOUT_FILENO);
+	do_redirect(cmd, pfds);
 	close_pipes(NULL, pfds, cmd->infos->npipes, 0);
 	if (is_builtin(cmd->argv[0]))
 	{
 		exec_builtin(cmd);
+		read_and_write_in_fd(cmd);
 		exit(EXIT_SUCCESS);
 	}
 	exec_cmd(cmd);
+	read_and_write_in_fd(cmd);
 	exit(EXIT_FAILURE);
 }
 
