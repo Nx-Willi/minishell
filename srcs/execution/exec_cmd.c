@@ -6,7 +6,7 @@
 /*   By: wdebotte <wdebotte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 15:44:38 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/06/27 16:01:49 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/07/11 14:27:13 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,4 +33,5 @@ void	exec_cmd(t_cmd *cmd)
 		return ;
 	}
 	execve(cmd->cmd_path, cmd->argv, cmd->infos->envp);
+	exit(EXIT_FAILURE);
 }

@@ -3,33 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   exec_pipes.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wdebotte <wdebotte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 12:51:31 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/07/11 11:13:24 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/07/11 17:21:38 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	do_redirect(t_cmd *cmd, int **pfds)
+static void	do_redirection(t_cmd *cmd, int **pfds)
 {
-	if (cmd->fd_in != STDIN_FILENO)
-		dup2(cmd->fd_in, STDIN_FILENO);
 	if (cmd->prev != NULL)
 		dup2(pfds[cmd->prev->id][0], STDIN_FILENO);
 	if (cmd->next != NULL)
 		dup2(pfds[cmd->id][1], STDOUT_FILENO);
-}
-
-static void	read_and_write_in_fd(t_cmd *cmd)
-{
-	char	buffer[SSIZE_MAX];
-
 	if (cmd->fd_out != STDOUT_FILENO)
 	{
-		read(STDOUT_FILENO, buffer, sizeof(buffer));
-		printf("%s\n", buffer);
+		close(STDOUT_FILENO);
+		dup2(cmd->fd_out, STDOUT_FILENO);
 	}
 }
 
@@ -42,26 +34,27 @@ static int	exec_child(t_cmd *cmd, int *pids, int **pfds)
 			cmd->infos->npipes, cmd->infos->npipes);
 		return (FALSE);
 	}
-	else if (pids[cmd->id] > 0)
-		return (TRUE);
-	do_redirect(cmd, pfds);
-	close_pipes(NULL, pfds, cmd->infos->npipes, 0);
-	if (is_builtin(cmd->argv[0]))
+	else if (pids[cmd->id] == 0)
 	{
-		exec_builtin(cmd);
-		read_and_write_in_fd(cmd);
-		exit(EXIT_SUCCESS);
+		do_redirection(cmd, pfds);
+		close_pipes(NULL, pfds, cmd->infos->npipes, 0);
+		if (is_builtin(cmd->argv[0]))
+		{
+			exec_builtin(cmd);
+			exit(EXIT_SUCCESS);
+		}
+		exec_cmd(cmd);
 	}
-	exec_cmd(cmd);
-	read_and_write_in_fd(cmd);
-	exit(EXIT_FAILURE);
+	else
+		dup2(cmd->fd_tmp, STDOUT_FILENO);
+	return (TRUE);
 }
 
 void	exec_pipes(t_infos *inf)
 {
 	int		*pids;
 	int		**pfds;
-	t_cmd	*cmds;
+	t_cmd	*cmd;
 
 	pfds = init_pipefds(inf->npipes);
 	if (pfds == NULL)
@@ -72,12 +65,14 @@ void	exec_pipes(t_infos *inf)
 		close_pipes(SH_NAME": malloc error\n", pfds, inf->npipes, inf->npipes);
 		return ;
 	}
-	cmds = inf->cmd;
-	while (cmds != NULL)
+	cmd = inf->cmd;
+	while (cmd != NULL)
 	{
-		if (exec_child(cmds, pids, pfds) == FALSE)
+		if (cmd->fd_out != STDOUT_FILENO)
+			cmd->fd_tmp = dup(STDOUT_FILENO);
+		if (exec_child(cmd, pids, pfds) == FALSE)
 			break ;
-		cmds = cmds->next;
+		cmd = cmd->next;
 	}
 	close_pipes(NULL, pfds, inf->npipes, inf->npipes);
 	retwait_pids(inf, pids);
