@@ -6,7 +6,7 @@
 /*   By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 14:37:56 by xle-baux          #+#    #+#             */
-/*   Updated: 2022/06/27 11:59:13 by xle-baux         ###   ########.fr       */
+/*   Updated: 2022/07/11 17:34:32 by xle-baux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,13 @@ static t_token	*get_less_files(t_token *token, t_cmd *cmd)
 	return (token);
 }
 
+/* static t_token	*get_d_less_files(t_token *token, t_cmd *cmd)
+{
+	char	*redir_char;
+
+	redir_char = readline("> ");
+} */
+
 t_token	*redir(t_token *token, t_cmd *cmd)
 {
 	if (token->type == GREAT)
@@ -74,6 +81,8 @@ t_token	*redir(t_token *token, t_cmd *cmd)
 		token = create_d_great_files(token, cmd);
 	else if (token->type == LESS)
 		token = get_less_files(token, cmd);
+/* 	else if (token->type == D_LESS)
+		token = get_d_less_files(token, cmd); */
 	if (token == NULL)
 		return (NULL);
 	return (token);
