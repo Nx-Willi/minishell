@@ -6,7 +6,7 @@
 /*   By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 14:59:57 by xle-baux          #+#    #+#             */
-/*   Updated: 2022/07/14 09:13:22 by xle-baux         ###   ########.fr       */
+/*   Updated: 2022/07/14 09:37:10 by xle-baux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ static t_token	*get_env(t_infos *infos, t_token *token)
 	free(token->next->content);
 	free(token->next);
 	token->next = tmp;
+	return (token);
 }
 
 void	dollar_format(t_infos *infos, t_token *token)
