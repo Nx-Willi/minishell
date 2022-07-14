@@ -6,7 +6,7 @@
 /*   By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 14:37:56 by xle-baux          #+#    #+#             */
-/*   Updated: 2022/07/11 18:32:48 by xle-baux         ###   ########.fr       */
+/*   Updated: 2022/07/14 04:54:49 by xle-baux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,29 +66,6 @@ static t_token	*get_less_files(t_token *token, t_cmd *cmd)
 	return (token);
 }
 
-static t_token	*get_d_less_files(t_token *token/* , t_cmd *cmd */)
-{
-	char	*redir_str;
-	char	*tmp_str;
-	char	*eof;
-
-	token = token->next;
-	token = ignore_white_space(token);
-	eof = token->content;
-	redir_str = NULL;
-	tmp_str = NULL;
-	while (_strcmp(eof, tmp_str) == FALSE)
-	{
-		redir_str = _strjoin(redir_str, tmp_str);
-		tmp_str = readline("> ");
-		redir_str = _strjoin(redir_str, "\n");
-	}
-	token = token->next;
-	token = ignore_white_space(token);
-	printf("%s", redir_str);
-	return (token);
-}
-
 t_token	*redir(t_token *token, t_cmd *cmd)
 {
 	if (token->type == GREAT)
@@ -98,7 +75,9 @@ t_token	*redir(t_token *token, t_cmd *cmd)
 	else if (token->type == LESS)
 		token = get_less_files(token, cmd);
 	else if (token->type == D_LESS)
-		token = get_d_less_files(token);
+	{
+		token = get_heredoc(token);
+	}
 	if (token == NULL)
 		return (NULL);
 	return (token);

@@ -6,7 +6,7 @@
 /*   By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 13:05:43 by xle-baux          #+#    #+#             */
-/*   Updated: 2022/07/11 18:14:35 by xle-baux         ###   ########.fr       */
+/*   Updated: 2022/07/14 05:43:01 by xle-baux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,29 +40,35 @@ static int	count_args(t_token *token)
 	return (i);
 }
 
-static int	fill_command(t_infos *infos, t_cmd *cmd, t_token *token)
+static t_token	*add_word_to_arg(t_token *token, t_cmd *cmd)
 {
 	int	i;
 
+	i = 0;
+	while (token != NULL && token->next && token->type != PIPE)
+	{
+		if (token->type == WORD)
+			cmd->argv[i++] = ft_strdup(token->content);
+		if (token->type == GREAT || token->type == D_GREAT
+			|| token->type == LESS || token->type == D_LESS)
+			token = redir(token, cmd);
+		else
+			token = token->next;
+	}
+	cmd->argv[i] = NULL;
+	return (token);
+}
+
+static int	fill_command(t_infos *infos, t_cmd *cmd, t_token *token)
+{
 	while (token->next)
 	{
-		i = 0;
 		cmd->argv = malloc(sizeof(char *) * (count_args(token) + 1));
 		if (cmd->argv == NULL)
 			return (FALSE);
 		cmd->fd_in = 0;
 		cmd->fd_out = 1;
-		while (token != NULL && token->next && token->type != PIPE)
-		{
-			if (token->type == WORD)
-				cmd->argv[i++] = ft_strdup(token->content);
-			if (token->type == GREAT || token->type == D_GREAT
-				|| token->type == LESS || token->type == D_LESS)
-				token = redir(token, cmd);
-			else
-				token = token->next;
-		}
-		cmd->argv[i] = NULL;
+		token = add_word_to_arg(token, cmd);
 		cmd->cmd_path = get_command_path(infos, cmd->argv[0]);
 		cmd->infos = infos;
 		if (token != NULL && token->type == PIPE)
