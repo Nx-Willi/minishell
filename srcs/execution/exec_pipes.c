@@ -6,23 +6,34 @@
 /*   By: wdebotte <wdebotte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 12:51:31 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/07/11 17:21:38 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/07/14 08:13:23 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	do_redirection(t_cmd *cmd, int **pfds)
+static void	do_redirections(t_cmd *cmd)
 {
-	if (cmd->prev != NULL)
-		dup2(pfds[cmd->prev->id][0], STDIN_FILENO);
-	if (cmd->next != NULL)
-		dup2(pfds[cmd->id][1], STDOUT_FILENO);
+	if (cmd->fd_in != STDIN_FILENO)
+	{
+		cmd->fdin_tmp = dup(STDIN_FILENO);
+		close(STDIN_FILENO);
+		dup2(cmd->fd_in, STDIN_FILENO);
+	}
 	if (cmd->fd_out != STDOUT_FILENO)
 	{
+		cmd->fdout_tmp = dup(STDOUT_FILENO);
 		close(STDOUT_FILENO);
 		dup2(cmd->fd_out, STDOUT_FILENO);
 	}
+}
+
+static void	clean_redirections(t_cmd *cmd)
+{
+	if (cmd->fd_in != STDIN_FILENO)
+		dup2(cmd->fdin_tmp, STDIN_FILENO);
+	if (cmd->fd_out != STDOUT_FILENO)
+		dup2(cmd->fdout_tmp, STDOUT_FILENO);
 }
 
 static int	exec_child(t_cmd *cmd, int *pids, int **pfds)
@@ -36,7 +47,11 @@ static int	exec_child(t_cmd *cmd, int *pids, int **pfds)
 	}
 	else if (pids[cmd->id] == 0)
 	{
-		do_redirection(cmd, pfds);
+		if (cmd->prev != NULL)
+			dup2(pfds[cmd->prev->id][0], STDIN_FILENO);
+		if (cmd->next != NULL)
+			dup2(pfds[cmd->id][1], STDOUT_FILENO);
+		do_redirections(cmd);
 		close_pipes(NULL, pfds, cmd->infos->npipes, 0);
 		if (is_builtin(cmd->argv[0]))
 		{
@@ -46,7 +61,7 @@ static int	exec_child(t_cmd *cmd, int *pids, int **pfds)
 		exec_cmd(cmd);
 	}
 	else
-		dup2(cmd->fd_tmp, STDOUT_FILENO);
+		clean_redirections(cmd);
 	return (TRUE);
 }
 
@@ -68,8 +83,6 @@ void	exec_pipes(t_infos *inf)
 	cmd = inf->cmd;
 	while (cmd != NULL)
 	{
-		if (cmd->fd_out != STDOUT_FILENO)
-			cmd->fd_tmp = dup(STDOUT_FILENO);
 		if (exec_child(cmd, pids, pfds) == FALSE)
 			break ;
 		cmd = cmd->next;
