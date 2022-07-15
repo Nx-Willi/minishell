@@ -6,7 +6,7 @@
 /*   By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 12:54:03 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/07/15 12:01:55 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/07/15 14:22:13 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,11 @@ static int	get_line_infos(t_infos *infos)
 	}
 	infos->cmd = parsing(infos, infos->prompt);
 	if (infos->cmd == NULL)
+	{
+		free(infos->prompt);
+		infos->prompt = NULL;
 		return (FALSE);
+	}
 	return (TRUE);
 }
 
