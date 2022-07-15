@@ -6,13 +6,13 @@
 /*   By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 14:59:57 by xle-baux          #+#    #+#             */
-/*   Updated: 2022/07/14 09:37:10 by xle-baux         ###   ########.fr       */
+/*   Updated: 2022/07/15 12:01:06 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	g_exit_status;
+extern int	g_exit_status;
 
 static t_token	*exit_status_check(t_token *token)
 {

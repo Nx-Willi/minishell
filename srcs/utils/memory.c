@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   memory.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wdebotte <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: wdebotte <wdebotte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 16:49:59 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/06/09 18:30:51 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/07/15 13:24:32 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+extern int	g_exit_status;
 
 void	free_char_tab(char **tab)
 {
@@ -59,10 +61,9 @@ void	free_cmd(t_cmd *cmd)
 	free(cmd);
 }
 
-int	exit_program(int exit_code)
+void	exit_program(int exit_code)
 {
 	ft_putstr("exit\n");
 	rl_clear_history();
 	exit(exit_code);
-	return (exit_code);
 }

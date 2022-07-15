@@ -6,11 +6,13 @@
 /*   By: wdebotte <wdebotte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 12:51:31 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/07/14 08:13:23 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/07/15 12:43:59 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+extern int	g_exit_status;
 
 static void	do_redirections(t_cmd *cmd)
 {
@@ -56,7 +58,7 @@ static int	exec_child(t_cmd *cmd, int *pids, int **pfds)
 		if (is_builtin(cmd->argv[0]))
 		{
 			exec_builtin(cmd);
-			exit(EXIT_SUCCESS);
+			exit(g_exit_status);
 		}
 		exec_cmd(cmd);
 	}

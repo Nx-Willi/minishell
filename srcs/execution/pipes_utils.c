@@ -6,11 +6,13 @@
 /*   By: wdebotte <wdebotte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 18:42:36 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/06/30 18:46:16 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/07/15 13:08:19 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+extern int	g_exit_status;
 
 void	close_pipes(char *error, int **pfds, int idx_pipes, int idx_tab)
 {
@@ -73,5 +75,9 @@ void	retwait_pids(t_infos *infos, int *pids)
 	while (++i < infos->npipes + 1)
 		waitpid(pids[i], &wstatus, 0);
 	if (WIFEXITED(wstatus))
-		infos->wstatus = WEXITSTATUS(wstatus);
+	{
+		g_exit_status = WEXITSTATUS(wstatus);
+		if (WIFSIGNALED(wstatus))
+			g_exit_status = INTERRUPT + WSTOPSIG(wstatus);
+	}
 }

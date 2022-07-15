@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wdebotte <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: wdebotte <wdebotte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 11:26:07 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/06/23 12:41:16 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/07/15 13:26:29 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+extern int	g_exit_status;
 
 static int	is_valid_var(char *var)
 {
@@ -19,6 +21,7 @@ static int	is_valid_var(char *var)
 	if (ft_strchr(var, '=') != NULL)
 	{
 		ft_putstr_fd(SH_NAME": unset: bad variable name\n", 2);
+		g_exit_status = FAILURE;
 		return (FALSE);
 	}
 	i = 0;
@@ -27,11 +30,23 @@ static int	is_valid_var(char *var)
 		if (var[i] == '-' || var[i] == '*' || var[i] == '+')
 		{
 			ft_putstr_fd(SH_NAME": unset: bad variable name\n", 2);
+			g_exit_status = FAILURE;
 			return (FALSE);
 		}
 		i++;
 	}
 	return (TRUE);
+}
+
+static void	cpy_env(t_cmd *cmd, int rem_var)
+{
+	if (rem_var == TRUE)
+	{
+		g_exit_status = SUCCESS;
+		cpy_env_to_char(cmd->infos);
+	}
+	else
+		g_exit_status = FAILURE;
 }
 
 void	builtin_unset(t_cmd *cmd)
@@ -57,6 +72,5 @@ void	builtin_unset(t_cmd *cmd)
 		}
 		i++;
 	}
-	if (rem_var == TRUE)
-		cpy_env_to_char(cmd->infos);
+	cpy_env(cmd, rem_var);
 }

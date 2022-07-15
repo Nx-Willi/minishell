@@ -6,11 +6,13 @@
 /*   By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 12:54:03 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/07/14 08:56:48 by xle-baux         ###   ########.fr       */
+/*   Updated: 2022/07/15 12:01:55 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	g_exit_status = 0;
 
 static void	init_main(t_infos *infos, int argc, char **argv, char **envp)
 {

@@ -6,7 +6,7 @@
 /*   By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 09:45:25 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/07/14 09:21:25 by xle-baux         ###   ########.fr       */
+/*   Updated: 2022/07/15 13:27:36 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,12 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
-# define SH_NAME	"\x1B[2m""miniche""\x1B[0m"
-# define FALSE		0
-# define TRUE		1
-# define CTRL_C		2
-# define READ		0
-# define WRITE		1
+# define SH_NAME		"\x1B[2m""miniche""\x1B[0m"
+# define FALSE			0
+# define TRUE			1
+# define CTRL_C			2
+# define READ			0
+# define WRITE			1
 
 enum	e_type_token
 {
@@ -45,6 +45,16 @@ enum	e_type_token
 	PIPE,
 	DOLLAR,
 	BACKSLASH
+};
+
+enum	e_type_status
+{
+	SUCCESS = 0,
+	FAILURE = 1,
+	PARSING,
+	BAD_PERMIT = 126,
+	DOESNT_EXIST = 127,
+	INTERRUPT = 127
 };
 
 //-Structures-------------------------------------------------------------------
@@ -63,7 +73,6 @@ struct s_env
 
 struct	s_infos
 {
-	int		wstatus;
 	int		npipes;
 	char	*prompt;
 	char	**envp;
@@ -151,12 +160,12 @@ int		**init_pipefds(int npipes);
 //------------------------------------------------------------------------------
 
 //-Utils------------------------------------------------------------------------
-int		exit_program(int exit_code);
 int		is_str_clear(char *str);
 int		_strcmp(char *s1, char *s2);
 
 void	free_char_tab(char **tab);
 void	free_cmd(t_cmd *cmd);
+void	exit_program(int exit_code);
 
 char	*fill_command_path(char *start_path, char *end_path);
 //--Env-------------------------------------------------------------------------

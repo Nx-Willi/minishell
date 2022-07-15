@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wdebotte <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: wdebotte <wdebotte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 14:57:41 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/06/23 12:40:31 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/07/15 13:25:07 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+extern int	g_exit_status;
 
 static int	is_valid_identifier(char *var)
 {
@@ -51,7 +53,12 @@ void	builtin_export(t_cmd *cmd)
 				new_var = TRUE;
 			add_env_var(cmd->infos, cmd->argv[i], FALSE);
 		}
+		else
+			g_exit_status = FAILURE;
 	}
 	if (new_var == TRUE)
+	{
 		cpy_env_to_char(cmd->infos);
+		g_exit_status = SUCCESS;
+	}
 }

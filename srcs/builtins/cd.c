@@ -3,29 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wdebotte <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: wdebotte <wdebotte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 15:40:06 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/06/23 12:39:03 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/07/15 13:26:52 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+extern int	g_exit_status;
 
 static void	open_dir(char *path)
 {
 	if (access(path, F_OK) == -1)
 	{
 		ft_putstr_fd(SH_NAME": cd: No such file or directory\n", 2);
+		g_exit_status = FAILURE;
 		return ;
 	}
 	if (access(path, X_OK) == -1)
 	{
 		ft_putstr_fd(SH_NAME": cd: Permission denied\n", 2);
+		g_exit_status = FAILURE;
 		return ;
 	}
 	if (chdir(path) == -1)
+	{
 		ft_putstr_fd(SH_NAME": cd: Not a directory\n", 2);
+		g_exit_status = FAILURE;
+	}
 }
 
 static void	goto_curdir(t_cmd *cmd)
@@ -48,12 +55,14 @@ void	builtin_cd(t_cmd *cmd)
 	if (path_home == NULL)
 	{
 		ft_putstr_fd(SH_NAME": cd: HOME not set\n", 2);
+		g_exit_status = FAILURE;
 		return ;
 	}
 	if (cmd->argv[1] != NULL && cmd->argv[2] != NULL)
 	{
 		ft_putstr_fd(SH_NAME": cd: Can't move in more than one directory \
 at the same time\n", 2);
+		g_exit_status = FAILURE;
 		return ;
 	}
 	set_oldpwd_var(cmd->infos);
@@ -64,4 +73,5 @@ at the same time\n", 2);
 	else
 		goto_curdir(cmd);
 	set_pwd_var(cmd->infos);
+	g_exit_status = SUCCESS;
 }
