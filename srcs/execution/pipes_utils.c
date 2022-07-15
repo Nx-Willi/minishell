@@ -6,7 +6,7 @@
 /*   By: wdebotte <wdebotte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 18:42:36 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/07/15 13:08:19 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/07/15 14:35:37 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ void	retwait_pids(t_infos *infos, int *pids)
 	i = -1;
 	while (++i < infos->npipes + 1)
 		waitpid(pids[i], &wstatus, 0);
+	free(pids);
 	if (WIFEXITED(wstatus))
 	{
 		g_exit_status = WEXITSTATUS(wstatus);
