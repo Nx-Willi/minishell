@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoli.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wdebotte <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: wdebotte <wdebotte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 14:41:53 by wdebotte          #+#    #+#             */
 /*   Updated: 2022/04/04 10:25:54 by wdebotte         ###   ########.fr       */
