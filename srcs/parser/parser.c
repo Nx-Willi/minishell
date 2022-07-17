@@ -6,7 +6,7 @@
 /*   By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 09:42:00 by xlb               #+#    #+#             */
-/*   Updated: 2022/07/14 09:14:40 by xle-baux         ###   ########.fr       */
+/*   Updated: 2022/07/17 22:07:57 by xle-baux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ t_cmd	*parsing(t_infos *infos, char *input)
 
 	token = get_tokens(input);
 	token_address = token;
+	format_dollar_in_quote(token);
 	dollar_format(infos, token);
 	if (join_quotes(token))
 		return (free_token(token_address), NULL);

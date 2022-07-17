@@ -6,7 +6,7 @@
 /*   By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 12:06:17 by xlb               #+#    #+#             */
-/*   Updated: 2022/05/30 13:18:48 by xle-baux         ###   ########.fr       */
+/*   Updated: 2022/07/17 22:03:34 by xle-baux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static int	token_len(char *input)
 	char	*tok;
 	int		len;
 
-	tok = "\"'\n \t><|$\\";
+	tok = "\"'\n \t><|$\\?";
 	len = 0;
 	if (ft_strchr(tok, (int)input[len]))
 	{
@@ -43,20 +43,10 @@ static t_token	*add_token(void)
 	if (!token)
 		return (NULL);
 	token->type = 0;
+	token->content = NULL;
 	token->next = NULL;
 	return (token);
 }
-
-/* static void get_token_char(char* content, char *input, int size)
-{
-	int	i;
-
-	i = -1;
-	content = malloc(sizeof(char) * (size + 1));
-	while (++i < size)
-		content[i] = input[i];
-	content[i] = '\0';
-} */
 
 static int	get_token_type(char *token)
 {

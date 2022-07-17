@@ -6,7 +6,7 @@
 /*   By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 09:45:25 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/07/17 21:32:02 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/07/18 00:30:48 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ enum	e_type_token
 	D_LESS,
 	PIPE,
 	DOLLAR,
-	BACKSLASH
+	BACKSLASH,
 };
 
 enum	e_type_status
@@ -66,6 +66,7 @@ int		check_syntax(t_token *token);
 void	dollar_format(t_infos *infos, t_token *token);
 void	cat_word(t_token *token);
 void	add_id(t_cmd *cmd);
+void	format_dollar_in_quote(t_token *token);
 
 t_cmd	*parsing(t_infos *infos, char *input);
 t_cmd	*command_set(t_infos *infos, t_token *token);

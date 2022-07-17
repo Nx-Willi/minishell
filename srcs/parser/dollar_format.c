@@ -6,7 +6,7 @@
 /*   By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 14:59:57 by xle-baux          #+#    #+#             */
-/*   Updated: 2022/07/15 13:40:44 by xle-baux         ###   ########.fr       */
+/*   Updated: 2022/07/17 22:05:07 by xle-baux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,11 +55,13 @@ void	dollar_format(t_infos *infos, t_token *token)
 {
 	while (token != NULL)
 	{
-		if (token->type == DOLLAR && (token->next->type == 0
-				|| token->next->type == WHITE_SPACE))
-			token->type = WORD;
-		else if (token->type == DOLLAR && _strcmp(token->next->content, "?"))
+		if (token->type == DOLLAR && _strcmp(token->next->content, "?"))
 			token = exit_status_check(token);
+		else if (token->type == DOLLAR && (token->next->type == 0
+				|| token->next->type == WHITE_SPACE
+				|| token->next->type == QUOTE
+				|| token->next->type == D_QUOTE))
+			token->type = WORD;
 		else if (token->type == DOLLAR)
 			token = get_env(infos, token);
 		token = token->next;
