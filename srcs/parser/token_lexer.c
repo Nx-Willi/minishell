@@ -6,7 +6,7 @@
 /*   By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 12:06:17 by xlb               #+#    #+#             */
-/*   Updated: 2022/07/17 21:13:21 by xle-baux         ###   ########.fr       */
+/*   Updated: 2022/07/17 22:03:34 by xle-baux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ static t_token	*add_token(void)
 	if (!token)
 		return (NULL);
 	token->type = 0;
+	token->content = NULL;
 	token->next = NULL;
 	return (token);
 }

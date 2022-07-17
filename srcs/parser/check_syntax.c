@@ -6,7 +6,7 @@
 /*   By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 11:16:59 by xle-baux          #+#    #+#             */
-/*   Updated: 2022/07/17 21:14:04 by xle-baux         ###   ########.fr       */
+/*   Updated: 2022/07/17 21:35:50 by xle-baux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	format_dollar_in_quote(t_token *token)
 {
 	int	inside_quote;
 
+	inside_quote = -1;
 	while (token)
 	{
 		if (token->next && token->type == QUOTE)
