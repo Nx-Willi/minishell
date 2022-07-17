@@ -6,7 +6,7 @@
 /*   By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 09:45:25 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/07/17 15:47:02 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/07/17 17:31:15 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,7 @@ void	remove_env_var(t_infos *infos, char *var);
 void	cpy_env_to_lst(t_infos *infos, char **envp);
 void	cpy_env_to_char(t_infos *infos);
 void	set_pwd_var(t_infos *infos);
-void	set_oldpwd_var(t_infos *infos);
+void	set_oldpwd_var(t_infos *infos, char *old_path);
 
 char	*get_env_var_value(t_infos *infos, char *var);
 t_env	*new_env_var(char *var, int from_env);

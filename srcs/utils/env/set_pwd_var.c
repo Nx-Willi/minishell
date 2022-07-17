@@ -6,7 +6,7 @@
 /*   By: wdebotte <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 10:45:48 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/06/03 13:45:22 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/07/17 17:36:02 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,32 @@ void	set_pwd_var(t_infos *infos)
 	free(curdir);
 }
 
-void	set_oldpwd_var(t_infos *infos)
+static void	set_relativepwd_var(t_infos *infos, char *old_path)
+{
+	int			i[2];
+	static char	path[] = "";
+
+	path[0] = '\0';
+	ft_strlcat(path, "OLDPWD=", 8);
+	i[0] = 7;
+	i[1] = -1;
+	while (old_path[++i[1]] != '\0')
+		path[i[0] + i[1]] = old_path[i[1]];
+	path[i[0] + i[1]] = '\0';
+	add_env_var(infos, path, FALSE);
+}
+
+void	set_oldpwd_var(t_infos *infos, char *old_path)
 {
 	int			i[2];
 	char		*curdir;
 	static char	path[] = "";
 
+	if (old_path != NULL)
+	{
+		set_relativepwd_var(infos, old_path);
+		return ;
+	}
 	curdir = getcwd(NULL, 0);
 	if (curdir == NULL)
 		return ;
