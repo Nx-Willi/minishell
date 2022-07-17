@@ -6,7 +6,7 @@
 /*   By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 09:45:25 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/07/17 17:31:15 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/07/17 21:32:02 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,8 @@ int		is_builtin(char *cmd_name);
 
 void	exec_builtin(t_cmd *cmd);
 void	builtin_export(t_cmd *cmd);
+void	puterror(char *arg);
+void	print_env(t_env *env);
 void	builtin_unset(t_cmd *cmd);
 void	builtin_env(t_infos *infos);
 void	builtin_echo(t_cmd *cmd);

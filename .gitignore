@@ -1,5 +1,6 @@
 .vscode
 .swp
+.nfs*
 minishell
 
 # Prerequisites

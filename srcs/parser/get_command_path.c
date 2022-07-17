@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   get_command_path.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wdebotte <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: wdebotte <wdebotte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 14:35:36 by wdebotte          #+#    #+#             */
 /*   Updated: 2022/06/24 14:57:46 by wdebotte         ###   ########.fr       */

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_add_and_remove.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wdebotte <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: wdebotte <wdebotte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 17:42:43 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/06/03 13:53:34 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/07/18 00:22:50 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static void	replace_env_var(t_env *env, char *var)
 				env->from_env = FALSE;
 			env->variable = ft_substr(var, 0, ft_strlen(var) + 1);
 			if (env->variable == NULL)
-				printf("Error: malloc: env->variable in replace_env_var\n");
+				printf("Error: malloc: replace_env_var\n");
 			break ;
 		}
 		env = env->next;
@@ -72,10 +72,6 @@ void	add_env_var(t_infos *infos, char *var, int from_env)
 		replace_env_var(tmp, var);
 }
 
-/* Can segfault because isn't protected
-if (infos->env != NULL)
-	return ;
-*/
 void	remove_env_var(t_infos *infos, char *var)
 {
 	t_env	*tmp;

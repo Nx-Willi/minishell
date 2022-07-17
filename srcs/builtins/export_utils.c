@@ -1,36 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   varcmp.c                                           :+:      :+:    :+:   */
+/*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wdebotte <wdebotte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/24 17:42:43 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/05/30 15:46:30 by wdebotte         ###   ########.fr       */
+/*   Created: 2022/07/17 20:26:25 by wdebotte          #+#    #+#             */
+/*   Updated: 2022/07/17 21:32:41 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	varcmp(char *var1, char *var2)
+void	puterror(char *arg)
 {
-	size_t	i;
-	size_t	n;
+	ft_putstr_fd(SH_NAME": export: ", 2);
+	ft_putchar_fd('\'', 2);
+	ft_putstr_fd(arg, 2);
+	ft_putstr_fd("\': not a valid identifier\n", 2);
+}
 
-	i = 0;
-	while (var1[i] != '\0' && var1[i] != '=')
-		i++;
-	n = 0;
-	while (var2[n] != '\0' && var2[n] != '=')
-		n++;
-	if (i != n)
-		return (FALSE);
-	i = 0;
-	while ((var1[i] != '\0' && var2[i] != '\0') && i <= n)
+void	print_env(t_env *env)
+{
+	int	i;
+
+	while (env != NULL)
 	{
-		if (var1[i] != var2[i])
-			return (FALSE);
+		i = 0;
+		ft_putstr("declare -x ");
+		while (env->variable[i] != '=')
+			ft_putchar(env->variable[i++]);
+		ft_putstr("=\"");
 		i++;
+		ft_putstr(env->variable + i);
+		ft_putstr("\"\n");
+		env = env->next;
 	}
-	return (TRUE);
 }

@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   is_str_clear.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wdebotte <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: wdebotte <wdebotte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 10:03:30 by wdebotte          #+#    #+#             */
 /*   Updated: 2022/05/26 10:04:49 by wdebotte         ###   ########.fr       */

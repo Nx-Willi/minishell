@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   strcmp.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wdebotte <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: wdebotte <wdebotte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 13:21:08 by wdebotte          #+#    #+#             */
 /*   Updated: 2022/05/26 13:25:53 by wdebotte         ###   ########.fr       */

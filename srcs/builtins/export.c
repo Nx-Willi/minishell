@@ -6,35 +6,81 @@
 /*   By: wdebotte <wdebotte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 14:57:41 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/07/15 13:25:07 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/07/18 00:18:13 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+#define PLUSEQUAL 3
+
 extern int	g_exit_status;
 
-static int	is_valid_identifier(char *var)
+static int	is_valid_identifier(char *arg)
 {
 	int	i;
 
 	i = 0;
-	while (var[i] != '\0' && var[i] != '=')
+	while (arg[i] != '\0' && arg[i] != '=')
 	{
-		if (var[i] == '-' || var[i] == '*' || var[i] == '+')
+		if ((i == 0 && !ft_isalpha(arg[i])) 
+			|| (arg[i] == '*' || arg[i] == '-'))
 		{
-			ft_putstr_fd(SH_NAME": export: bad variable name\n", 2);
+			puterror(arg);
 			return (FALSE);
 		}
 		i++;
 	}
 	if (i == 0)
 	{
-		ft_putstr_fd(SH_NAME": export: bad variable name\n", 2);
+		puterror(arg);
 		return (FALSE);
 	}
-	if (ft_strchr(var, '=') == NULL)
+	if (ft_strchr(arg, '=') == NULL)
 		return (FALSE);
+	if (arg[i] == '=' && arg[i - 1] == '+')
+		return (PLUSEQUAL);
+	return (TRUE);
+}
+
+static void	add_to_existing_var(t_infos *inf, char *arg)
+{
+	int			i;
+	char		*var_value;
+	char		*new_value;
+	char		*new_variable;
+	static char	var[] = "";
+
+	var[0] = '\0';
+	i = -1;
+	while (arg[++i] != '\0' && arg[i] != '+')
+		var[i] = arg[i];
+	var[i] = '\0';
+	var_value = get_env_var_value(inf, var);
+	new_value = ft_strjoin(var_value, arg + ft_strlen(var) + 2);
+	var[i++] = '=';
+	var[i] = '\0';
+	new_variable = ft_strjoin(var, new_value);
+	add_env_var(inf, new_variable, FALSE);
+	free(new_value);
+	free(new_variable);
+}
+
+static int	add_var(t_cmd *cmd, char *arg)
+{
+	int	status;
+
+	status = is_valid_identifier(arg);
+	if (status == FALSE)
+	{
+		g_exit_status = FAILURE;
+		return (FALSE);
+	}
+	else if (status == PLUSEQUAL)
+		add_to_existing_var(cmd->infos, arg);
+	else
+		add_env_var(cmd->infos, arg, FALSE);
+	g_exit_status = SUCCESS;
 	return (TRUE);
 }
 
@@ -44,21 +90,20 @@ void	builtin_export(t_cmd *cmd)
 	int	new_var;
 
 	new_var = FALSE;
+	if (cmd->argv[1] == NULL)
+	{
+		print_env(cmd->infos->env);
+		g_exit_status = SUCCESS;
+		return ;
+	}
 	i = 0;
 	while (cmd->argv[++i] != NULL)
 	{
-		if (is_valid_identifier(cmd->argv[i]) == TRUE)
-		{
-			if (new_var == FALSE)
-				new_var = TRUE;
-			add_env_var(cmd->infos, cmd->argv[i], FALSE);
-		}
+		if (add_var(cmd, cmd->argv[i]) == FALSE)
+			continue ;
 		else
-			g_exit_status = FAILURE;
+			new_var = TRUE;
 	}
 	if (new_var == TRUE)
-	{
 		cpy_env_to_char(cmd->infos);
-		g_exit_status = SUCCESS;
-	}
 }
