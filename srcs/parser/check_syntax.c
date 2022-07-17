@@ -6,7 +6,7 @@
 /*   By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 11:16:59 by xle-baux          #+#    #+#             */
-/*   Updated: 2022/06/26 20:18:03 by xle-baux         ###   ########.fr       */
+/*   Updated: 2022/07/17 21:14:04 by xle-baux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,4 +33,30 @@ int	check_syntax(t_token *token)
 	if (check_pipe(token) == FALSE)
 		return (printf(SH_NAME": syntax error pipe\n"), FALSE);
 	return (TRUE);
+}
+
+void	format_dollar_in_quote(t_token *token)
+{
+	int	inside_quote;
+
+	while (token)
+	{
+		if (token->next && token->type == QUOTE)
+		{
+			inside_quote = TRUE;
+			token = token->next;
+		}
+		if (token->next && inside_quote == TRUE && token->type
+			!= QUOTE && token->type != D_QUOTE)
+		{
+			token->type = WORD;
+			token = token->next;
+		}
+		if (token->next && token->type == QUOTE)
+		{
+			inside_quote = FALSE;
+			token = token->next;
+		}
+		token = token->next;
+	}
 }
