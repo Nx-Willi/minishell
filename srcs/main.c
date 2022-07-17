@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wdebotte <wdebotte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 12:54:03 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/07/15 14:22:13 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/07/17 13:38:16 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,15 +40,11 @@ static int	get_line_infos(t_infos *infos)
 	if (!is_str_clear(infos->prompt))
 		add_history(infos->prompt);
 	else
-	{
-		free(infos->prompt);
 		return (FALSE);
-	}
 	infos->cmd = parsing(infos, infos->prompt);
 	if (infos->cmd == NULL)
 	{
-		free(infos->prompt);
-		infos->prompt = NULL;
+		g_exit_status = 2;
 		return (FALSE);
 	}
 	return (TRUE);
@@ -61,12 +57,13 @@ int	main(int argc, char **argv, char **envp)
 	init_main(&infos, argc, argv, envp);
 	while (1)
 	{
-		if (get_line_infos(&infos) == FALSE)
-			continue ;
-		exec_commands(&infos);
+		if (get_line_infos(&infos) == TRUE)
+		{
+			exec_commands(&infos);
+			free_cmd(infos.cmd);
+		}
 		free(infos.prompt);
 		infos.prompt = NULL;
-		free_cmd(infos.cmd);
 	}
 	return (0);
 }

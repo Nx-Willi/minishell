@@ -6,7 +6,7 @@
 /*   By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 09:45:25 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/07/15 13:27:36 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/07/17 15:47:02 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define MINISHELL_H
 
 # include "libft.h"
+# include "structures.h"
 # include <stdio.h>
 # include <stdlib.h>
 # include <dirent.h>
@@ -56,57 +57,6 @@ enum	e_type_status
 	DOESNT_EXIST = 127,
 	INTERRUPT = 127
 };
-
-//-Structures-------------------------------------------------------------------
-typedef struct s_infos		t_infos;
-typedef struct s_env		t_env;
-typedef struct s_token_type	t_token_type;
-typedef struct s_token		t_token;
-typedef struct s_cmd		t_cmd;
-
-struct s_env
-{
-	int		from_env;
-	char	*variable;
-	t_env	*next;
-};
-
-struct	s_infos
-{
-	int		npipes;
-	char	*prompt;
-	char	**envp;
-	t_env	*env;
-	t_cmd	*cmd;
-};
-
-struct s_cmd
-{
-	int		id;
-	int		fd_in;
-	int		fdin_tmp;
-	int		fd_out;
-	int		fdout_tmp;
-	char	*cmd_path;
-	char	**argv;
-	t_cmd	*prev;
-	t_cmd	*next;
-	t_infos	*infos;
-};
-
-struct s_token_type
-{
-	char	*type;
-	int		id;
-};
-
-struct s_token
-{
-	int		type;
-	char	*content;
-	t_token	*next;
-};
-//------------------------------------------------------------------------------
 
 //-Parser-----------------------------------------------------------------------
 int		count_commands(t_token *token);
