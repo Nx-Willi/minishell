@@ -6,7 +6,7 @@
 #    By: wdebotte <wdebotte@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/18 14:12:28 by wdebotte          #+#    #+#              #
-#    Updated: 2022/07/17 20:28:13 by wdebotte         ###   ########.fr        #
+#    Updated: 2022/07/18 14:47:39 by wdebotte         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,10 +58,7 @@ INCS		= -I${PATHHEADERS} -I${PATHLIBFT}${PATHHEADERS}
 
 RM			= rm -rf
 MAKE		= make -C
-
 NORM		= norminette
-FLAGC		= -R CheckForbiddenSourceHeader
-FLAGH		= -R CheckDefine
 
 LIBFT		= -L${PATHLIBFT} -lft
 
@@ -92,10 +89,10 @@ fclean:		clean
 
 norminette:
 				@echo "${BOLD}${YELLOW}Norminette:${END}\tAll .c files"
-				${NORM} ${FLAGC} ${SRCS}
+				${NORM} ${SRCS}
 				@echo "${BOLD}${GREEN}Norminette:${END}\tOK !\n"
 				@echo "${BOLD}${YELLOW}Norminette:${END}\tAll .h files"
-				${NORM} ${FLAGH} ${HEADERS}
+				${NORM} ${HEADERS}
 				@echo "${BOLD}${GREEN}Norminette:${END}\tOK !"
 
 re:			fclean all
