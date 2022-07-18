@@ -6,7 +6,7 @@
 /*   By: wdebotte <wdebotte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 14:57:41 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/07/18 00:18:13 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/07/18 14:46:43 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	is_valid_identifier(char *arg)
 	i = 0;
 	while (arg[i] != '\0' && arg[i] != '=')
 	{
-		if ((i == 0 && !ft_isalpha(arg[i])) 
+		if ((i == 0 && !ft_isalpha(arg[i]))
 			|| (arg[i] == '*' || arg[i] == '-'))
 		{
 			puterror(arg);

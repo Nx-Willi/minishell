@@ -6,7 +6,7 @@
 /*   By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 09:45:25 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/07/18 00:30:48 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/07/18 14:45:25 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
-# define SH_NAME		"\x1B[2m""miniche""\x1B[0m"
+//# define SH_NAME		"\x1B[2m""miniche""\x1B[0m"
+# define SH_NAME		"\x1B[2mminiche\x1B[0m"
 # define FALSE			0
 # define TRUE			1
 # define CTRL_C			2
