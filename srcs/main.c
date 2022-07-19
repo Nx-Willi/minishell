@@ -6,7 +6,7 @@
 /*   By: wdebotte <wdebotte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 12:54:03 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/07/17 13:38:16 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/07/19 16:43:10 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,15 @@ int	main(int argc, char **argv, char **envp)
 	{
 		if (get_line_infos(&infos) == TRUE)
 		{
-			exec_commands(&infos);
+			if (infos.npipes == 0)
+			{
+				if (is_builtin(infos.cmd->argv[0]))
+					exec_builtin(infos.cmd);
+				else
+					exec_simple(infos.cmd);
+			}
+			else
+				exec_pipes(&infos);
 			free_cmd(infos.cmd);
 		}
 		free(infos.prompt);
