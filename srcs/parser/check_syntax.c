@@ -6,7 +6,7 @@
 /*   By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 11:16:59 by xle-baux          #+#    #+#             */
-/*   Updated: 2022/07/17 21:35:50 by xle-baux         ###   ########.fr       */
+/*   Updated: 2022/07/19 15:44:02 by xle-baux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 
 static int	check_pipe(t_token *token)
 {
+	token = ignore_white_space(token);
+	if (token->type == PIPE)
+		return (FALSE);
 	while (token->next)
 	{
 		if (token->type == PIPE)
@@ -25,13 +28,6 @@ static int	check_pipe(t_token *token)
 		}
 		token = token->next;
 	}
-	return (TRUE);
-}
-
-int	check_syntax(t_token *token)
-{
-	if (check_pipe(token) == FALSE)
-		return (printf(SH_NAME": syntax error pipe\n"), FALSE);
 	return (TRUE);
 }
 
@@ -60,4 +56,13 @@ void	format_dollar_in_quote(t_token *token)
 		}
 		token = token->next;
 	}
+}
+
+int	check_syntax(t_token *token)
+{
+	if (check_pipe(token) == FALSE)
+		return (printf(SH_NAME": syntax error pipe\n"), FALSE);
+	if (check_redir(token) == FALSE)
+		return (FALSE);
+	return (TRUE);
 }
