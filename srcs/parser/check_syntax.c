@@ -6,7 +6,7 @@
 /*   By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 11:16:59 by xle-baux          #+#    #+#             */
-/*   Updated: 2022/07/19 14:40:56 by xle-baux         ###   ########.fr       */
+/*   Updated: 2022/07/19 15:44:02 by xle-baux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,5 +62,7 @@ int	check_syntax(t_token *token)
 {
 	if (check_pipe(token) == FALSE)
 		return (printf(SH_NAME": syntax error pipe\n"), FALSE);
+	if (check_redir(token) == FALSE)
+		return (FALSE);
 	return (TRUE);
 }

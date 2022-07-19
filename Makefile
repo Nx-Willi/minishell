@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: wdebotte <wdebotte@student.42.fr>          +#+  +:+       +#+         #
+#    By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/18 14:12:28 by wdebotte          #+#    #+#              #
-#    Updated: 2022/07/17 13:38:55 by wdebotte         ###   ########.fr        #
+#    Updated: 2022/07/19 14:57:53 by xle-baux         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,7 +47,7 @@ SRCS		= $(addprefix ${PATHSRCS}, main.c) \
 			$(addprefix ${PATHSRCS}parser/, parser.c token_lexer.c \
 						quotes_format.c dollar_format.c cat_word.c tools.c \
 						command_set.c tmp_tools.c get_command_path.c \
-						check_syntax.c redir.c heredoc.c)
+						check_syntax.c redir.c heredoc.c check_redir_syntax.c)
 
 OBJS		= ${SRCS:.c=.o}
 HEADERS		= ${PATHHEADERS}
