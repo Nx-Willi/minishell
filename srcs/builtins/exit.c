@@ -6,7 +6,7 @@
 /*   By: wdebotte <wdebotte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 16:39:26 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/07/18 17:15:43 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/07/19 16:10:01 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,44 +14,72 @@
 
 extern int	g_exit_status;
 
+static unsigned long long	atoull(char *str)
+{
+	int					is_negativ;
+	unsigned long long	number;
+
+	number = 0;
+	is_negativ = 1;
+	while (*str && is_whitespace(*str))
+		str++;
+	if (*str && (*str == '-' || *str == '+'))
+		if (*(str++) == '-')
+			is_negativ = -is_negativ;
+	while (*str && (*str >= '0' && *str <= '9'))
+		number = number * 10 + *(str++) - 48;
+	return (number * is_negativ);
+}
+
 static int	is_arg_correct(char *arg)
 {
 	int	i;
 
 	i = 0;
+	if (arg[i] == '-' || arg[i] == '+')
+		i++;
 	while (arg[i] != '\0')
 	{
 		if (!ft_isdigit(arg[i]))
 			return (FALSE);
 		i++;
 	}
+	if (arg[0] == '-' && atoull(arg + 1) > ULLLIMIT + 1)
+		return (FALSE);
+	else if (arg[0] != '-' && atoull(arg) > ULLLIMIT)
+		return (FALSE);
 	return (TRUE);
+}
+
+static long long int	get_exit_status(t_cmd *cmd)
+{
+	if (cmd->argv[1] != NULL && !is_arg_correct(cmd->argv[1]))
+	{
+		ft_putstr_fd(SH_NAME": exit: ", 2);
+		ft_putstr_fd(cmd->argv[1], 2);
+		ft_putstr_fd(": numeric argument required\n", 2);
+		return (FAILURE + 1);
+	}
+	if (cmd->argv[1] != NULL && cmd->argv[2] != NULL)
+	{
+		ft_putstr_fd(SH_NAME": exit: too many arguments\n", 2);
+		return (FAILURE);
+	}
+	return (atoull(cmd->argv[1]) & 0377);
 }
 
 void	builtin_exit(t_cmd *cmd)
 {
 	int	exit_status;
 
-	if (cmd->next != NULL || cmd->prev != NULL)
-		exit_status = 1;
-	else
-		exit_status = 0;
 	if (isatty(STDIN_FILENO))
 		ft_putstr("exit\n");
-	if (cmd->argv[1] != NULL && !is_arg_correct(cmd->argv[1]))
-	{
-		ft_putstr_fd(SH_NAME": exit: ", 2);
-		ft_putstr_fd(cmd->argv[1], 2);
-		ft_putstr_fd(": numeric argument required\n", 2);
-		//bash exit the program with printing exit => exit_program(status)
-		//have to check exit value
-	}
-	if (cmd->argv[1] != NULL && cmd->argv[2] != NULL)
-	{
-		ft_putstr_fd(SH_NAME": exit: too many arguments\n", 2);
-		g_exit_status = FAILURE;
-		return ;
-	}
+	if (cmd->argv[1] != NULL)
+		exit_status = get_exit_status(cmd);
 	else
-		//Only one argument, get atoi of him and goto exit_program(status)
+		exit_status = SUCCESS;
+	if (exit_status != FAILURE)
+		exit(exit_status);
+	else
+		g_exit_status = FAILURE;
 }
