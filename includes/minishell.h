@@ -6,7 +6,7 @@
 /*   By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 09:45:25 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/07/19 15:47:32 by xle-baux         ###   ########.fr       */
+/*   Updated: 2022/07/19 16:18:51 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,13 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
-//# define SH_NAME		"\x1B[2m""miniche""\x1B[0m"
-# define SH_NAME		"\x1B[2mminiche\x1B[0m"
-# define FALSE			0
-# define TRUE			1
-# define CTRL_C			2
-# define READ			0
-# define WRITE			1
+# define SH_NAME	"\x1B[2mminiche\x1B[0m"
+# define FALSE		0
+# define TRUE		1
+# define CTRL_C		2
+# define READ		0
+# define WRITE		1
+# define ULLLIMIT	9223372036854775807UL
 
 enum	e_type_token
 {
@@ -99,7 +99,7 @@ void	builtin_env(t_infos *infos);
 void	builtin_echo(t_cmd *cmd);
 void	builtin_cd(t_cmd *cmd);
 void	builtin_pwd(void);
-void	builtin_exit(t_infos *infos);
+void	builtin_exit(t_cmd *cmd);
 //------------------------------------------------------------------------------
 
 //-Execution--------------------------------------------------------------------

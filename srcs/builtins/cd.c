@@ -6,7 +6,7 @@
 /*   By: wdebotte <wdebotte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 15:40:06 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/07/17 18:08:59 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/07/19 14:27:49 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ static void	open_dir(char *path)
 		ft_putstr_fd(SH_NAME": cd: Not a directory\n", 2);
 		g_exit_status = FAILURE;
 	}
+	else
+		g_exit_status = SUCCESS;
 }
 
 static void	change_wcurdir(t_cmd *cmd)
@@ -65,19 +67,18 @@ static void	change_directory(t_cmd *cmd, char *path_home)
 		oldpwd_var = get_env_var_value(cmd->infos, "OLDPWD");
 		if (oldpwd_var != NULL)
 		{
-			printf("%s\n", oldpwd_var);
+			ft_putstr(oldpwd_var);
+			ft_putchar('\n');
 			open_dir(oldpwd_var);
 		}
 		else
 		{
 			ft_putstr_fd(SH_NAME": cd: OLDPWD not set\n", 2);
 			g_exit_status = FAILURE;
-			return ;
 		}
 	}
 	else
 		change_wcurdir(cmd);
-	g_exit_status = SUCCESS;
 }
 
 void	builtin_cd(t_cmd *cmd)

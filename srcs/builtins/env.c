@@ -6,7 +6,7 @@
 /*   By: wdebotte <wdebotte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 15:10:52 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/07/15 13:23:00 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/07/18 15:01:15 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,11 @@ void	builtin_env(t_infos *infos)
 	t_env	*tmp;
 
 	if (infos->env == NULL)
+	{
+		ft_putstr_fd(SH_NAME": env: Unable to find environment!\n", 2);
+		g_exit_status = FAILURE;
 		return ;
+	}
 	tmp = infos->env;
 	while (tmp != NULL)
 	{

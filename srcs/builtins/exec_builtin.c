@@ -6,7 +6,7 @@
 /*   By: wdebotte <wdebotte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 10:19:01 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/07/15 13:24:50 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/07/18 16:41:31 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,5 @@ void	exec_builtin(t_cmd *cmd)
 	else if (_strcmp(cmd->argv[0], "pwd") == TRUE)
 		builtin_pwd();
 	else if (_strcmp(cmd->argv[0], "exit") == TRUE)
-		exit_program(SUCCESS);
+		builtin_exit(cmd);
 }
