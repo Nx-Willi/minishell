@@ -6,7 +6,7 @@
 /*   By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 11:56:18 by xle-baux          #+#    #+#             */
-/*   Updated: 2022/06/22 14:53:41 by xle-baux         ###   ########.fr       */
+/*   Updated: 2022/07/20 14:33:17 by xle-baux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static t_token	*clean_quotes(t_token *token, int open_quote)
 		token->next = tmp;
 	}
 	if (token->content == NULL)
-		token->type = 0;
+		token->type = WORD;
 	tmp = token->next->next;
 	free(token->next->content);
 	free(token->next);

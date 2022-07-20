@@ -6,7 +6,7 @@
 /*   By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 14:37:56 by xle-baux          #+#    #+#             */
-/*   Updated: 2022/07/20 13:44:17 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/07/20 14:39:11 by xle-baux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,6 @@ static t_token	*create_d_great_files(t_token *token, t_cmd *cmd)
 	return (token);
 }
 
-//return (printf(SH_NAME": %s: No such file or directory\n" token->content),
-//NULL);
 static t_token	*get_less_files(t_token *token, t_cmd *cmd)
 {
 	while (token->type == LESS)
