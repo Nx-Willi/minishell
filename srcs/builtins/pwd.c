@@ -6,7 +6,7 @@
 /*   By: wdebotte <wdebotte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 11:54:19 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/07/15 13:25:37 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/07/20 18:00:09 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,18 @@
 
 extern int	g_exit_status;
 
-void	builtin_pwd(void)
+void	builtin_pwd(t_infos *infos)
 {
 	char	*buffer;
 
 	buffer = getcwd(NULL, 0);
-	ft_putstr(buffer);
+	if (buffer == NULL)
+		ft_putstr(get_env_var_value(infos, "PWD"));
+	else
+	{
+		ft_putstr(buffer);
+		free(buffer);
+	}
 	ft_putchar('\n');
-	free(buffer);
 	g_exit_status = SUCCESS;
 }
