@@ -6,7 +6,7 @@
 /*   By: wdebotte <wdebotte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 12:54:03 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/07/20 13:35:02 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/07/20 16:49:44 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,19 @@ static int	get_line_infos(t_infos *infos)
 	return (TRUE);
 }
 
+static void	exec_commands(t_infos *infos)
+{
+	if (infos->npipes == 0)
+	{
+		if (is_builtin(infos->cmd->argv[0]))
+			redir_builtin(infos->cmd);
+		else
+			exec_simple(infos->cmd);
+	}
+	else
+		exec_pipes(infos);
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	t_infos	infos;
@@ -59,15 +72,7 @@ int	main(int argc, char **argv, char **envp)
 	{
 		if (get_line_infos(&infos) == TRUE)
 		{
-			if (infos.npipes == 0)
-			{
-				if (is_builtin(infos.cmd->argv[0]))
-					exec_builtin(infos.cmd);
-				else
-					exec_simple(infos.cmd);
-			}
-			else
-				exec_pipes(&infos);
+			exec_commands(&infos);
 			free_cmd(infos.cmd);
 		}
 		free(infos.prompt);

@@ -6,7 +6,7 @@
 /*   By: wdebotte <wdebotte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 15:44:38 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/07/17 21:34:24 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/07/20 16:53:22 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	exec_cmd(t_cmd *cmd)
 		printerror(cmd, "Permission denied\n");
 		exit(BAD_PERMIT);
 	}
-	execve(cmd->cmd_path, cmd->argv, cmd->infos->envp);
+	if (cmd->fd_in != -1)
+		execve(cmd->cmd_path, cmd->argv, cmd->infos->envp);
 	exit(FAILURE);
 }
