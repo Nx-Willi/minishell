@@ -6,7 +6,7 @@
 /*   By: wdebotte <wdebotte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 12:51:31 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/07/17 15:32:02 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/07/20 13:54:45 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ extern int	g_exit_status;
 
 static void	do_redirections(t_cmd *cmd)
 {
-	if (cmd->fd_in != STDIN_FILENO)
+	if (cmd->fd_in != STDIN_FILENO && cmd->fd_in != -1)
 	{
 		cmd->fdin_tmp = dup(STDIN_FILENO);
 		close(STDIN_FILENO);
@@ -32,7 +32,7 @@ static void	do_redirections(t_cmd *cmd)
 
 static void	clean_redirections(t_cmd *cmd)
 {
-	if (cmd->fd_in != STDIN_FILENO)
+	if (cmd->fd_in != STDIN_FILENO && cmd->fd_in != -1)
 		dup2(cmd->fdin_tmp, STDIN_FILENO);
 	if (cmd->fd_out != STDOUT_FILENO)
 		dup2(cmd->fdout_tmp, STDOUT_FILENO);

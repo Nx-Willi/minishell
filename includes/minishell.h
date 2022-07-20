@@ -6,7 +6,7 @@
 /*   By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 09:45:25 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/07/19 16:35:49 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/07/20 13:52:29 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,6 @@
 # define FALSE		0
 # define TRUE		1
 # define CTRL_C		2
-# define READ		0
-# define WRITE		1
 # define ULLLIMIT	9223372036854775807UL
 
 enum	e_type_token
