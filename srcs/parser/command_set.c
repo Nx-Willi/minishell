@@ -6,7 +6,7 @@
 /*   By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 13:05:43 by xle-baux          #+#    #+#             */
-/*   Updated: 2022/07/17 15:33:25 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/07/20 16:45:45 by xle-baux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static t_token	*add_word_to_arg(t_token *token, t_cmd *cmd)
 	i = 0;
 	while (token != NULL && token->next && token->type != PIPE)
 	{
-		if (token->type == WORD)
+		if (token->type == WORD && token->content != NULL)
 			cmd->argv[i++] = ft_strdup(token->content);
 		if (token->type == GREAT || token->type == D_GREAT
 			|| token->type == LESS || token->type == D_LESS)
