@@ -6,7 +6,7 @@
 /*   By: wdebotte <wdebotte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 15:40:06 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/07/19 14:27:49 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/07/20 18:31:47 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,14 @@ static void	change_wcurdir(t_cmd *cmd)
 	current_workdir = getcwd(NULL, 0);
 	if (cmd->argv[1][0] == '~')
 		path_to = fill_command_path(current_workdir, cmd->argv[1] + 1);
-	else
+	else if (current_workdir != NULL)
 		path_to = fill_command_path(current_workdir, cmd->argv[1]);
+	else
+	{
+		ft_putstr_fd(SH_NAME": cd: No such file or directory\n", 2);
+		g_exit_status = FAILURE;
+		return ;
+	}
 	open_dir(path_to);
 	free(current_workdir);
 	free(path_to);
