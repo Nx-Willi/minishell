@@ -6,7 +6,7 @@
 /*   By: wdebotte <wdebotte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 16:39:26 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/07/21 12:56:15 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/07/21 14:21:48 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,10 @@ void	builtin_exit(t_cmd *cmd)
 	else
 		exit_status = SUCCESS;
 	if (exit_status != FAILURE)
+	{
+		rl_clear_history();
 		exit(exit_status);
+	}
 	else
 		g_exit_status = FAILURE;
 }
