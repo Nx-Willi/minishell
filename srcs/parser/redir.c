@@ -6,7 +6,7 @@
 /*   By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 14:37:56 by xle-baux          #+#    #+#             */
-/*   Updated: 2022/07/20 17:43:12 by xle-baux         ###   ########.fr       */
+/*   Updated: 2022/07/21 16:27:49 by xle-baux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,8 @@ static t_token	*get_less_files(t_token *token, t_cmd *cmd)
 			close(cmd->fd_in);
 		cmd->fd_in = open(token->content, O_RDONLY);
 		if (cmd->fd_in == -1)
-			return (printf(SH_NAME": %s: No such file or directory\n", token->content), NULL);
+			return (printf(SH_NAME": %s: No such file or directory\n",
+					token->content), NULL);
 		token = token->next;
 		token = ignore_white_space(token);
 	}
