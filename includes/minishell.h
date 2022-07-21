@@ -6,7 +6,7 @@
 /*   By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 09:45:25 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/07/21 12:44:48 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/07/21 15:30:22 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,13 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
-# define SH_NAME	"\x1B[2mminiche\x1B[0m"
+# define MSG_COLOR	"\e[1m\e[93m" 
+# define BLANK		"\e[0m"
+# define SH_NAME	MSG_COLOR"miniche"BLANK
+
 # define FALSE		0
 # define TRUE		1
+
 # define CTRL_C		2
 # define ULLLIMIT	9223372036854775807UL
 
@@ -102,6 +106,7 @@ void	builtin_exit(t_cmd *cmd);
 //-Execution--------------------------------------------------------------------
 void	exec_simple(t_cmd *cmd);
 void	exec_pipes(t_infos *inf);
+void	exec_commands(t_infos *infos);
 void	exec_cmd(t_cmd *cmd);
 void	do_redirections(t_cmd *cmd);
 void	clean_redirections(t_cmd *cmd);
@@ -121,6 +126,7 @@ void	free_char_tab(char **tab);
 void	free_cmd(t_cmd *cmd);
 void	exit_program(int exit_code);
 void	puterror(t_cmd *cmd, char *arg, char *error);
+void	print_message(void);
 
 char	*fill_command_path(char *start_path, char *end_path);
 //--Env-------------------------------------------------------------------------
@@ -134,6 +140,7 @@ void	cpy_env_to_lst(t_infos *infos, char **envp);
 void	cpy_env_to_char(t_infos *infos);
 void	set_pwd_var(t_infos *infos);
 void	set_oldpwd_var(t_infos *infos, char *old_path);
+void	set_shlvl_var(t_infos *infos);
 
 char	*get_env_var_value(t_infos *infos, char *var);
 t_env	*new_env_var(char *var, int from_env);
