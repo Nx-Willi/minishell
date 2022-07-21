@@ -6,7 +6,7 @@
 /*   By: wdebotte <wdebotte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 12:54:03 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/07/21 15:30:32 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/07/21 15:49:28 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ static int	get_line_infos(t_infos *infos)
 	infos->prompt = readline(SH_NAME"$ ");
 	if (infos->prompt == NULL)
 	{
+		ft_putstr("exit\n");
 		exit_program(EXIT_SUCCESS);
 		return (FALSE);
 	}

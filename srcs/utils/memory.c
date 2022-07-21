@@ -6,7 +6,7 @@
 /*   By: wdebotte <wdebotte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 16:49:59 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/07/15 14:16:55 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/07/21 15:55:03 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ void	free_cmd(t_cmd *cmd)
 
 void	exit_program(int exit_code)
 {
-	ft_putstr("exit\n");
 	rl_clear_history();
 	exit(exit_code);
 }
