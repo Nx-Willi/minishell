@@ -6,7 +6,7 @@
 /*   By: wdebotte <wdebotte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 16:49:59 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/07/21 17:06:14 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/07/21 17:21:26 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ void	free_cmd(t_cmd *cmd)
 	t_cmd	*tmp;
 	int		i;
 
+	if (cmd == NULL)
+		return ;
 	tmp = cmd;
 	while (tmp)
 	{
@@ -65,8 +67,10 @@ void	free_cmd(t_cmd *cmd)
 	free(cmd);
 }
 
-void	exit_program(int exit_code)
+void	exit_program(t_infos *infos, int exit_code)
 {
+	if (infos->cmd != NULL)
+		free_cmd(infos->cmd);
 	rl_clear_history();
 	exit(exit_code);
 }

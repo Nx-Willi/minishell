@@ -6,7 +6,7 @@
 /*   By: wdebotte <wdebotte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 16:39:26 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/07/21 15:49:21 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/07/21 17:09:32 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	builtin_exit(t_cmd *cmd)
 	else
 		exit_status = SUCCESS;
 	if (exit_status != FAILURE)
-		exit_program(exit_status);
+		exit_program(cmd->infos, exit_status);
 	else
 		g_exit_status = FAILURE;
 }
