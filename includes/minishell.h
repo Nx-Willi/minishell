@@ -6,7 +6,7 @@
 /*   By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 09:45:25 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/07/20 18:00:30 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/07/21 12:44:48 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,6 @@ int		is_builtin(char *cmd_name);
 
 void	exec_builtin(t_cmd *cmd);
 void	builtin_export(t_cmd *cmd);
-void	puterror(char *arg);
 void	print_env(t_env *env);
 void	builtin_unset(t_cmd *cmd);
 void	builtin_env(t_infos *infos);
@@ -121,6 +120,7 @@ int		_strcmp(char *s1, char *s2);
 void	free_char_tab(char **tab);
 void	free_cmd(t_cmd *cmd);
 void	exit_program(int exit_code);
+void	puterror(t_cmd *cmd, char *arg, char *error);
 
 char	*fill_command_path(char *start_path, char *end_path);
 //--Env-------------------------------------------------------------------------

@@ -6,7 +6,7 @@
 #    By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/18 14:12:28 by wdebotte          #+#    #+#              #
-#    Updated: 2022/07/20 16:29:47 by wdebotte         ###   ########.fr        #
+#    Updated: 2022/07/21 12:44:06 by wdebotte         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,7 @@ SRCS		= $(addprefix ${PATHSRCS}, main.c) \
 			$(addprefix ${PATHSRCS}execution/, exec_pipes.c exec_cmd.c \
 						pipes_utils.c exec_simplecmd.c redirections_control.c) \
 			$(addprefix ${PATHSRCS}utils/, memory.c is_str_clear.c \
-						strcmp.c fill_command_path.c) \
+						strcmp.c fill_command_path.c puterror.c) \
 			$(addprefix ${PATHSRCS}utils/env/, env_add_and_remove.c varcmp.c \
 						cp_env.c is_var_in_env.c get_env_var_value.c \
 						set_pwd_var.c) \

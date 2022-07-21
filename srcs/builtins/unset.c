@@ -6,7 +6,7 @@
 /*   By: wdebotte <wdebotte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 11:26:07 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/07/15 13:26:29 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/07/21 12:58:21 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 extern int	g_exit_status;
 
-static int	is_valid_var(char *var)
+static int	is_valid_var(t_cmd *cmd, char *var)
 {
 	int	i;
 
 	if (ft_strchr(var, '=') != NULL)
 	{
-		ft_putstr_fd(SH_NAME": unset: bad variable name\n", 2);
+		puterror(cmd, var, "bad variable name");
 		g_exit_status = FAILURE;
 		return (FALSE);
 	}
@@ -29,7 +29,7 @@ static int	is_valid_var(char *var)
 	{
 		if (var[i] == '-' || var[i] == '*' || var[i] == '+')
 		{
-			ft_putstr_fd(SH_NAME": unset: bad variable name\n", 2);
+			puterror(cmd, var, "bad variable name");
 			g_exit_status = FAILURE;
 			return (FALSE);
 		}
@@ -60,7 +60,7 @@ void	builtin_unset(t_cmd *cmd)
 		return ;
 	while (cmd->argv[i] != NULL)
 	{
-		if (is_valid_var(cmd->argv[i]) == FALSE)
+		if (is_valid_var(cmd, cmd->argv[i]) == FALSE)
 		{
 			i++;
 			continue ;

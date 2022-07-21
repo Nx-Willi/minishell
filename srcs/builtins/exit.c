@@ -6,7 +6,7 @@
 /*   By: wdebotte <wdebotte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 16:39:26 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/07/19 16:10:01 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/07/21 12:56:15 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,14 +55,12 @@ static long long int	get_exit_status(t_cmd *cmd)
 {
 	if (cmd->argv[1] != NULL && !is_arg_correct(cmd->argv[1]))
 	{
-		ft_putstr_fd(SH_NAME": exit: ", 2);
-		ft_putstr_fd(cmd->argv[1], 2);
-		ft_putstr_fd(": numeric argument required\n", 2);
+		puterror(cmd, cmd->argv[1], "numeric argument required");
 		return (FAILURE + 1);
 	}
 	if (cmd->argv[1] != NULL && cmd->argv[2] != NULL)
 	{
-		ft_putstr_fd(SH_NAME": exit: too many arguments\n", 2);
+		puterror(cmd, NULL, "too many arguments");
 		return (FAILURE);
 	}
 	return (atoull(cmd->argv[1]) & 0377);

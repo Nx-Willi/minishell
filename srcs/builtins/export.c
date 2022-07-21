@@ -6,7 +6,7 @@
 /*   By: wdebotte <wdebotte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 14:57:41 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/07/20 17:43:32 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/07/21 12:59:37 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 extern int	g_exit_status;
 
-static int	is_valid_identifier(char *arg)
+static int	is_valid_identifier(t_cmd *cmd, char *arg)
 {
 	int	i;
 
@@ -27,14 +27,14 @@ static int	is_valid_identifier(char *arg)
 			|| (arg[i] == '*' || arg[i] == '-')
 			|| (arg[i] == '+' && arg[i + 1] != '='))
 		{
-			puterror(arg);
+			puterror(cmd, arg, "is not a valid identifier");
 			return (FALSE);
 		}
 		i++;
 	}
 	if (i == 0)
 	{
-		puterror(arg);
+		puterror(cmd, arg, "is not a valid identifier");
 		return (FALSE);
 	}
 	if (ft_strchr(arg, '=') == NULL)
@@ -71,7 +71,7 @@ static int	add_var(t_cmd *cmd, char *arg)
 {
 	int	status;
 
-	status = is_valid_identifier(arg);
+	status = is_valid_identifier(cmd, arg);
 	if (status == FALSE)
 	{
 		g_exit_status = FAILURE;
