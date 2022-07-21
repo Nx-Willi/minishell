@@ -6,7 +6,7 @@
 /*   By: wdebotte <wdebotte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 16:49:59 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/07/21 15:55:03 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/07/21 17:06:14 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,10 @@ void	free_cmd(t_cmd *cmd)
 	tmp = cmd;
 	while (tmp)
 	{
+		if (cmd->fd_in > 2)
+			close(cmd->fd_in);
+		if (cmd->fd_out > 2)
+			close(cmd->fd_out);
 		if (_strcmp(cmd->cmd_path, cmd->argv[0]) == FALSE)
 			free(cmd->cmd_path);
 		i = 0;
