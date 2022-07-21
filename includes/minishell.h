@@ -6,7 +6,7 @@
 /*   By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 09:45:25 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/07/21 17:10:04 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/07/21 18:04:18 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,8 @@ t_token	*get_tokens(char *input);
 t_token	*ignore_white_space(t_token *token);
 t_token	*redir(t_token *token, t_cmd *cmd);
 t_token	*get_heredoc(t_token *token);
+t_token	*add_token(void);
+t_token	*exit_status_check(t_token *token);
 
 //tmp_tools.c
 char	*token_type_print(int id);
@@ -141,7 +143,6 @@ void	cpy_env_to_char(t_infos *infos);
 void	set_pwd_var(t_infos *infos);
 void	set_oldpwd_var(t_infos *infos, char *old_path);
 void	set_shlvl_var(t_infos *infos);
-
 char	*get_env_var_value(t_infos *infos, char *var);
 t_env	*new_env_var(char *var, int from_env);
 //------------------------------------------------------------------------------

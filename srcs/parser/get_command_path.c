@@ -3,24 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   get_command_path.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wdebotte <wdebotte@student.42.fr>          +#+  +:+       +#+        */
+/*   By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 14:35:36 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/06/24 14:57:46 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/07/21 17:41:29 by xle-baux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/*		if (ft_strlen(dir->d_name) > ft_strlen(cmd))
-			res = ft_strncmp(dir->d_name, cmd, ft_strlen(dir->d_name));
-		else
-			res = ft_strncmp(dir->d_name, cmd, ft_strlen(cmd));
-		if (res == 0)
-		{
-			closedir(fd_dir);
-			return (TRUE);
-		}*/
 static int	is_cmd_in_dir(char *cmd, char *dir_name)
 {
 	DIR				*fd_dir;
