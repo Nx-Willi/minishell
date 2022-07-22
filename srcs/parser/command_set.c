@@ -6,7 +6,7 @@
 /*   By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 13:05:43 by xle-baux          #+#    #+#             */
-/*   Updated: 2022/07/21 17:59:26 by xle-baux         ###   ########.fr       */
+/*   Updated: 2022/07/21 18:54:11 by xle-baux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,10 @@ static t_cmd	*add_command(t_cmd *prev)
 	cmd->argv = NULL;
 	cmd->next = NULL;
 	cmd->prev = prev;
+	cmd->fd_in = 0;
+	cmd->fdin_tmp = 0;
+	cmd->fd_out = 1;
+	cmd->fdout_tmp = 1;
 	return (cmd);
 }
 
@@ -66,13 +70,12 @@ static int	fill_command(t_infos *infos, t_cmd *cmd, t_token *token)
 		cmd->argv = malloc(sizeof(char *) * (count_args(token) + 1));
 		if (cmd->argv == NULL)
 			return (FALSE);
-		cmd->fd_in = 0;
-		cmd->fdin_tmp = 0;
-		cmd->fd_out = 1;
-		cmd->fdout_tmp = 1;
 		token = add_word_to_arg(token, cmd);
 		if (cmd->argv[0] == NULL)
+		{
 			cmd->argv[0] = ft_strdup("");
+			cmd->argv[1] = NULL;
+		}
 		cmd->cmd_path = get_command_path(infos, cmd->argv[0]);
 		cmd->infos = infos;
 		if (token != NULL && token->type == PIPE)
@@ -94,6 +97,10 @@ t_cmd	*command_set(t_infos *infos, t_token *token)
 	cmd = malloc(sizeof(t_cmd));
 	if (!cmd)
 		return (NULL);
+	cmd->fd_in = 0;
+	cmd->fdin_tmp = 0;
+	cmd->fd_out = 1;
+	cmd->fdout_tmp = 1;
 	cmd->prev = NULL;
 	cmd->next = NULL;
 	if (fill_command(infos, cmd, token) == FALSE)
