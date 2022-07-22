@@ -6,7 +6,7 @@
 /*   By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 09:45:25 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/07/21 18:04:18 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/07/22 15:19:30 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
-# define MSG_COLOR	"\e[1m\e[93m" 
+# define MSG_COLOR	"\e[1m\e[93m"
 # define BLANK		"\e[0m"
-# define SH_NAME	MSG_COLOR"miniche"BLANK
+# define SH_NAME	"\e[1m\e[93mminiche\e[0m"
 
 # define FALSE		0
 # define TRUE		1
