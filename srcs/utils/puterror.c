@@ -6,7 +6,7 @@
 /*   By: wdebotte <wdebotte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 12:40:56 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/07/21 15:59:10 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/07/22 14:21:59 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	puterror(t_cmd *cmd, char *arg, char *error)
 {
-	if (cmd->argv[0][0] != '\0')
+	if (cmd->argv[0][0] == '\0')
 		return ;
 	ft_putstr_fd(SH_NAME": ", 2);
 	ft_putstr_fd(cmd->argv[0], 2);

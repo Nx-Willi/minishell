@@ -6,7 +6,7 @@
 /*   By: wdebotte <wdebotte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 16:27:42 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/07/20 16:51:05 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/07/22 15:09:44 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,15 @@ void	do_redirections(t_cmd *cmd)
 void	clean_redirections(t_cmd *cmd)
 {
 	if (cmd->fd_in != STDIN_FILENO && cmd->fd_in != -1)
+	{
 		dup2(cmd->fdin_tmp, STDIN_FILENO);
+		if (is_builtin(cmd->argv[0]) && cmd->infos->npipes == 0)
+			close(cmd->fdin_tmp);
+	}
 	if (cmd->fd_out != STDOUT_FILENO)
+	{
 		dup2(cmd->fdout_tmp, STDOUT_FILENO);
+		if (is_builtin(cmd->argv[0]) && cmd->infos->npipes == 0)
+			close(cmd->fdout_tmp);
+	}
 }

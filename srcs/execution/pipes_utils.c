@@ -6,7 +6,7 @@
 /*   By: wdebotte <wdebotte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 18:42:36 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/07/22 12:52:36 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/07/22 14:18:08 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,23 @@ void	close_pipes(char *error, int **pfds, int idx_pipes, int idx_tab)
 		ft_putstr_fd(error, 2);
 }
 
+static int	**init_pipe(int **pfds, int i)
+{
+	pfds[i] = (int *)malloc(sizeof(int) * 2);
+	if (pfds[i] == NULL)
+	{
+		close_pipes(SH_NAME": pipefds: malloc error\n", pfds, i - 1, i - 1);
+		return (NULL);
+	}
+	if (pipe(pfds[i]) < 0)
+	{
+		free(pfds[i]);
+		close_pipes(SH_NAME": pipefds: pipe error\n", pfds, i, i);
+		return (NULL);
+	}
+	return (pfds);
+}
+
 int	**init_pipefds(int npipes)
 {
 	int	i;
@@ -49,18 +66,8 @@ int	**init_pipefds(int npipes)
 	i = -1;
 	while (++i < npipes)
 	{
-		pfds[i] = (int *)malloc(sizeof(int) * 2);
-		if (pfds[i] == NULL)
-		{
-			close_pipes(SH_NAME": pipefds: malloc error\n", pfds, i - 1, i - 1);
+		if (init_pipe(pfds, i) == NULL)
 			return (NULL);
-		}
-		if (pipe(pfds[i]) < 0)
-		{
-			free(pfds[i]);
-			close_pipes(SH_NAME": pipefds: pipe error\n", pfds, i, i);
-			return (NULL);
-		}
 	}
 	return (pfds);
 }
