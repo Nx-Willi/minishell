@@ -6,7 +6,7 @@
 /*   By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 09:45:25 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/07/22 15:19:30 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/07/23 15:53:00 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,7 @@ void	free_char_tab(char **tab);
 void	free_cmd(t_cmd *cmd);
 void	exit_program(t_infos *infos, int exit_code);
 void	puterror(t_cmd *cmd, char *arg, char *error);
-void	print_message(void);
+void	print_message(char *exec_path);
 
 char	*fill_command_path(char *start_path, char *end_path);
 //--Env-------------------------------------------------------------------------
