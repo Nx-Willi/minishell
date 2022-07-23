@@ -6,7 +6,7 @@
 /*   By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 09:45:25 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/07/23 15:53:00 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/07/23 17:12:46 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@
 # define TRUE		1
 
 # define CTRL_C		2
+# define BSLASH	3
 # define ULLLIMIT	9223372036854775807UL
 
 enum	e_type_token
@@ -148,7 +149,8 @@ t_env	*new_env_var(char *var, int from_env);
 //------------------------------------------------------------------------------
 
 //-Signals----------------------------------------------------------------------
-void	handler(int signum);
+void	handler_quit(int signum, siginfo_t *info, void *context);
+void	handler_int(int signum, siginfo_t *info, void *context);
 //------------------------------------------------------------------------------
 
 #endif

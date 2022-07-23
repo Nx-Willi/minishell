@@ -6,7 +6,7 @@
 /*   By: wdebotte <wdebotte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 12:54:03 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/07/23 15:52:33 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/07/23 16:55:22 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,26 @@
 
 int	g_exit_status = 0;
 
+static void	get_signals(void)
+{
+	struct sigaction	s_action_quit;
+	struct sigaction	s_action_int;
+
+	sigemptyset(&s_action_quit.sa_mask);
+	s_action_quit.sa_sigaction = &handler_quit;
+	s_action_quit.sa_flags = SA_SIGINFO;
+	sigaction(SIGQUIT, &s_action_quit, NULL);
+	sigemptyset(&s_action_int.sa_mask);
+	s_action_int.sa_sigaction = &handler_int;
+	s_action_int.sa_flags = SA_SIGINFO;
+	sigaction(SIGINT, &s_action_int, NULL);
+}
+
 static void	init_main(t_infos *infos, int argc, char **argv, char **envp)
 {
 	(void)argc;
 	(void)argv;
-	signal(SIGINT, handler);
-	signal(SIGQUIT, handler);
+	get_signals();
 	infos->envp = NULL;
 	infos->env = NULL;
 	infos->cmd = NULL;
