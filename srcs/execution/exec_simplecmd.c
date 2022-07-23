@@ -6,7 +6,7 @@
 /*   By: wdebotte <wdebotte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 18:49:58 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/07/20 16:53:57 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/07/23 17:14:04 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	exec_simple(t_cmd *cmd)
 	int	pid;
 	int	wstatus;
 
+	wstatus = -1;
 	pid = fork();
 	if (pid < 0)
 	{
