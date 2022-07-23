@@ -6,7 +6,7 @@
 /*   By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 14:59:57 by xle-baux          #+#    #+#             */
-/*   Updated: 2022/07/21 17:17:04 by xle-baux         ###   ########.fr       */
+/*   Updated: 2022/07/23 16:59:09 by xle-baux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,31 @@
 
 extern int	g_exit_status;
 
-static int	env_len_size(t_token *token)
+static void	format_dollar_in_quote(t_token *token)
 {
-	int	i;
+	int	inside_quote;
 
-	i = 0;
-	while (token->content[i] != '\0' && (ft_isalpha(token->content[i]) != 0
-			|| ft_isalnum(token->content[i]) != 0 || token->content[i] == '_'))
-		i++;
-	return (i);
+	inside_quote = -1;
+	while (token)
+	{
+		if (token->next && token->type == QUOTE)
+		{
+			inside_quote = TRUE;
+			token = token->next;
+		}
+		if (token->next && inside_quote == TRUE && token->type
+			!= QUOTE && token->type != D_QUOTE)
+		{
+			token->type = WORD;
+			token = token->next;
+		}
+		if (token->next && token->type == QUOTE)
+		{
+			inside_quote = FALSE;
+			token = token->next;
+		}
+		token = token->next;
+	}
 }
 
 static t_token	*fill_new_token(t_token *token, char *tmp_content, int env_len)
@@ -94,6 +110,7 @@ static t_token	*get_env(t_infos *infos, t_token *token)
 
 void	dollar_format(t_infos *infos, t_token *token)
 {
+	format_dollar_in_quote(token);
 	while (token != NULL)
 	{
 		if (token->type == DOLLAR && _strcmp(token->next->content, "?"))
