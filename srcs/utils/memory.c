@@ -6,7 +6,7 @@
 /*   By: wdebotte <wdebotte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 16:49:59 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/07/21 17:21:26 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/07/23 18:34:01 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ void	free_env(t_env *env)
 	tmp = env;
 	while (tmp != NULL)
 	{
+		if (tmp->from_env == FALSE)
+			free(tmp->variable);
 		tmp = tmp->next;
 		free(env);
 		env = tmp;
@@ -69,6 +71,9 @@ void	free_cmd(t_cmd *cmd)
 
 void	exit_program(t_infos *infos, int exit_code)
 {
+	free(infos->envp);
+	free_env(infos->env);
+	free(infos->prompt);
 	if (infos->cmd != NULL)
 		free_cmd(infos->cmd);
 	rl_clear_history();
