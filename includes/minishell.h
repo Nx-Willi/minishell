@@ -6,7 +6,7 @@
 /*   By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 09:45:25 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/07/24 14:09:40 by xle-baux         ###   ########.fr       */
+/*   Updated: 2022/07/24 16:19:50 by xle-baux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@
 # define FALSE		0
 # define TRUE		1
 
-# define CTRL_C		2
 # define ULLLIMIT	9223372036854775807UL
 
 enum	e_type_token
@@ -109,7 +108,7 @@ void	builtin_exit(t_cmd *cmd);
 void	exec_simple(t_cmd *cmd);
 void	exec_pipes(t_infos *inf);
 void	exec_commands(t_infos *infos);
-void	exec_cmd(t_cmd *cmd);
+void	exec_cmd(t_cmd *cmd, int *pids);
 void	do_redirections(t_cmd *cmd);
 void	clean_redirections(t_cmd *cmd);
 void	redir_builtin(t_cmd *cmd);
@@ -128,7 +127,7 @@ void	free_char_tab(char **tab);
 void	free_cmd(t_cmd *cmd);
 void	exit_program(t_infos *infos, int exit_code);
 void	puterror(t_cmd *cmd, char *arg, char *error);
-void	print_message(void);
+void	print_message(char *exec_path);
 
 char	*fill_command_path(char *start_path, char *end_path);
 //--Env-------------------------------------------------------------------------
@@ -148,7 +147,8 @@ t_env	*new_env_var(char *var, int from_env);
 //------------------------------------------------------------------------------
 
 //-Signals----------------------------------------------------------------------
-void	handler(int signum);
+void	handler_quit(int signum, siginfo_t *info, void *context);
+void	handler_int(int signum, siginfo_t *info, void *context);
 //------------------------------------------------------------------------------
 
 #endif

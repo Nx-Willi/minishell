@@ -6,7 +6,7 @@
 /*   By: wdebotte <wdebotte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 12:51:31 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/07/20 16:29:06 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/07/24 15:38:48 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,14 @@ static int	exec_child(t_cmd *cmd, int *pids, int **pfds)
 		if (cmd->next != NULL)
 			dup2(pfds[cmd->id][1], STDOUT_FILENO);
 		do_redirections(cmd);
-		close_pipes(NULL, pfds, cmd->infos->npipes, 0);
+		close_pipes(NULL, pfds, cmd->infos->npipes, cmd->infos->npipes);
 		if (is_builtin(cmd->argv[0]))
 		{
 			exec_builtin(cmd);
-			exit(g_exit_status);
+			free(pids);
+			exit_program(cmd->infos, g_exit_status);
 		}
-		exec_cmd(cmd);
+		exec_cmd(cmd, pids);
 	}
 	else
 		clean_redirections(cmd);
