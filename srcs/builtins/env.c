@@ -6,7 +6,7 @@
 /*   By: wdebotte <wdebotte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 15:10:52 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/07/18 15:01:15 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/07/24 16:41:11 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ void	builtin_env(t_infos *infos)
 	tmp = infos->env;
 	while (tmp != NULL)
 	{
-		printf("%s\n", tmp->variable);
+		if (ft_strchr(tmp->variable, '='))
+			printf("%s\n", tmp->variable);
 		tmp = tmp->next;
 	}
 	g_exit_status = SUCCESS;

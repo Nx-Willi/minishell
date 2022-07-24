@@ -6,13 +6,14 @@
 /*   By: wdebotte <wdebotte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 14:57:41 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/07/21 12:59:37 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/07/24 17:24:37 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-#define PLUSEQUAL 3
+#define PLUSEQUAL	3
+#define TOEXPORT	4
 
 extern int	g_exit_status;
 
@@ -38,10 +39,29 @@ static int	is_valid_identifier(t_cmd *cmd, char *arg)
 		return (FALSE);
 	}
 	if (ft_strchr(arg, '=') == NULL)
-		return (FALSE);
+		return (TRUE);
 	if (arg[i] == '=' && arg[i - 1] == '+')
 		return (PLUSEQUAL);
 	return (TRUE);
+}
+
+static void	add_without_var(t_infos *inf, char *arg, char *var)
+{
+	int			i;
+	static char	new_var[] = "";
+
+	(void)inf;
+	i = ft_strlen(var);
+	ft_strlcpy(new_var, arg, i + 1);
+	new_var[i] = '=';
+	i++;
+	while (arg[i + 1] != '\0')
+	{
+		new_var[i] = arg[i + 1];
+		i++;
+	}
+	new_var[i] = '\0';
+	add_env_var(inf, new_var, FALSE);
 }
 
 static void	add_to_existing_var(t_infos *inf, char *arg)
@@ -58,12 +78,17 @@ static void	add_to_existing_var(t_infos *inf, char *arg)
 		var[i] = arg[i];
 	var[i] = '\0';
 	var_value = get_env_var_value(inf, var);
+	if (var_value == NULL)
+	{
+		add_without_var(inf, arg, var);
+		return ;
+	}
 	new_value = ft_strjoin(var_value, arg + ft_strlen(var) + 2);
 	var[i++] = '=';
 	var[i] = '\0';
 	new_variable = ft_strjoin(var, new_value);
-	add_env_var(inf, new_variable, FALSE);
 	free(new_value);
+	add_env_var(inf, new_variable, FALSE);
 	free(new_variable);
 }
 

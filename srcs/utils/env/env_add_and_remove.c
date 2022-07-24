@@ -6,7 +6,7 @@
 /*   By: wdebotte <wdebotte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 17:42:43 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/07/18 00:22:50 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/07/24 17:28:32 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,8 @@ void	add_env_var(t_infos *infos, char *var, int from_env)
 			tmp = tmp->next;
 		tmp->next = new_env_var(var, from_env);
 	}
-	else
+	else if (is_var_in_env(infos->env, var) == TRUE
+		&& ft_strchr(var, '=') != NULL)
 		replace_env_var(tmp, var);
 }
 
