@@ -6,7 +6,7 @@
 /*   By: wdebotte <wdebotte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 18:49:58 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/07/23 17:14:04 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/07/24 14:04:52 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	exec_simple(t_cmd *cmd)
 	else if (pid == 0)
 	{
 		do_redirections(cmd);
-		exec_cmd(cmd);
+		exec_cmd(cmd, NULL);
 	}
 	clean_redirections(cmd);
 	waitpid(pid, &wstatus, 0);

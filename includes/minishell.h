@@ -6,7 +6,7 @@
 /*   By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 09:45:25 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/07/23 17:50:11 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/07/24 14:04:30 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ void	builtin_exit(t_cmd *cmd);
 void	exec_simple(t_cmd *cmd);
 void	exec_pipes(t_infos *inf);
 void	exec_commands(t_infos *infos);
-void	exec_cmd(t_cmd *cmd);
+void	exec_cmd(t_cmd *cmd, int *pids);
 void	do_redirections(t_cmd *cmd);
 void	clean_redirections(t_cmd *cmd);
 void	redir_builtin(t_cmd *cmd);
