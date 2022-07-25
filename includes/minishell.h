@@ -6,7 +6,7 @@
 /*   By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 09:45:25 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/07/25 15:27:00 by xle-baux         ###   ########.fr       */
+/*   Updated: 2022/07/25 16:29:19 by xle-baux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,8 @@ void	builtin_echo(t_cmd *cmd);
 void	builtin_cd(t_cmd *cmd);
 void	builtin_pwd(t_infos *infos);
 void	builtin_exit(t_cmd *cmd);
+
+t_env	*sort_env(t_env *env);
 //------------------------------------------------------------------------------
 
 //-Execution--------------------------------------------------------------------

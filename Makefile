@@ -6,7 +6,7 @@
 #    By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/18 14:12:28 by wdebotte          #+#    #+#              #
-#    Updated: 2022/07/25 13:19:33 by xle-baux         ###   ########.fr        #
+#    Updated: 2022/07/25 16:16:24 by xle-baux         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,7 @@ PATHNULL	= /dev/null
 SRCS		= $(addprefix ${PATHSRCS}, main.c) \
 			$(addprefix ${PATHSRCS}builtins/, is_builtin.c exec_builtin.c \
 						export.c unset.c env.c cd.c pwd.c echo.c export_utils.c \
-						exit.c) \
+						exit.c sort_env.c ) \
 			$(addprefix ${PATHSRCS}execution/, exec_pipes.c exec_cmd.c \
 						pipes_utils.c exec_simplecmd.c redirections_control.c) \
 			$(addprefix ${PATHSRCS}utils/, memory.c is_str_clear.c \
