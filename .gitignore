@@ -2,6 +2,7 @@
 *.swp
 .nfs*
 minishell
+cmd_valgrind
 
 # Prerequisites
 *.d
