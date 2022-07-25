@@ -6,7 +6,7 @@
 /*   By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 00:41:48 by xle-baux          #+#    #+#             */
-/*   Updated: 2022/07/25 15:19:22 by xle-baux         ###   ########.fr       */
+/*   Updated: 2022/07/25 15:40:11 by xle-baux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ static char	*heredoc_readline(t_infos *infos, t_token *token)
 		redir_str = _strjoin(redir_str, "\n");
 		free(tmp_str);
 	}
+	if (redir_str == NULL)
+		redir_str = ft_strdup("");
 	return (redir_str);
 }
 

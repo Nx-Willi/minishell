@@ -6,7 +6,7 @@
 /*   By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 13:19:14 by xle-baux          #+#    #+#             */
-/*   Updated: 2022/07/25 15:23:25 by xle-baux         ###   ########.fr       */
+/*   Updated: 2022/07/25 15:29:37 by xle-baux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ static char	*get_char_exit_status(char *return_char, char **str_split, int i)
 	return_char = _strjoin(return_char, exit_char);
 	return_char = _strjoin(return_char, &str_split[i][1]);
 	free(exit_char);
+	return (return_char);
 }
 
 static char	*get_char_env(t_infos *infos, char **str_split,
@@ -74,7 +75,6 @@ static char	*get_char_env(t_infos *infos, char **str_split,
 char	*get_env_for_heredoc(t_infos *infos, char *str)
 {
 	int		i;
-	char	*exit_char;
 	char	*return_char;
 	char	**str_split;
 
