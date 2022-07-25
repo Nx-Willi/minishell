@@ -6,7 +6,7 @@
 /*   By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 16:36:04 by xle-baux          #+#    #+#             */
-/*   Updated: 2022/07/23 16:54:21 by xle-baux         ###   ########.fr       */
+/*   Updated: 2022/07/25 15:19:46 by xle-baux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ static char	*missing(void)
 	char	*s;
 
 	s = malloc(sizeof(char));
+	if (!s)
+		return (NULL);
 	s[0] = '\0';
 	return (s);
 }

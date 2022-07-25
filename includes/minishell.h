@@ -6,7 +6,7 @@
 /*   By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 09:45:25 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/07/24 16:19:50 by xle-baux         ###   ########.fr       */
+/*   Updated: 2022/07/25 14:24:48 by xle-baux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,11 +76,12 @@ t_cmd	*command_set(t_infos *infos, t_token *token);
 
 char	*_strjoin(char *s1, char *s2);
 char	*get_command_path(t_infos *infos, char *cmd);
+char	*get_env_for_heredoc(t_infos *infos, char *str);
 
 t_token	*get_tokens(char *input);
 t_token	*ignore_white_space(t_token *token);
-t_token	*redir(t_token *token, t_cmd *cmd);
-t_token	*get_heredoc(t_token *token, t_cmd *cmd);
+t_token	*redir(t_infos *infos, t_token *token, t_cmd *cmd);
+t_token	*get_heredoc(t_infos *infos, t_token *token, t_cmd *cmd);
 t_token	*add_token(void);
 t_token	*exit_status_check(t_token *token);
 

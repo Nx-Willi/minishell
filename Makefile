@@ -6,7 +6,7 @@
 #    By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/18 14:12:28 by wdebotte          #+#    #+#              #
-#    Updated: 2022/07/23 17:11:24 by xle-baux         ###   ########.fr        #
+#    Updated: 2022/07/25 13:19:33 by xle-baux         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,7 +49,7 @@ SRCS		= $(addprefix ${PATHSRCS}, main.c) \
 						join_quotes.c dollar_format.c cat_word.c tools.c \
 						command_set.c tmp_tools.c get_command_path.c \
 						check_syntax.c redir.c get_heredoc.c check_redir.c \
-						tools2.c)
+						tools2.c get_env_for_heredoc.c)
 
 OBJS		= ${SRCS:.c=.o}
 HEADERS		= ${PATHHEADERS}

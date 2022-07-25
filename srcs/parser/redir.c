@@ -6,7 +6,7 @@
 /*   By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 14:37:56 by xle-baux          #+#    #+#             */
-/*   Updated: 2022/07/24 14:10:51 by xle-baux         ###   ########.fr       */
+/*   Updated: 2022/07/25 14:23:15 by xle-baux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static t_token	*get_less_files(t_token *token, t_cmd *cmd)
 	return (token);
 }
 
-t_token	*redir(t_token *token, t_cmd *cmd)
+t_token	*redir(t_infos *infos, t_token *token, t_cmd *cmd)
 {
 	if (token->type == GREAT)
 		token = create_great_files(token, cmd);
@@ -69,7 +69,7 @@ t_token	*redir(t_token *token, t_cmd *cmd)
 	else if (token->type == LESS)
 		token = get_less_files(token, cmd);
 	else if (token->type == D_LESS)
-		token = get_heredoc(token, cmd);
+		token = get_heredoc(infos, token, cmd);
 	if (token == NULL)
 		return (NULL);
 	return (token);
