@@ -6,7 +6,7 @@
 #    By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/18 14:12:28 by wdebotte          #+#    #+#              #
-#    Updated: 2022/07/21 17:21:00 by xle-baux         ###   ########.fr        #
+#    Updated: 2022/07/25 13:19:33 by xle-baux         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,11 +45,11 @@ SRCS		= $(addprefix ${PATHSRCS}, main.c) \
 						cp_env.c is_var_in_env.c get_env_var_value.c \
 						set_pwd_var.c set_shlvl.c) \
 			$(addprefix ${PATHSRCS}signals/, signals.c) \
-			$(addprefix ${PATHSRCS}parser/, parser.c token_lexer.c \
-						quotes_format.c dollar_format.c cat_word.c tools.c \
+			$(addprefix ${PATHSRCS}parser/, parser.c get_tokens.c \
+						join_quotes.c dollar_format.c cat_word.c tools.c \
 						command_set.c tmp_tools.c get_command_path.c \
-						check_syntax.c redir.c heredoc.c check_redir_syntax.c \
-						tools2.c)
+						check_syntax.c redir.c get_heredoc.c check_redir.c \
+						tools2.c get_env_for_heredoc.c)
 
 OBJS		= ${SRCS:.c=.o}
 HEADERS		= ${PATHHEADERS}

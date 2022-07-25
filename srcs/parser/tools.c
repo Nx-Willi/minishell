@@ -6,7 +6,7 @@
 /*   By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 16:36:04 by xle-baux          #+#    #+#             */
-/*   Updated: 2022/06/25 17:59:29 by xle-baux         ###   ########.fr       */
+/*   Updated: 2022/07/25 15:19:46 by xle-baux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ static char	*missing(void)
 	char	*s;
 
 	s = malloc(sizeof(char));
+	if (!s)
+		return (NULL);
 	s[0] = '\0';
 	return (s);
 }
@@ -60,6 +62,19 @@ int	count_commands(t_token *token)
 	return (pipe + 1);
 }
 
+t_token	*add_token(void)
+{
+	t_token	*token;
+
+	token = (t_token *)malloc(sizeof(t_token));
+	if (!token)
+		return (NULL);
+	token->type = 0;
+	token->content = NULL;
+	token->next = NULL;
+	return (token);
+}
+
 void	add_id(t_cmd *cmd)
 {
 	int	id;
@@ -70,11 +85,4 @@ void	add_id(t_cmd *cmd)
 		cmd->id = id++;
 		cmd = cmd->next;
 	}
-}
-
-t_token	*ignore_white_space(t_token *token)
-{
-	while (token->type == WHITE_SPACE)
-		token = token->next;
-	return (token);
 }

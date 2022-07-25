@@ -6,7 +6,7 @@
 /*   By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 13:05:43 by xle-baux          #+#    #+#             */
-/*   Updated: 2022/07/21 18:54:11 by xle-baux         ###   ########.fr       */
+/*   Updated: 2022/07/25 14:22:33 by xle-baux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static int	count_args(t_token *token)
 	return (i);
 }
 
-static t_token	*add_word_to_arg(t_token *token, t_cmd *cmd)
+static t_token	*add_word_to_arg(t_infos *infos, t_token *token, t_cmd *cmd)
 {
 	int	i;
 
@@ -55,7 +55,7 @@ static t_token	*add_word_to_arg(t_token *token, t_cmd *cmd)
 			cmd->argv[i++] = ft_strdup(token->content);
 		if (token->type == GREAT || token->type == D_GREAT
 			|| token->type == LESS || token->type == D_LESS)
-			token = redir(token, cmd);
+			token = redir(infos, token, cmd);
 		else
 			token = token->next;
 	}
@@ -70,7 +70,7 @@ static int	fill_command(t_infos *infos, t_cmd *cmd, t_token *token)
 		cmd->argv = malloc(sizeof(char *) * (count_args(token) + 1));
 		if (cmd->argv == NULL)
 			return (FALSE);
-		token = add_word_to_arg(token, cmd);
+		token = add_word_to_arg(infos, token, cmd);
 		if (cmd->argv[0] == NULL)
 		{
 			cmd->argv[0] = ft_strdup("");
