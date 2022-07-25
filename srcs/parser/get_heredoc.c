@@ -6,13 +6,31 @@
 /*   By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 00:41:48 by xle-baux          #+#    #+#             */
-/*   Updated: 2022/07/25 15:40:11 by xle-baux         ###   ########.fr       */
+/*   Updated: 2022/07/25 17:39:05 by xle-baux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 extern int	g_exit_status;
+
+static int	check_readline_out(char *tmp_str, char *eof)
+{
+	int	exit_value;
+
+	exit_value = FALSE;
+	if (!tmp_str)
+	{
+		printf(SH_NAME" warning: (wanted `%s\')\n", eof);
+		exit_value = TRUE;
+	}
+	else if (_strcmp(tmp_str, eof))
+	{
+		free(tmp_str);
+		exit_value = TRUE;
+	}
+	return (exit_value);
+}
 
 static char	*heredoc_readline(t_infos *infos, t_token *token)
 {
@@ -26,11 +44,8 @@ static char	*heredoc_readline(t_infos *infos, t_token *token)
 	{
 		tmp_str = NULL;
 		tmp_str = readline("> ");
-		if (_strcmp(tmp_str, eof))
-		{
-			free(tmp_str);
+		if (check_readline_out(tmp_str, eof) == TRUE)
 			break ;
-		}
 		if (ft_strchr(tmp_str, '$') != NULL)
 			tmp_str = get_env_for_heredoc(infos, tmp_str);
 		redir_str = _strjoin(redir_str, tmp_str);
