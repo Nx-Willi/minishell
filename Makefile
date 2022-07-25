@@ -6,7 +6,7 @@
 #    By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/18 14:12:28 by wdebotte          #+#    #+#              #
-#    Updated: 2022/07/25 16:16:24 by xle-baux         ###   ########.fr        #
+#    Updated: 2022/07/26 01:01:48 by wdebotte         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -78,7 +78,10 @@ ${NAME}:	${OBJS}
 				@echo "${BOLD}${GREEN}Building:${END}\tlibft.a"
 				@${MAKE} ${PATHLIBFT} >${PATHNULL}
 				@echo "${BOLD}${GREEN}Building:${END}\t${NAME}"
-				@${CC} ${OBJS} ${INCS} ${LIBFT} -lreadline -o ${NAME} >${PATHNULL}
+				@export LDFLAGS="-L/usr/local/opt/readline/lib"
+				@export CPPFLAGS="-I/usr/local/opt/readline/include"
+				@${CC} ${OBJS} ${INCS} ${LIBFT} -lreadline -L .brew/opt/readline/lib -I .brew/opt/readline/include -o ${NAME} >${PATHNULL}
+#				@${CC} ${OBJS} ${INCS} ${LIBFT} -lreadline -o ${NAME} >${PATHNULL}
 
 clean:
 				@echo "${BOLD}${RED}Removing:${END}\tAll .o files"
