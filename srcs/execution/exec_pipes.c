@@ -6,13 +6,21 @@
 /*   By: wdebotte <wdebotte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 12:51:31 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/07/24 15:38:48 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/07/25 23:04:58 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 extern int	g_exit_status;
+
+static void	do_pipe_redir(t_cmd *cmd, int **pfds)
+{
+	if (cmd->prev != NULL)
+		dup2(pfds[cmd->prev->id][0], STDIN_FILENO);
+	if (cmd->next != NULL)
+		dup2(pfds[cmd->id][1], STDOUT_FILENO);
+}
 
 static int	exec_child(t_cmd *cmd, int *pids, int **pfds)
 {
@@ -25,10 +33,7 @@ static int	exec_child(t_cmd *cmd, int *pids, int **pfds)
 	}
 	else if (pids[cmd->id] == 0)
 	{
-		if (cmd->prev != NULL)
-			dup2(pfds[cmd->prev->id][0], STDIN_FILENO);
-		if (cmd->next != NULL)
-			dup2(pfds[cmd->id][1], STDOUT_FILENO);
+		do_pipe_redir(cmd, pfds);
 		do_redirections(cmd);
 		close_pipes(NULL, pfds, cmd->infos->npipes, cmd->infos->npipes);
 		if (is_builtin(cmd->argv[0]))
