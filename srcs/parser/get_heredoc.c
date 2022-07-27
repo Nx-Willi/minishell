@@ -6,7 +6,7 @@
 /*   By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 00:41:48 by xle-baux          #+#    #+#             */
-/*   Updated: 2022/07/26 14:11:46 by xle-baux         ###   ########.fr       */
+/*   Updated: 2022/07/27 11:11:29 by xle-baux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ static void	ft_child_sig(int signal)
 	if (signal == SIGINT)
 	{
 		printf("\n");
+		g_exit_status = 130;
+		close(STDIN_FILENO);
 	}
 }
 
@@ -50,29 +52,25 @@ static char	*heredoc_readline(t_infos *infos, t_token *token)
 	char	*redir_str;
 	char	*tmp_str;
 	char	*eof;
+	int		stdout_fd;
 
 	eof = token->content;
 	redir_str = NULL;
-	
 	signal(SIGINT, &ft_child_sig);
+	stdout_fd = dup(STDIN_FILENO);
 	while (g_exit_status != 130)
 	{
-		tmp_str = NULL;
-		if (g_exit_status == 130)
-			break ;
 		tmp_str = readline("> ");
-		if (g_exit_status == 130)
-			break ;
-		if (check_readline_out(tmp_str, eof) == TRUE)
+		if (g_exit_status == 130 || check_readline_out(tmp_str, eof) == TRUE)
 			break ;
 		if (ft_strchr(tmp_str, '$') != NULL)
 			tmp_str = get_env_for_heredoc(infos, tmp_str);
 		redir_str = _strjoin(redir_str, tmp_str);
 		redir_str = _strjoin(redir_str, "\n");
 		free(tmp_str);
-		if (g_exit_status == 130)
-			break ;
 	}
+	dup2(stdout_fd, STDIN_FILENO);
+	close(stdout_fd);
 	if (redir_str == NULL)
 		redir_str = ft_strdup("");
 	return (redir_str);
@@ -91,11 +89,6 @@ t_token	*get_heredoc(t_infos *infos, t_token *token, t_cmd *cmd)
 	write(fd[1], redir_str, ft_strlen(redir_str));
 	free(redir_str);
 	close(fd[1]);
-/* 	if (g_exit_status == 130)
-	{
-		close(fd[0]);
-		return (NULL);
-	} */
 	cmd->fd_in = fd[0];
 	token = token->next;
 	token = ignore_white_space(token);

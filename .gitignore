@@ -3,6 +3,7 @@
 .nfs*
 minishell
 cmd_valgrind
+valgrind-out.txt
 
 # Prerequisites
 *.d
