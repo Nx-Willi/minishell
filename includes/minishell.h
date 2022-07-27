@@ -6,7 +6,7 @@
 /*   By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 09:45:25 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/07/24 16:47:55 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/07/27 14:38:28 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,6 +147,7 @@ t_env	*new_env_var(char *var, int from_env);
 //------------------------------------------------------------------------------
 
 //-Signals----------------------------------------------------------------------
+void	get_signals(void);
 void	handler_quit(int signum, siginfo_t *info, void *context);
 void	handler_int(int signum, siginfo_t *info, void *context);
 //------------------------------------------------------------------------------

@@ -6,7 +6,7 @@
 /*   By: wdebotte <wdebotte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 15:44:38 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/07/24 15:34:34 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/07/27 14:40:13 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ extern int	g_exit_status;
 
 void	exec_commands(t_infos *infos)
 {
+	signal(SIGQUIT, SIG_IGN);
+	signal(SIGINT, SIG_IGN);
 	if (infos->npipes == 0)
 	{
 		if (is_builtin(infos->cmd->argv[0]))
@@ -25,6 +27,7 @@ void	exec_commands(t_infos *infos)
 	}
 	else
 		exec_pipes(infos);
+	get_signals();
 }
 
 static void	close_fds(t_cmd *cmd)
