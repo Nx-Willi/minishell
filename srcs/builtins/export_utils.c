@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wdebotte <wdebotte@student.42.fr>          +#+  +:+       +#+        */
+/*   By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 20:26:25 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/07/24 16:47:50 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/07/25 17:05:11 by xle-baux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,22 @@
 
 void	print_env(t_env *env)
 {
-	int	i;
+	int		i;
+	t_env	*sorted_env;
 
-	while (env != NULL)
+	sorted_env = env;
+	sort_env(sorted_env);
+	while (sorted_env)
 	{
 		i = 0;
 		ft_putstr("declare -x ");
-		while (env->variable[i] != '\0' && env->variable[i] != '=')
-			ft_putchar(env->variable[i++]);
+		while (sorted_env->variable[i] != '\0'
+			&& sorted_env->variable[i] != '=')
+			ft_putchar(sorted_env->variable[i++]);
 		ft_putstr("=\"");
 		i++;
-		ft_putstr(env->variable + i);
+		ft_putstr(sorted_env->variable + i);
 		ft_putstr("\"\n");
-		env = env->next;
+		sorted_env = sorted_env->next;
 	}
 }

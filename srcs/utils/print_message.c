@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   print_message.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wdebotte <wdebotte@student.42.fr>          +#+  +:+       +#+        */
+/*   By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 14:35:22 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/07/23 16:07:59 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/07/25 15:18:19 by xle-baux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static char *get_message_path(char *exec_path)
+static char	*get_message_path(char *exec_path)
 {
 	char	*buffer;
 

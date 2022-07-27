@@ -6,7 +6,7 @@
 /*   By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 09:45:25 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/07/27 14:38:28 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/07/27 15:02:17 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,22 +65,23 @@ int		count_commands(t_token *token);
 int		join_quotes(t_token *token);
 int		check_syntax(t_token *token);
 int		check_redir(t_token *token);
+int		env_len_size(t_token *token);
 
 void	dollar_format(t_infos *infos, t_token *token);
 void	cat_word(t_token *token);
 void	add_id(t_cmd *cmd);
-void	format_dollar_in_quote(t_token *token);
 
 t_cmd	*parsing(t_infos *infos, char *input);
 t_cmd	*command_set(t_infos *infos, t_token *token);
 
 char	*_strjoin(char *s1, char *s2);
 char	*get_command_path(t_infos *infos, char *cmd);
+char	*get_env_for_heredoc(t_infos *infos, char *str);
 
 t_token	*get_tokens(char *input);
 t_token	*ignore_white_space(t_token *token);
-t_token	*redir(t_token *token, t_cmd *cmd);
-t_token	*get_heredoc(t_token *token);
+t_token	*redir(t_infos *infos, t_token *token, t_cmd *cmd);
+t_token	*get_heredoc(t_infos *infos, t_token *token, t_cmd *cmd);
 t_token	*add_token(void);
 t_token	*exit_status_check(t_token *token);
 
@@ -102,6 +103,8 @@ void	builtin_echo(t_cmd *cmd);
 void	builtin_cd(t_cmd *cmd);
 void	builtin_pwd(t_infos *infos);
 void	builtin_exit(t_cmd *cmd);
+
+t_env	*sort_env(t_env *env);
 //------------------------------------------------------------------------------
 
 //-Execution--------------------------------------------------------------------
