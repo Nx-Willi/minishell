@@ -6,13 +6,23 @@
 /*   By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 00:41:48 by xle-baux          #+#    #+#             */
-/*   Updated: 2022/07/25 17:39:05 by xle-baux         ###   ########.fr       */
+/*   Updated: 2022/07/27 11:11:29 by xle-baux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 extern int	g_exit_status;
+
+static void	ft_child_sig(int signal)
+{
+	if (signal == SIGINT)
+	{
+		printf("\n");
+		g_exit_status = 130;
+		close(STDIN_FILENO);
+	}
+}
 
 static int	check_readline_out(char *tmp_str, char *eof)
 {
@@ -29,6 +39,11 @@ static int	check_readline_out(char *tmp_str, char *eof)
 		free(tmp_str);
 		exit_value = TRUE;
 	}
+	else if (_strcmp(tmp_str, "") && eof == NULL)
+	{
+		free(tmp_str);
+		exit_value = TRUE;
+	}
 	return (exit_value);
 }
 
@@ -37,14 +52,16 @@ static char	*heredoc_readline(t_infos *infos, t_token *token)
 	char	*redir_str;
 	char	*tmp_str;
 	char	*eof;
+	int		stdout_fd;
 
 	eof = token->content;
 	redir_str = NULL;
-	while (1)
+	signal(SIGINT, &ft_child_sig);
+	stdout_fd = dup(STDIN_FILENO);
+	while (g_exit_status != 130)
 	{
-		tmp_str = NULL;
 		tmp_str = readline("> ");
-		if (check_readline_out(tmp_str, eof) == TRUE)
+		if (g_exit_status == 130 || check_readline_out(tmp_str, eof) == TRUE)
 			break ;
 		if (ft_strchr(tmp_str, '$') != NULL)
 			tmp_str = get_env_for_heredoc(infos, tmp_str);
@@ -52,6 +69,8 @@ static char	*heredoc_readline(t_infos *infos, t_token *token)
 		redir_str = _strjoin(redir_str, "\n");
 		free(tmp_str);
 	}
+	dup2(stdout_fd, STDIN_FILENO);
+	close(stdout_fd);
 	if (redir_str == NULL)
 		redir_str = ft_strdup("");
 	return (redir_str);
