@@ -6,7 +6,7 @@
 /*   By: wdebotte <wdebotte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 15:34:45 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/07/27 14:39:00 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/07/27 17:08:49 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,12 @@ void	get_signals(void)
 	sigaction(SIGINT, &s_action_int, NULL);
 }
 
+void	handler_int_exec(int signum)
+{
+	(void)signum;
+	ft_putchar_fd('\n', 2);
+}
+
 void	handler_quit(int signum, siginfo_t *info, void *context)
 {
 	(void)context;
@@ -38,7 +44,7 @@ void	handler_quit(int signum, siginfo_t *info, void *context)
 		g_exit_status = 128 + signum;
 	}
 	else
-		ft_putstr_fd("\b\b  \b\b", 0);
+		ft_putstr_fd("\b\b  \b\b", 2);
 }
 
 void	handler_int(int signum, siginfo_t *info, void *context)
@@ -46,10 +52,10 @@ void	handler_int(int signum, siginfo_t *info, void *context)
 	(void)signum;
 	(void)context;
 	if (info->si_pid == 0)
-		ft_putchar('\n');
+		ft_putchar_fd('\n', 2);
 	else
 	{
-		ft_putstr("\n");
+		ft_putchar_fd('\n', 2);
 		rl_replace_line("", 1);
 		rl_on_new_line();
 		rl_redisplay();
