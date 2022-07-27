@@ -6,7 +6,7 @@
 /*   By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 20:26:25 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/07/25 17:05:11 by xle-baux         ###   ########.fr       */
+/*   Updated: 2022/07/27 17:28:24 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,14 @@ void	print_env(t_env *env)
 		while (sorted_env->variable[i] != '\0'
 			&& sorted_env->variable[i] != '=')
 			ft_putchar(sorted_env->variable[i++]);
-		ft_putstr("=\"");
-		i++;
-		ft_putstr(sorted_env->variable + i);
-		ft_putstr("\"\n");
+		if (sorted_env->variable[i] == '=')
+		{
+			ft_putstr("=\"");
+			i++;
+			ft_putstr(sorted_env->variable + i);
+			ft_putchar('\"');
+		}
+		ft_putchar('\n');
 		sorted_env = sorted_env->next;
 	}
 }
