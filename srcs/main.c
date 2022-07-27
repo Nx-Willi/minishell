@@ -6,7 +6,7 @@
 /*   By: wdebotte <wdebotte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 12:54:03 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/07/27 14:39:42 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/07/27 15:31:58 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_infos	infos;
 
+	get_signals();
 	print_message(argv[0]);
 	init_main(&infos, argc, argv, envp);
 	while (1)

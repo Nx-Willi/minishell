@@ -6,7 +6,7 @@
 /*   By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 09:45:25 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/07/27 15:02:17 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/07/27 15:39:01 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,8 @@ enum	e_type_status
 	PARSING,
 	BAD_PERMIT = 126,
 	DOESNT_EXIST = 127,
-	INTERRUPT = 127
+	INTERRUPT = 128,
+	SEGFAULT = 139
 };
 
 //-Parser-----------------------------------------------------------------------

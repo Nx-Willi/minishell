@@ -6,7 +6,7 @@
 /*   By: wdebotte <wdebotte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 18:42:36 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/07/24 13:37:37 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/07/27 15:44:27 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,10 +81,10 @@ void	retwait_pids(t_infos *infos, int *pids)
 	while (++i < infos->npipes + 1)
 		waitpid(pids[i], &wstatus, 0);
 	free(pids);
-	if (WIFEXITED(wstatus))
+	if (WIFEXITED(wstatus) || WIFSIGNALED(wstatus))
 	{
 		g_exit_status = WEXITSTATUS(wstatus);
 		if (WIFSIGNALED(wstatus))
-			g_exit_status = INTERRUPT + WSTOPSIG(wstatus);
+			g_exit_status = INTERRUPT + WTERMSIG(wstatus);
 	}
 }

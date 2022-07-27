@@ -6,7 +6,7 @@
 /*   By: wdebotte <wdebotte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 15:44:38 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/07/27 14:40:13 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/07/27 15:40:27 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ void	exec_commands(t_infos *infos)
 	}
 	else
 		exec_pipes(infos);
+	if (g_exit_status == SEGFAULT)
+		ft_putstr_fd("Segmentation fault (core dumped)\n", 2);
 	get_signals();
 }
 
