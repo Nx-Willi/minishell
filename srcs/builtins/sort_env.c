@@ -6,7 +6,7 @@
 /*   By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 15:57:14 by xle-baux          #+#    #+#             */
-/*   Updated: 2022/07/25 17:05:51 by xle-baux         ###   ########.fr       */
+/*   Updated: 2022/07/28 16:09:11 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,22 +46,62 @@ static int	check_if_swap(t_env *env, int sorted)
 	return (sorted);
 }
 
+static t_env	*cpy_var(t_env *env)
+{
+	t_env	*buffer;
+
+	buffer = (t_env *)malloc(sizeof(t_env));
+	if (buffer == NULL)
+		return (NULL);
+	buffer->from_env = FALSE;
+	buffer->variable = ft_strdup(env->variable);
+	if (buffer->variable == NULL)
+	{
+		free(buffer);
+		return (NULL);
+	}
+	buffer->next = NULL;
+	return (buffer);
+}
+
+static t_env	*cpy_env(t_env *env)
+{
+	t_env	*tmp;
+	t_env	*buffer;
+	t_env	*buffer_start;
+
+	tmp = env;
+	buffer = cpy_var(tmp);
+	buffer_start = buffer;
+	while (tmp->next != NULL)
+	{
+		buffer->next = cpy_var(tmp->next);
+		buffer = buffer->next;
+		tmp = tmp->next;
+	}
+	return (buffer_start);
+}
+
 t_env	*sort_env(t_env *env)
 {
 	int		sorted;
 	t_env	*start_env;
+	t_env	*tmp;
 
+	if (env == NULL)
+		return (NULL);
 	sorted = FALSE;
-	start_env = env;
+	tmp = cpy_env(env);
+	start_env = tmp;
 	while (sorted == FALSE)
 	{
 		sorted = TRUE;
-		while (env->next)
+		while (tmp->next)
 		{
-			sorted = check_if_swap(env, sorted);
-			env = env->next;
+			sorted = check_if_swap(tmp, sorted);
+			tmp = tmp->next;
 		}
-		env = start_env;
+		tmp = start_env;
 	}
 	return (start_env);
 }
