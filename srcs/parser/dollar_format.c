@@ -6,40 +6,13 @@
 /*   By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 14:59:57 by xle-baux          #+#    #+#             */
-/*   Updated: 2022/07/23 16:59:09 by xle-baux         ###   ########.fr       */
+/*   Updated: 2022/07/28 13:48:52 by xle-baux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 extern int	g_exit_status;
-
-static void	format_dollar_in_quote(t_token *token)
-{
-	int	inside_quote;
-
-	inside_quote = -1;
-	while (token)
-	{
-		if (token->next && token->type == QUOTE)
-		{
-			inside_quote = TRUE;
-			token = token->next;
-		}
-		if (token->next && inside_quote == TRUE && token->type
-			!= QUOTE && token->type != D_QUOTE)
-		{
-			token->type = WORD;
-			token = token->next;
-		}
-		if (token->next && token->type == QUOTE)
-		{
-			inside_quote = FALSE;
-			token = token->next;
-		}
-		token = token->next;
-	}
-}
 
 static t_token	*fill_new_token(t_token *token, char *tmp_content, int env_len)
 {
@@ -69,6 +42,8 @@ static t_token	*clean_env(t_token *token)
 	char	*tmp_content;
 
 	env_len = env_len_size(token->next);
+	if (env_len == (int)ft_strlen(token->next->content))
+		return (token);
 	i = -1;
 	tmp_content = ft_strdup(token->next->content);
 	free(token->next->content);
@@ -84,6 +59,30 @@ static t_token	*clean_env(t_token *token)
 	return (token);
 }
 
+t_token	*split_env_token(t_token *token)
+{
+	int		i;
+	char	**split_content;
+	t_token	*tmp_token;
+
+	i = 0;
+	tmp_token = token->next;
+	split_content = ft_split(token->content, ' ');
+	free(token->content);
+	token->content = ft_strdup(split_content[0]);
+	token->type = WORD;
+	token = fill_split_to_tokens(token, split_content);
+	i = 0;
+	while (split_content[i])
+	{
+		free(split_content[i]);
+		i++;
+	}
+	free(split_content);
+	token->next = tmp_token;
+	return (token->next);
+}
+
 static t_token	*get_env(t_infos *infos, t_token *token)
 {
 	t_token	*tmp;
@@ -96,15 +95,19 @@ static t_token	*get_env(t_infos *infos, t_token *token)
 		token->content = ft_strdup(get_env_var_value(infos,
 					token->next->content));
 		token->type = WORD;
+		free(token->next->content);
+		free(token->next);
+		token->next = tmp;
+		token = split_env_token(token);
 	}
 	else
 	{
 		token->content = NULL;
 		token->type = 0;
+		free(token->next->content);
+		free(token->next);
+		token->next = tmp;
 	}
-	free(token->next->content);
-	free(token->next);
-	token->next = tmp;
 	return (token);
 }
 
@@ -118,7 +121,8 @@ void	dollar_format(t_infos *infos, t_token *token)
 		else if (token->type == DOLLAR && (token->next->type == 0
 				|| token->next->type == WHITE_SPACE
 				|| token->next->type == QUOTE
-				|| token->next->type == D_QUOTE))
+				|| token->next->type == D_QUOTE
+				|| ft_strchr(token->next->content, '/')))
 			token->type = WORD;
 		else if (token->type == DOLLAR)
 			token = get_env(infos, token);
