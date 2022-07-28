@@ -6,7 +6,7 @@
 /*   By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 09:45:25 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/07/28 13:50:47 by xle-baux         ###   ########.fr       */
+/*   Updated: 2022/07/28 16:20:19 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ t_token	*redir(t_infos *infos, t_token *token, t_cmd *cmd);
 t_token	*get_heredoc(t_infos *infos, t_token *token, t_cmd *cmd);
 t_token	*add_token(void);
 t_token	*exit_status_check(t_token *token);
-t_token *fill_split_to_tokens(t_token *token, char **split_content);
+t_token	*fill_split_to_tokens(t_token *token, char **split_content);
 
 //tmp_tools.c
 char	*token_type_print(int id);

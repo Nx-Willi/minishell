@@ -6,7 +6,7 @@
 /*   By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 20:26:25 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/07/28 16:16:00 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/07/28 16:19:17 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ static void	print_var(t_env *sorted_env)
 		ft_putchar('\"');
 	}
 	ft_putchar('\n');
-
 }
 
 void	print_env(t_env *env)
