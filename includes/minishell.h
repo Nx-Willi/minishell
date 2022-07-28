@@ -6,7 +6,7 @@
 /*   By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 09:45:25 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/07/25 16:29:19 by xle-baux         ###   ########.fr       */
+/*   Updated: 2022/07/28 13:45:49 by xle-baux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ int		env_len_size(t_token *token);
 void	dollar_format(t_infos *infos, t_token *token);
 void	cat_word(t_token *token);
 void	add_id(t_cmd *cmd);
+void	format_dollar_in_quote(t_token *token);
 
 t_cmd	*parsing(t_infos *infos, char *input);
 t_cmd	*command_set(t_infos *infos, t_token *token);
@@ -84,6 +85,7 @@ t_token	*redir(t_infos *infos, t_token *token, t_cmd *cmd);
 t_token	*get_heredoc(t_infos *infos, t_token *token, t_cmd *cmd);
 t_token	*add_token(void);
 t_token	*exit_status_check(t_token *token);
+t_token *fill_split_to_tokens(t_token *token, char **split_content);
 
 //tmp_tools.c
 char	*token_type_print(int id);
