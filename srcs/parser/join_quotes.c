@@ -6,7 +6,7 @@
 /*   By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 11:56:18 by xle-baux          #+#    #+#             */
-/*   Updated: 2022/07/23 17:09:15 by xle-baux         ###   ########.fr       */
+/*   Updated: 2022/07/28 14:48:53 by xle-baux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static t_token	*empty_quotes(t_token *token)
 	t_token	*tmp;
 
 	free(token->content);
-	token->content = NULL;
+	token->content = ft_strdup("\0");
 	token->type = WORD;
 	tmp = token->next->next;
 	free(token->next->content);

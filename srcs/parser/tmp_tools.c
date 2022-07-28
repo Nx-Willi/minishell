@@ -6,7 +6,7 @@
 /*   By: xle-baux <xle-baux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 12:04:37 by xle-baux          #+#    #+#             */
-/*   Updated: 2022/06/27 11:49:05 by xle-baux         ###   ########.fr       */
+/*   Updated: 2022/07/28 14:01:16 by xle-baux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ char	*token_type_print(int id)
 
 void	print_token_struct(t_token *token)
 {
-	printf("\n\n---------------token-------------\n\n");
+	printf("---------------token-------------\n\n");
 	while (token->next)
 	{
 		ft_printf("%s\n%s\n\n", token->content, token_type_print(token->type));
