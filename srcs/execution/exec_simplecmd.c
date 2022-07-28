@@ -6,7 +6,7 @@
 /*   By: wdebotte <wdebotte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 18:49:58 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/07/27 15:36:38 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/07/28 13:14:48 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,12 @@ extern int	g_exit_status;
 
 void	redir_builtin(t_cmd *cmd)
 {
+	get_signals(TRUE);
 	do_redirections(cmd);
 	if (cmd->fd_in != -1)
 		exec_builtin(cmd);
 	clean_redirections(cmd);
+	get_signals(FALSE);
 }
 
 void	exec_simple(t_cmd *cmd)
@@ -36,6 +38,7 @@ void	exec_simple(t_cmd *cmd)
 	}
 	else if (pid == 0)
 	{
+		get_signals(TRUE);
 		do_redirections(cmd);
 		exec_cmd(cmd, NULL);
 	}
@@ -47,4 +50,5 @@ void	exec_simple(t_cmd *cmd)
 		if (WIFSIGNALED(wstatus))
 			g_exit_status = INTERRUPT + WTERMSIG(wstatus);
 	}
+	get_signals(FALSE);
 }

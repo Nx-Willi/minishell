@@ -6,7 +6,7 @@
 /*   By: wdebotte <wdebotte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 15:44:38 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/07/27 17:09:13 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/07/28 13:24:25 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,7 @@ extern int	g_exit_status;
 
 void	exec_commands(t_infos *infos)
 {
-	signal(SIGQUIT, SIG_IGN);
-	signal(SIGINT, &handler_int_exec);
+	get_signals(-1);
 	if (infos->npipes == 0)
 	{
 		if (is_builtin(infos->cmd->argv[0]))
@@ -29,7 +28,6 @@ void	exec_commands(t_infos *infos)
 		exec_pipes(infos);
 	if (g_exit_status == SEGFAULT)
 		ft_putstr_fd("Segmentation fault (core dumped)\n", 2);
-	get_signals();
 }
 
 static void	close_fds(t_cmd *cmd)

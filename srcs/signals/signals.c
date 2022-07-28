@@ -6,7 +6,7 @@
 /*   By: wdebotte <wdebotte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 15:34:45 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/07/27 17:08:49 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/07/28 13:15:48 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,51 +14,44 @@
 
 extern int	g_exit_status;
 
-void	get_signals(void)
+void	get_signals(int in_exec)
 {
-	struct sigaction	s_action_quit;
-	struct sigaction	s_action_int;
+	if (in_exec == FALSE)
+	{
+		signal(SIGQUIT, SIG_IGN);
+		signal(SIGINT, &handler_int);
+	}
+	else if (in_exec == TRUE)
+	{
+		signal(SIGQUIT, &handler_quit_exec);
+		signal(SIGINT, &handler_int_exec);
+	}
+	else
+	{
+		signal(SIGQUIT, SIG_IGN);
+		signal(SIGINT, SIG_IGN);
+	}
+}
 
-	sigemptyset(&s_action_quit.sa_mask);
-	s_action_quit.sa_sigaction = &handler_quit;
-	s_action_quit.sa_flags = SA_SIGINFO;
-	sigaction(SIGQUIT, &s_action_quit, NULL);
-	sigemptyset(&s_action_int.sa_mask);
-	s_action_int.sa_sigaction = &handler_int;
-	s_action_int.sa_flags = SA_SIGINFO;
-	sigaction(SIGINT, &s_action_int, NULL);
+void	handler_quit_exec(int signum)
+{
+	rl_replace_line("", 0);
+	rl_on_new_line();
+	g_exit_status = 128 + signum;
 }
 
 void	handler_int_exec(int signum)
 {
 	(void)signum;
-	ft_putchar_fd('\n', 2);
+	g_exit_status = 130;
 }
 
-void	handler_quit(int signum, siginfo_t *info, void *context)
-{
-	(void)context;
-	if (info->si_pid == 0)
-	{
-		ft_putstr_fd("Quit (code dumped)\n", 2);
-		g_exit_status = 128 + signum;
-	}
-	else
-		ft_putstr_fd("\b\b  \b\b", 2);
-}
-
-void	handler_int(int signum, siginfo_t *info, void *context)
+void	handler_int(int signum)
 {
 	(void)signum;
-	(void)context;
-	if (info->si_pid == 0)
-		ft_putchar_fd('\n', 2);
-	else
-	{
-		ft_putchar_fd('\n', 2);
-		rl_replace_line("", 1);
-		rl_on_new_line();
-		rl_redisplay();
-	}
+	ft_putchar_fd('\n', 2);
+	rl_replace_line("", 0);
+	rl_on_new_line();
+	rl_redisplay();
 	g_exit_status = 130;
 }

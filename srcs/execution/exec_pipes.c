@@ -6,7 +6,7 @@
 /*   By: wdebotte <wdebotte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 12:51:31 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/07/25 23:04:58 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/07/28 13:15:40 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ static int	exec_child(t_cmd *cmd, int *pids, int **pfds)
 	}
 	else if (pids[cmd->id] == 0)
 	{
+		get_signals(TRUE);
 		do_pipe_redir(cmd, pfds);
 		do_redirections(cmd);
 		close_pipes(NULL, pfds, cmd->infos->npipes, cmd->infos->npipes);
@@ -69,6 +70,7 @@ void	exec_pipes(t_infos *inf)
 	{
 		if (exec_child(cmd, pids, pfds) == FALSE)
 			break ;
+		get_signals(FALSE);
 		cmd = cmd->next;
 	}
 	close_pipes(NULL, pfds, inf->npipes, inf->npipes);
