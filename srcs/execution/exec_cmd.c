@@ -6,7 +6,7 @@
 /*   By: wdebotte <wdebotte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 15:44:38 by wdebotte          #+#    #+#             */
-/*   Updated: 2022/07/28 13:24:25 by wdebotte         ###   ########.fr       */
+/*   Updated: 2022/07/28 13:35:36 by wdebotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,5 +58,5 @@ void	exec_cmd(t_cmd *cmd, int *pids)
 	if (cmd->fd_in != -1)
 		execve(cmd->cmd_path, cmd->argv, cmd->infos->envp);
 	close_fds(cmd);
-	exit(FAILURE);
+	exit_program(cmd->infos, FAILURE);
 }
