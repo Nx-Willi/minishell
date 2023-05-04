@@ -20,7 +20,7 @@ Manage the following redirections:
 - delimiter is seen. However, it doesn’t have to update the history!  
 - **>>** should redirect output in append mode.  
 
-Implement **pipes** (in our project a little mistake is made, we open all pipes before executing commands (it's a very big mistake), all pipes have to be open when it's used because a limit exists on the opened file descriptors and when you want to launch a lot of commands (above the limits of open file descriptors) our program make an undefined behavior... (oops)).  
+Implement **pipes**: in our project you can only open pipes at the limit of opened file descriptors (1024 per process on Linux), if you open more pipes an undefined behavior happend.
 
 Handle **environment variables**.  
 Handle **ctrl-C**, **ctrl-D** and **ctrl-\\** which should behave like in bash.  
