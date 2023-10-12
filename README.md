@@ -43,8 +43,6 @@ In interactive mode:
 https://www.youtube.com/watch?v=cex9XrZCU14  
 https://www.youtube.com/watch?v=Mqb2dVRe0uo
 
-## Score
+## Colaborator
 
-[![wdebotte's 42 minishell Score](https://badge42.vercel.app/api/v2/cl2zu1sil002509mf9zd91hy6/project/2585588)](https://github.com/JaeSeoKim/badge42)  
-
-Done with [Xavier Le-baux](https://github.com/Xavier-LB "Xavier Le-baux")
+[Xavier Le-baux](https://github.com/Xavier-LB "Xavier Le-baux")
